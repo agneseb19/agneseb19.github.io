@@ -488,6 +488,16 @@ a {
         box-shadow 0.25s ease;
 }
 
+.project-card:not(:has(.project-image)) {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+}
+
+.project-card:not(:has(.project-image)) .project-content {
+    width: 100%;
+}
+
 .project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 24px 50px rgba(27, 67, 92, 0.1);
@@ -541,11 +551,12 @@ a {
 }
 
 .project-information > p:not(.project-category) {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 
     color: #657985;
 
     font-size: 15px;
+    line-height: 1.75;
 }
 
 .project-information a {
@@ -557,6 +568,36 @@ a {
 
 .project-information a span {
     margin-left: 6px;
+}
+
+.project-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 4px;
+    padding: 8px 12px;
+
+    color: var(--blue);
+    background-color: var(--light-blue);
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.project-status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+
+    display: block;
+
+    background-color: var(--blue);
+    border-radius: 50%;
 }
 
 
@@ -940,6 +981,15 @@ a {
         grid-template-columns: 1fr;
         gap: 10px;
     }
+
+   .project-card:not(:has(.project-image)) {
+    min-height: auto;
+}
+
+.project-status {
+    margin-top: 8px;
+    font-size: 11px;
+}
 
     .skills-grid {
         grid-template-columns: 1fr;
