@@ -476,6 +476,14 @@ a {
     gap: 35px;
 }
 
+.project-card:nth-child(5) {
+    grid-column: 1 / -1;
+}
+
+.project-card:nth-child(5) .project-content {
+    max-width: 850px;
+}
+
 .project-card {
     overflow: hidden;
 
