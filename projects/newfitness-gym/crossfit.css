@@ -1,0 +1,233 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    background-color: white;
+    font-family:'Quicksand', sans-serif;
+}
+
+
+nav {
+    background:black;
+    height: 8vw;
+    width: 100%;
+}
+
+h2 {
+    float: left;
+    padding-left: 4vw;
+    padding-top: 3vw;
+    font-size:1.7vw;
+    color: white;
+}
+
+#paginaprecedente {
+    list-style-type: none;
+    float:right;
+    margin-top:1.5vw;
+    margin-right: 3vw;
+    margin-left:0vw;
+    padding:1.5vw;
+    font-size:1vw;
+}
+
+a  {
+    text-decoration: none;
+}
+
+li:hover {
+    background-color: #BCB8B1;
+}
+
+#crossfit {
+    float:left;
+    padding:10vw;
+    font-size:5vw;
+}
+
+#descrizione {
+    margin-left:65vw;
+    font-size:1.5vw;
+    padding-top:8vw;
+    margin-bottom:1vw;
+}
+
+#istruttori {
+    margin-left:65vw;
+    font-size:1.5vw;
+    margin-right:22vw;
+    margin-bottom:1vw;
+}
+
+#orari {
+    margin-left:65vw;
+    font-size:1.5vw;
+    margin-right:25vw;
+    margin-bottom:1vw;
+}
+
+#FAQ {
+    margin-left:65vw;
+    font-size:1.5vw;
+    margin-right:25vw;
+    margin-bottom:1vw;
+}
+
+.immaginiscorrevoli {
+    width: calc(100% - 10vw);
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left:5vw;
+    margin-right:5vw;
+  }
+  
+  .immaginiscorrevoli img {
+    width: 80%;
+    vertical-align: top;
+    animation: carousel-scroll 5s linear infinite;
+  }
+  
+  @keyframes carousel-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-180%);
+    }
+  }
+
+  #titolo {
+    padding-top:10vw;
+    font-size:3vw;
+    text-align: center;
+  }
+
+  #desc1 {
+    text-align: justify;
+    padding-top:4vw;
+    padding-left: 15vw;
+    padding-right:15vw;
+    font-size: 1.5vw;
+    line-height: 3vw;
+  }
+
+  #beneficievantaggi {
+        text-align: center;
+        padding-top:2vw;
+        padding-left: 15vw;
+        padding-right:15vw;
+        font-size: 2vw;
+        line-height: 3vw;
+      }
+
+#beneficidesc {
+    text-align: justify;
+    padding-top:1.5vw;
+    padding-left: 15vw;
+    padding-right:15vw;
+    font-size: 1.5vw;
+    line-height: 3vw;
+}
+
+#istruttori2 {
+    font-size: 3vw;
+    padding-top:10vw;
+    text-align:center;
+}
+
+#contenitore1 {
+    background-color: #C3A995;
+    color: black;
+    padding-left:4vw;
+    padding-top:4vw;
+    padding-bottom: 11vw;
+    margin-left: 6vw;
+    margin-right:6vw;
+    margin-top:4vw;
+  }
+
+  #fotopt1 {
+    background-image: url(./immagini/istruttore1\ photo-1518617840859-acd542e13a99.avif);
+    background-size:cover;
+    float:left;
+    height:30vw;
+    width:50%;
+}
+
+#valeria {
+    text-align: center;
+    padding-top:5vw;
+    font-size: 3.5vw;
+}
+
+#descvaleria {
+    display:flex;
+    text-align: justify;
+    font-size: 1.2vw;
+    padding-top:5vw;
+    padding-right:5vw;
+    padding-left:4.5vw;
+}
+
+#background1 {
+    padding-top:7vw
+}
+
+#contenitore2 {
+    background-color: #6F5E53;
+    color: black;
+    padding-left:4vw;
+    padding-top:4vw;
+    padding-bottom: 15vw;
+    margin-left: 6vw;
+    margin-right:6vw;
+    margin-top:4vw;
+}
+
+#fotopt2 {
+    background: url(./immagini/3photo-1598971448040-cfd8e9267d9f.avif);
+    background-size: cover;
+    width:50%;
+    height:40vw;
+    float:right;
+    margin-right: 4vw;
+}
+
+#federico {
+    display: flex;
+    justify-content: center;
+    padding-right:4.5vw;
+    padding-top:10vw;
+    font-size: 3.5vw;
+}
+
+#descfederico {
+    display:flex;
+    text-align: justify;
+    font-size: 1.2vw;
+    padding-top:6vw;
+    padding-right:5.5vw;
+    padding-left:2vw;
+}
+
+#background2 {
+    padding-top:15vw;
+  }
+
+  #FAQ2 {
+    float: left;
+    padding-left:15vw;
+    font-size:4.5vw;
+    font-weight: bold;
+}
+
+#domanda1 {
+  clear: both;
+  padding-top:5vw;
+  font-size:1.5vw;
+  text-align:start;
+  padding-left:15vw;
+}
