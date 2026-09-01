@@ -1,0 +1,296 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    background-color: white;
+    font-family:'Quicksand', sans-serif;
+}
+
+nav {
+    background:black;
+    height: 8vw;
+    width: 100%;
+}
+
+h2 {
+    float: left;
+    padding-left: 4vw;
+    padding-top: 3vw;
+    font-size:1.7vw;
+    color: white;
+}
+
+#paginaprecedente {
+    list-style-type: none;
+    float:right;
+    margin-top:1.5vw;
+    margin-right: 3vw;
+    margin-left:0vw;
+    padding:1.5vw;
+    font-size:1vw;
+}
+
+a  {
+    text-decoration: none;
+}
+
+li:hover {
+    background-color: #BCB8B1;
+}
+
+#sollevamentopesi {
+    float:left;
+    padding:10vw;
+    font-size:5vw;
+}
+
+#personaltrainer {
+    font-size:1.5vw;
+    padding-top:10vw;
+    margin-bottom:1vw;
+}
+
+#prenota {
+    font-size:1.5vw;
+    margin-bottom:1vw;
+}
+
+#FAQ {
+    font-size:1.5vw;
+}
+
+
+.immaginiscorrevoli {
+    width: calc(100% - 10vw);
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left:5vw;
+    margin-right:5vw;
+  }
+  
+  .immaginiscorrevoli img {
+    width: 80%;
+    vertical-align: top;
+    animation: carousel-scroll 5s linear infinite;
+  }
+  
+  @keyframes carousel-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-170%);
+    }
+  }
+
+  #titolo {
+    padding-top:10vw;
+    font-size:3vw;
+    text-align: center;
+  }
+
+  #desc1 {
+    text-align: justify;
+    padding-top:4vw;
+    padding-left: 15vw;
+    padding-right:15vw;
+    font-size: 1.5vw;
+    line-height: 3vw;
+  }
+
+  #pt {
+    font-size: 3vw;
+    padding-top:10vw;
+    text-align:center;
+  }
+
+  #contenitore1 {
+    background-color: #F0E7D8;
+    color: black;
+    padding-left:4vw;
+    padding-top:4vw;
+    padding-bottom: 11vw;
+    margin-left: 6vw;
+    margin-right:6vw;
+    margin-top:4vw;
+  }
+
+#fotopt1 {
+    background-image: url(./immagini/come-diventare-personal-trainer.jpg);
+    background-size:cover;
+    float:left;
+    height:30vw;
+    width:50%;
+}
+
+#gianluca {
+    text-align: center;
+    padding-top:5vw;
+    font-size: 3.5vw;
+}
+
+#descgianluca {
+    display:flex;
+    text-align: justify;
+    font-size: 1.2vw;
+    padding-top:5vw;
+    padding-right:5vw;
+    padding-left:4.5vw;
+
+}
+ 
+#background1 {
+    padding-top:7vw
+}
+
+#contenitore2 {
+    background-color: #BCB8B1;
+    color: black;
+    padding-left:4vw;
+    padding-top:4vw;
+    padding-bottom: 12vw;
+    margin-left: 6vw;
+    margin-right:6vw;
+    margin-top:4vw;
+}
+
+#fotopt2 {
+    background: url(./immagini/portrait-adult-blonde-fitness-woman-personal-trainer_116407-2025.avif);
+    background-size: cover;
+    width:50%;
+    height:30vw;
+    float:right;
+    margin-right: 4vw;
+}
+
+#francesca {
+    display: flex;
+    justify-content: center;
+    padding-right:4.5vw;
+    padding-top:5vw;
+    font-size: 3.5vw;
+}
+
+#descfrancesca {
+    display:flex;
+    text-align: justify;
+    font-size: 1.2vw;
+    padding-top:5vw;
+    padding-right:5.5vw;
+    padding-left:2vw;
+}
+
+#background2 {
+    padding-top:7vw;
+}
+
+#contenitore3 {
+    background-color: #8A817C;
+    color: black;
+    padding-left:4vw;
+    padding-top:4vw;
+    padding-bottom: 12vw;
+    margin-left: 6vw;
+    margin-right:6vw;
+    margin-top:4vw;
+}
+
+#fotopt3 {
+    background: url(./immagini/academy-post-cover-8.jpg);
+    background-size: cover;
+    float:left;
+    height:30vw;
+    width:50%;
+}
+
+#christian {
+    text-align: center;
+    padding-top:5vw;
+    font-size: 3.5vw;
+}
+
+#descchristian {
+    display:flex;
+    text-align: justify;
+    font-size: 1.2vw;
+    padding-top:5vw;
+    padding-right:5vw;
+    padding-left:4.5vw;
+}
+
+#background3 {
+    padding-top: 15vw;
+}
+
+#FAQ2 {
+    float: left;
+    padding-left:15vw;
+    font-size:4.5vw;
+    font-weight: bold;
+}
+
+#domanda1 {
+    clear: both;
+    padding-top:5vw;
+    font-size:1.5vw;
+    text-align:start;
+    padding-left:15vw;
+}
+
+#risposta1 {
+    font-size:1.5vw;
+    text-align: justify;
+    padding-top:1.5vw;
+    padding-left: 15vw;
+    padding-right:15vw;
+}
+
+#domanda2 {
+    padding-top:5vw;
+    font-size:1.5vw;
+    text-align:start;
+    padding-left:15vw;
+}
+
+#risposta2 {
+    font-size:1.5vw;
+    text-align:start;
+    padding-left:15vw;
+    padding-top:1.5vw;
+    padding-left: 15vw;
+    padding-right:15vw;
+}
+
+#domanda3 {
+    padding-top:5vw;
+    font-size:1.5vw;
+    text-align:start;
+    padding-left:15vw;
+}
+
+#risposta3 {
+    font-size:1.5vw;
+    text-align:justify;
+    padding-top:1.5vw;
+    padding-left: 15vw;
+    padding-right:15vw;
+}
+
+
+#tornasu {
+    margin-top:10vw;
+    font-size: 2vw;
+    border: 2px solid black;
+    margin-left:40%;
+    margin-right:40%;
+    text-align: center;
+    padding:20px;
+    margin-bottom:10vw;
+}
+
+#tornasu:hover {
+    background-color:#BCB8B1 ;
+}

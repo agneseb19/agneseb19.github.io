@@ -1,0 +1,461 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: white;
+    font-family:'Quicksand', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color:white;
+}
+
+
+nav {
+    background:black;
+    height: 8vw;
+    width: 100%;
+}
+
+h2 {
+    float: left;
+    padding-left: 4vw;
+    padding-top: 3vw;
+    font-size:1.7vw;
+    color: white;
+}
+
+#paginaprecedente {
+    list-style-type: none;
+    float: right;
+    margin-top:1.5vw;
+    margin-right: 3vw;
+    margin-left:0vw;
+    padding:1.5vw;
+    font-size:1vw;
+}
+
+li:hover {
+    background-color: #BCB8B1;
+}
+
+#background1 {
+    padding-top: 4vw;
+    color: white;
+}
+
+#corsi {
+    text-align:center;
+    padding-bottom:3.5vw;
+    padding-top:2vw;
+    color:darkgray;
+    font-size:2vw;
+}
+
+#contenitore1 {
+    float:left;
+    padding-top: 5vw;
+    padding-left: 4vw;
+    padding-bottom:4vw;
+    margin-left: 4vw;
+    width:40%;
+    background-color:#F0E7D8;
+    color: white;
+}
+
+#fotosollevamentopesi {
+    background: url(./immagini/victor-freitas-WvDYdXDzkhs-unsplash.jpg);
+    background-size:cover;
+    height:25vw;
+    width:90%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+}
+
+#sollevamentopesi {
+    text-align: center;
+    margin-right:5vw;
+    font-size:2.5vw;
+    
+}
+
+#leggialtro1 {
+    text-align: center;
+    margin-right:5vw;
+    margin-top:1vw;
+    font-size:1vw;
+}
+
+#leggialtro1:hover {
+    font-size:1.1vw;
+}
+
+#contenitore2 {
+    background-color:#BCB8B1;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 50%;
+}
+
+#fotopilates {
+    background: url(./immagini/pilates.png);
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#pilates {
+    text-align: center;
+    margin-right:5vw;
+    margin-left:4vw;
+    font-size:2.5vw;
+}
+
+#leggialtro2 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw;
+}
+
+#leggialtro2:hover {
+    font-size:1.1vw;
+}
+
+#background2 {
+    background: white;
+    padding-top:5vw;
+}
+
+#contenitore3 {
+    background-color: #8A817C;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 4vw;
+    width:44%;
+    float:left;
+}
+
+#fotocrossfit {
+    background: url(./immagini/crossfit.avif);
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#crossfit {
+    text-align: center;
+    font-size:2.5vw;
+    margin-right:3vw;
+}
+
+#leggialtro3 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw
+}
+
+#leggialtro3:hover {
+    font-size:1.1vw;
+}
+
+#contenitore4 {
+    background-color:#67697C;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 50%;
+}
+
+#fotospinning {
+    background: url(./immagini/spinning.avif);
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#spinning {
+    text-align: center;
+    font-size:2.5vw;
+    margin-right:5vw;
+    margin-left:4vw;
+}
+
+#leggialtro4 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw;
+}
+
+#leggialtro4:hover {
+    font-size:1.1vw;
+}
+
+#background3 {
+    background: white;
+    padding-top:5vw;
+}
+
+#contenitore5 {
+    background-color: #C3A995;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 4vw;
+    width:44%;
+    float:left;
+}
+
+#fotocalisthenics {
+    background: url(./immagini/calisthenics.jpeg);
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#calisthenics {
+    text-align: center;
+    font-size:2.5vw;
+    margin-right:3vw;
+}
+
+#leggialtro5 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw
+}
+
+#leggialtro5:hover {
+    font-size:1.1vw;
+}
+
+#contenitore6 {
+    background-color:#6F5E53;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 50%;
+}
+
+
+#fotoyoga {
+    background: url(./immagini/yoga.avif);
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#yoga {
+    text-align: center;
+    font-size:2.5vw;
+    margin-right:5vw;
+    margin-left:4vw;
+}
+
+#leggialtro6 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw;
+}
+
+#leggialtro6:hover {
+    font-size:1.1vw;
+}
+
+#background4 {
+    background: white;
+    padding-top:5vw;
+}
+
+#contenitore7 {
+    background-color: #D8AA96;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 4vw;
+    width:44%;
+    float:left;
+}
+
+#fotokick {
+    background: url(./immagini/kickboxing.avif);
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#kickboxing {
+    text-align: center;
+    font-size:2.5vw;
+    margin-right:3vw;
+}
+
+#leggialtro7 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw
+}
+
+#leggialtro7:hover {
+    font-size:1.1vw;
+}
+
+#contenitore8 {
+    background-color:#A37774;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 50%;
+}
+
+#fotomuaythai {
+    background: url(./immagini/muaythai.avif);
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#muaythai {
+    text-align: center;
+    font-size:2.5vw;
+    margin-right:5vw;
+    margin-left:4vw;
+}
+
+#leggialtro8 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw;
+}
+
+#leggialtro8:hover {
+    font-size:1.1vw;
+}
+
+#background5 {
+    background: white;
+    padding-top:5vw;
+}
+
+#contenitore9 {
+    background-color: #DC5A51;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 4vw;
+    width:44%;
+    float:left;
+} 
+
+#fotobjj {
+    background: url(./immagini/bjj.avif) ;
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#bjj {
+    text-align: center;
+    font-size:2.5vw;
+    margin-right:3vw;
+}
+
+#leggialtro9 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw
+}
+
+#leggialtro9:hover {
+    font-size:1.1vw;
+}
+
+#contenitore10 {
+    background-color:#DC8451;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom:4vw;
+    margin-right:4vw;
+    margin-left: 50%;
+}
+
+#fotofitboxe {
+    background: url(./immagini/fit&boxe.webp);
+    background-size:cover;
+    height:25vw;
+    width:80%;
+    padding-bottom:2vw;
+    margin-bottom:2vw;
+    margin-left:4.5vw;
+}
+
+#fitboxe {
+    text-align: center;
+    font-size:2.5vw;
+    margin-right:5vw;
+    margin-left:4vw;
+}
+
+#leggialtro10 {
+    text-align: center;
+    font-size:1vw;
+    margin-right:5vw;
+    margin-top:1vw;
+    margin-left:4vw;
+}
+
+#leggialtro10:hover {
+    font-size:1.1vw;
+}

@@ -1,0 +1,216 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    background-color: white;
+    font-family:'Quicksand', sans-serif;
+}
+
+nav {
+    background:black;
+    height: 8vw;
+    width: 100%;
+}
+
+h2 {
+    float: left;
+    padding-left: 4vw;
+    padding-top: 3vw;
+    font-size:1.7vw;
+    color: white;
+}
+
+#paginaprecedente {
+    list-style-type: none;
+    float:right;
+    margin-top:1.5vw;
+    margin-right: 3vw;
+    margin-left:0vw;
+    padding:1.5vw;
+    font-size:1vw;
+}
+
+a  {
+    text-decoration: none;
+}
+
+li:hover {
+    background-color: #BCB8B1;
+}
+
+#pilates {
+    float:left;
+    padding:10vw;
+    font-size:5vw;
+}
+
+#descrizione {
+    margin-left:65vw;
+    font-size:1.5vw;
+    padding-top:8vw;
+    margin-bottom:1vw;
+}
+
+#orari {
+    margin-left:65vw;
+    font-size:1.5vw;
+    margin-right:25vw;
+    margin-bottom:1vw;
+}
+
+#prenota {
+    margin-left:65vw;
+    margin-right:25vw;
+    font-size:1.5vw;
+    margin-bottom:1vw;
+}
+
+#FAQ {
+    margin-left:65vw;
+    margin-right:25vw;
+    font-size:1.5vw;
+}
+
+.immaginiscorrevoli {
+    width: calc(100% - 10vw);
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left:5vw;
+    margin-right:5vw;
+  }
+  
+  .immaginiscorrevoli img {
+    width: 80%;
+    vertical-align: top;
+    animation: carousel-scroll 5s linear infinite ;
+}
+  
+  @keyframes carousel-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-170%);
+    }
+  }
+
+  #titolo {
+    padding-top:10vw;
+    font-size:3vw;
+    text-align: center;
+  }
+
+  #desc1 {
+    text-align: justify;
+    padding-top:4vw;
+    padding-left: 15vw;
+    padding-right:15vw;
+    font-size: 1.5vw;
+    line-height: 3vw;
+  }
+
+  #orari2 {
+    font-size: 3vw;
+    padding-top:7vw;
+    padding-bottom:5vw;
+    text-align:center;
+  }
+
+  
+  table {
+    width: 100%;
+    border-collapse:collapse;
+  }
+  
+  th, td {
+    border: 1px solid whitesmoke;
+    padding: 1vw;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #BCB8B1;
+  }
+
+  #orariopilates {
+    background-color:gainsboro;
+  }
+
+  #background {
+    padding-top:15vw;
+  }
+
+  #FAQ2 {
+    float: left;
+    padding-left:15vw;
+    font-size:4.5vw;
+    font-weight: bold;
+}
+
+#domanda1 {
+  clear: both;
+  padding-top:5vw;
+  font-size:1.5vw;
+  text-align:start;
+  padding-left:15vw;
+}
+
+#risposta1 {
+  font-size:1.5vw;
+  text-align: justify;
+  padding-top:1.5vw;
+  padding-left: 15vw;
+  padding-right:15vw;
+}
+
+#domanda2 {
+  padding-top:5vw;
+  font-size:1.5vw;
+  text-align:start;
+  padding-left:15vw;
+}
+
+#risposta2 {
+  font-size:1.5vw;
+  text-align:start;
+  padding-left:15vw;
+  padding-top:1.5vw;
+  padding-left: 15vw;
+  padding-right:15vw;
+}
+
+#domanda3 {
+  padding-top:5vw;
+  font-size:1.5vw;
+  text-align:start;
+  padding-left:15vw;
+}
+
+#risposta3 {
+  font-size:1.5vw;
+  text-align:justify;
+  padding-top:1.5vw;
+  padding-left: 15vw;
+  padding-right:15vw;
+}
+
+#tornasu {
+  margin-top:10vw;
+  font-size: 2vw;
+  border: 2px solid black;
+  margin-left:40%;
+  margin-right:40%;
+  text-align: center;
+  padding:20px;
+  margin-bottom:10vw;
+}
+
+#tornasu:hover {
+  background-color:#BCB8B1 ;
+}
+  
+
+  
