@@ -1,0 +1,395 @@
+body {
+    margin: 0;
+    background-color: white;
+    font-family:'Quicksand', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3vw; 
+}
+
+
+nav {
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+ul {    
+    display: flex;
+    list-style-type:none;
+    justify-content: center;
+    padding: 0px; 
+}
+
+
+li {
+    padding:8px; 
+    font-size:1.3vw;
+}
+
+
+#divli {
+    padding: 20px;
+}
+
+
+li:hover {
+    background-color:#E0E0E0;
+    font-size:1.4vw;
+}
+
+
+#contenitore1 {
+    padding-top:50px;
+    padding-left:10%;
+    background-color: black;
+    color: white;
+}
+
+
+#background1{
+    background:url("./immagini/immaginedisfondo2.avif");
+    background-attachment: fixed;
+    background-size: cover;
+    height:50vw;
+    width:90%;
+}
+
+#about {
+    margin-top:5vw;
+    font-size: 1.7vw;
+    color:darkgray;
+}
+
+#abouttitle {
+    text-align: center;
+    padding-right:10vw;
+    font-size: 3vw;
+}
+
+#aboutdesc {
+    text-align:center;
+    padding-bottom: 8vw;
+    padding-right:8vw;
+    font-size:1.2vw;
+}
+
+
+#background2 {
+    background-color: white;
+    padding-top:100px;
+}
+
+#corsi {
+    text-align:center;
+    padding-bottom: 2vw;
+    font-size: 2vw;
+    color: darkgray; 
+}
+
+#contenitore3 {
+    background-color:#F0E7D8;
+    color: white;
+    padding-top:4vw;
+    padding-left:4vw;
+    padding-bottom: 12vw;
+    margin-left: 6vw;
+    margin-right:6vw;
+}
+
+
+
+#fotosollevamentopesi {
+    background:url(./immagini/victor-freitas-WvDYdXDzkhs-unsplash.jpg);
+    background-size:cover;
+    float:left;
+    height:37vw;
+    width:60%;
+}
+
+
+#sollevamentopesi {
+    text-align: center;
+    padding-top:4.5vw;
+    font-size: 3.5vw;
+}
+
+
+#sollevamentopesidesc {
+    display:flex;
+    text-align: center;
+    padding-right:3vw;
+    padding-left:3vw;
+    font-size: 1.3vw;
+}
+
+
+#background3 {
+    background-color: white;
+    padding-top: 60px;
+}
+
+#contenitore4 {
+    background-color:#BCB8B1;
+    color: white;
+    padding-top: 5vw;
+    padding-left: 4vw;
+    padding-bottom: 6vw;
+    margin-left: 6vw;
+    margin-right: 6vw;
+}
+
+
+#fotopilates {
+    background: url(./immagini/pilates.png);
+    background-size: cover;
+    height: 37vw;
+    width: 60%;
+}
+
+
+#pilates {
+    float: right;
+    text-align: center;
+    padding-top: 4.5vw;
+    padding-right:12vw;
+    font-size: 3.5vw;
+}
+
+
+#pilatesdesc {
+    text-align: center;
+    float: right;
+    padding-right: 3.5vw;
+    padding-left:55vw;
+    font-size: 1.3vw;
+}
+
+#background4 {
+    background-color: white;
+    padding-top: 80px;
+}
+
+
+#contenitore5 {
+    background-color:#8A817C ;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom: 5.5vw;
+    padding-left:4vw;
+    padding-right: 4vw;
+    margin-left: 6vw;
+    margin-right: 6vw;
+}
+
+
+#fotocrossfit {
+    background: url(./immagini/crossfit.avif);
+    background-size: cover;
+    height: 37vw;
+    width: 60%;
+}
+
+
+#crossfit {
+    float: right;
+    text-align: center;
+    margin-top:5vw;
+    padding-right: 8.5vw;
+    font-size: 3.5vw;
+}
+
+
+#crossfitdesc {
+    float: right;
+    text-align: center;
+    padding-top: 1.5vw;
+    padding-right: 3vw;
+    padding-left: 55vw;
+    font-size: 1.3vw;
+}
+
+
+#background5 {
+    background-color: white;
+    padding-top: 80px;
+}
+
+
+#contenitore6 {
+    background-color: #67697C;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom: 5.5vw;
+    padding-left:4vw;
+    padding-right: 4vw;
+    margin-left: 6vw;
+    margin-right: 6vw;
+}
+
+
+#fotospinning {
+    background: url(./immagini/spinning.avif);
+    background-size: cover;
+    height: 37vw;
+    width: 60%;
+}
+
+
+#spinning {
+    float: right;
+    text-align: center;
+    margin-top:4vw;
+    padding-right: 7vw;
+    font-size: 3.5vw;
+}
+
+
+#spinningdesc {
+    float: right;
+    text-align: center;
+    margin-top:1vw;
+    padding-right: 3vw;
+    padding-left: 55vw;
+    font-size: 1.3vw;
+}
+
+
+#background6 {
+    background-color: white;
+    padding-top: 50px;
+}
+
+#bottonecorsi {
+    text-align: center;
+    border: 1px solid black;
+    margin-left:35%;
+    margin-right:35%;
+    padding:20px;
+    font-size:2vw;
+}
+
+
+#bottonecorsi:hover {
+    background-color: #E0E0E0;
+    font-size: 2.1vw;
+}
+
+
+#background7 {
+    background-color: white;
+    padding-top: 50px;
+}
+
+
+#contenitore7 {
+    background-color:white;
+    padding-top: 5vw;
+    padding-bottom: 50vw;
+    padding-left:4vw;
+    padding-right: 4vw;
+    margin-left: 6vw;
+    margin-right: 6vw;
+    position:relative;
+}
+
+
+video {
+     width:100%;
+     height:100%;
+     object-fit: cover;
+     position: absolute;
+     top:50%;
+     left:50%;
+     transform:translate(-50%, -50%);
+ }
+
+
+#contenitore8 {
+    background-color: white;
+    padding-top:7vw;
+    padding-left:4vw;
+    padding-right:4vw;
+}
+
+
+#dovesiamo {
+    float:left;
+    margin-top: 0;
+    margin-right: 20vw;
+    margin-left:2vw;
+    padding:5vw;
+    color:white;
+    background:black;
+    font-size:1.7vw;
+}
+
+
+#telefono {
+    display:flex;
+    justify-content: center;
+    margin-top: 0;
+    margin-right:2vw;
+    padding: 5vw;
+    background: black;
+    color:white;
+    font-size: 1.7vw;
+}
+
+
+#background8 {
+    color: white;
+    padding-top:3.5vw;
+}
+
+
+#contenitore9 {
+    background-color: black;
+    color: white;
+    padding-top: 5vw;
+    padding-bottom: 5.5vw;
+    padding-left:4vw;
+    padding-right: 4vw;
+    margin-left: 6vw;
+    margin-right: 6vw;
+}
+
+
+#fotofinale {
+    background: url(./immagini/foto-finale.avif);
+    background-size: cover;
+    height: 45vw;
+    width: 100%;
+}
+
+
+#prenotaonline {
+    text-align: center;
+    padding-top: 3vw;
+    font-size: 3.5vw;
+}
+
+
+textarea {
+    width:100%;
+}
+
+
+#prenota {
+    font-size:1.5vw;
+}
+
+
+legend {
+    font-size:2vw;
+}
