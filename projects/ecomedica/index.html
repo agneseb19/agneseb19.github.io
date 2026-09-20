@@ -1,0 +1,2463 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Ecomedica - Centro Diagnostico Polispecialistico a Valmontone."
+    >
+
+    <title>Ecomedica | Centro Diagnostico Polispecialistico</title>
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- ICONE -->
+    <script
+        src="https://unpkg.com/lucide@latest"
+        defer
+    ></script>
+
+    <!-- JAVASCRIPT -->
+    <script src="js/script.js" defer></script>
+</head>
+
+<body class="home-page"> 
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="nav-container">
+
+            <!-- LOGO -->
+            <a href="#" class="logo-link" aria-label="Ecomedica Home">
+                <img
+                    src="assets/logo-ecomedica.png"
+                    alt="Ecomedica Centro Diagnostico Polispecialistico"
+                    class="logo"
+                >
+            </a>
+
+
+            <!-- NAV DESKTOP -->
+            <nav class="desktop-nav" aria-label="Navigazione principale">
+
+                <a href="#" class="nav-link active">
+                    Home
+                </a>
+
+                <a href="prestazioni.html" class="nav-link">
+                    Prestazioni
+                </a>
+
+                <a href="#specializzazioni" class="nav-link">
+                    Specializzazioni
+                </a>
+
+                <a href="#sedi" class="nav-link">
+                    Sedi
+                </a>
+
+                <a
+                    href="https://referti.bianalisilazio.it"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="nav-link"
+                >
+                    Referti online
+                </a>
+
+                <a href="#convenzioni" class="nav-link">
+                    Convenzioni
+                </a>
+
+                <a href="#contatti" class="nav-link">
+                    Contatti
+                </a>
+
+            </nav>
+
+
+            <!-- PRENOTA -->
+            <a href="#prenota" class="btn btn-book desktop-book">
+                <i data-lucide="calendar-days"></i>
+                <span>Prenota online</span>
+            </a>
+
+
+            <!-- HAMBURGER MOBILE -->
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Apri menu"
+                aria-expanded="false"
+            >
+                <i data-lucide="menu"></i>
+            </button>
+
+        </div>
+
+
+        <!-- NAV MOBILE -->
+
+        <div class="mobile-nav" id="mobileNav">
+
+            <a href="#">Home</a>
+
+            <a href="prestazioni.html">Prestazioni</a>
+
+            <a href="#specializzazioni">Specializzazioni</a>
+
+            <a href="#sedi">Sedi</a>
+
+            <a
+                href="https://referti.bianalisilazio.it"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Referti online
+            </a>
+
+            <a href="#convenzioni">Convenzioni</a>
+
+            <a href="#contatti">Contatti</a>
+
+            <a href="#prenota" class="mobile-book">
+                <i data-lucide="calendar-days"></i>
+                Prenota online
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <main>
+
+        <section class="hero">
+
+            <!--
+                Piccola zona di blur centrale.
+                NON sfoca tutta la foto.
+            -->
+            <div class="hero-center-blur"></div>
+            <div class="hero-soft-fade"></div>
+
+
+            <div class="hero-container">
+
+                <!-- =========================================
+                     COLONNA SINISTRA
+                ========================================== -->
+
+                <div class="hero-left">
+
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+
+                        <span>
+                            POLO DI ECCELLENZA • GRUPPO BIANALISI
+                        </span>
+                    </div>
+
+
+                    <h1 class="hero-title">
+
+                        <span>Centro Diagnostico</span>
+
+                        <span>Polispecialistico a</span>
+
+                        <span class="hero-location">
+                            Valmontone
+                        </span>
+
+                    </h1>
+
+
+                    <p class="hero-description">
+                        Eccellenza diagnostica e specialistica alternativa al SSN.
+                        Tempi di attesa ridotti, refertazione rapida, convenzioni
+                        e tariffe competitive. Parte del network nazionale Bianalisi.
+                    </p>
+
+
+                    <!-- =====================================
+                         STATISTICHE
+                    ====================================== -->
+
+                    <div class="stats-grid">
+
+                        <!-- 2-4 GG -->
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon">
+                                <i data-lucide="clock-3"></i>
+                            </div>
+
+                            <div>
+                                <strong>2–4 gg</strong>
+
+                                <p>
+                                    Disponibilità media<br>
+                                    appuntamenti
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- 24+ - BOTTONE -->
+
+                        <a
+                            href="#specializzazioni"
+                            class="stat-card stat-link"
+                        >
+
+                            <div class="stat-icon">
+                                <i data-lucide="users"></i>
+                            </div>
+
+                            <div>
+                                <strong>24+</strong>
+
+                                <p>
+                                    Branche mediche<br>
+                                    & terapie mirate
+                                </p>
+                            </div>
+
+                            <span class="stat-arrow">
+                                <i data-lucide="arrow-right"></i>
+                            </span>
+
+                        </a>
+
+
+                        <!-- 3 SEDI - BOTTONE -->
+
+                        <a
+                            href="#sedi"
+                            class="stat-card stat-link"
+                        >
+
+                            <div class="stat-icon">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+
+                            <div>
+                                <strong>3 Sedi</strong>
+
+                                <p>
+                                    Presidi integrati<br>
+                                    a Valmontone
+                                </p>
+                            </div>
+
+                            <span class="stat-arrow">
+                                <i data-lucide="arrow-right"></i>
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- =====================================
+                         BOTTONI
+                    ====================================== -->
+
+                    <div class="hero-actions">
+
+                        <!-- REFERTI -->
+
+                        <a
+                            href="https://referti.bianalisilazio.it"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="action-button action-primary"
+                        >
+                            <i data-lucide="file-text"></i>
+
+                            <span>Referti online</span>
+                        </a>
+
+
+                        <!-- CHIAMACI -->
+
+                        <div class="call-wrapper">
+
+                            <button
+                                type="button"
+                                class="action-button action-secondary call-button"
+                                id="callButton"
+                                aria-expanded="false"
+                            >
+                                <i data-lucide="phone"></i>
+
+                                <span>Chiamaci</span>
+
+                                <i
+                                    data-lucide="chevron-down"
+                                    class="call-chevron"
+                                ></i>
+                            </button>
+
+
+                            <!-- DROPDOWN TELEFONI -->
+
+                            <div
+                                class="call-dropdown"
+                                id="callDropdown"
+                            >
+
+                                <a href="tel:+393270037034">
+
+                                    <div>
+                                        <strong>Sede Fantozzi</strong>
+                                        <span>327 0037034</span>
+                                    </div>
+
+                                    <i data-lucide="phone"></i>
+
+                                </a>
+
+
+                                <a href="tel:+393938374002">
+
+                                    <div>
+                                        <strong>Sede Molino</strong>
+                                        <span>393 8374002</span>
+                                    </div>
+
+                                    <i data-lucide="phone"></i>
+
+                                </a>
+
+
+                                <a href="tel:+393807807852">
+
+                                    <div>
+                                        <strong>Sede Matteotti</strong>
+                                        <span>380 7807852</span>
+                                    </div>
+
+                                    <i data-lucide="phone"></i>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- APP -->
+
+                        <a
+                            href="#"
+                            class="action-button action-secondary"
+                        >
+                            <i data-lucide="smartphone"></i>
+
+                            <span>Scarica l'App</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     COLONNA DESTRA
+                ========================================== -->
+
+                <div class="hero-right">
+
+
+                    <!-- =====================================
+                         CERCA ESAME
+                    ====================================== -->
+
+                    <div
+                        class="booking-card"
+                        id="prenota"
+                    >
+
+                        <div class="booking-top">
+
+                            <div>
+
+                                <span class="booking-label">
+                                    ACCESSO IMMEDIATO
+                                </span>
+
+                                <h2>
+                                    Cerca Esame o Visita
+                                </h2>
+
+                            </div>
+
+
+                            <div class="booking-icon">
+                                <i data-lucide="stethoscope"></i>
+                            </div>
+
+                        </div>
+
+
+                        <form
+                            class="booking-form"
+                            id="bookingForm"
+                        >
+
+                            <label for="exam">
+                                Cosa devi prenotare?
+                            </label>
+
+
+                            <div class="search-input">
+
+                                <i data-lucide="search"></i>
+
+                                <input
+                                    type="text"
+                                    id="exam"
+                                    name="exam"
+                                    list="examSuggestions"
+                                    placeholder="Es. Risonanza Magnetica, Visita Cardiologica, MOC..."
+                                >
+
+                            </div>
+
+
+                            <datalist id="examSuggestions">
+
+                                <option value="Risonanza Magnetica Aperta">
+
+                                <option value="Visita Cardiologica">
+
+                                <option value="MOC Horizon DXA">
+
+                                <option value="Mammografia 3D">
+
+                                <option value="Cone Beam">
+
+                                <option value="Endoscopia Digestiva">
+
+                                <option value="Visita Ginecologica">
+
+                                <option value="Visita Ortopedica">
+
+                                <option value="Visita Nutrizionale">
+
+                                <option value="Medicina dello Sport">
+
+                            </datalist>
+
+
+                            <button
+                                type="submit"
+                                class="availability-button"
+                            >
+                                <i data-lucide="calendar-check"></i>
+
+                                Cerca Disponibilità
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+
+                    <!-- =====================================
+                         CONVENZIONI
+                    ====================================== -->
+
+                    <a
+                        href="#convenzioni"
+                        class="insurance-card"
+                    >
+
+                        <div class="insurance-icon">
+                            <i data-lucide="shield-check"></i>
+                        </div>
+
+
+                        <div class="insurance-text">
+
+                            <strong>
+                                Convenzioni Fondi & Assicurazioni
+                            </strong>
+
+                            <p>
+                                Fasi, Metasalute, Unisalute, RBM,
+                                SSN con ricetta dematerializzata
+                            </p>
+
+                        </div>
+
+
+                        <span class="insurance-arrow">
+                            <i data-lucide="arrow-right"></i>
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+     PERCORSI DIAGNOSTICI INTEGRATI
+====================================================== -->
+
+<section class="clinical-pathways" id="prestazioni">
+
+    <div class="clinical-container">
+
+        <!-- TESTATA SEZIONE -->
+        <div class="clinical-header">
+
+            <div class="clinical-heading">
+
+                <div class="clinical-eyebrow">
+                    <span class="clinical-dot"></span>
+                    <span>FOCUS CLINICO PREVENTIVO</span>
+                </div>
+
+                <h2>Percorsi Diagnostici Integrati</h2>
+
+                <p>
+                    Dalla prevenzione precoce alla terapia multidisciplinare:
+                    protocolli completi per ogni fase dell'età, senza liste
+                    d'attesa e con supporto continuo del personale medico.
+                </p>
+
+            </div>
+
+
+            <a href="#prenota" class="clinical-main-button">
+                <span>Prenota un percorso dedicato</span>
+                <i data-lucide="arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             GRIGLIA CARD
+        ================================================== -->
+
+        <div class="clinical-grid">
+
+
+            <!-- =================================================
+                 CARD 1 - DONNA
+            ================================================== -->
+
+            <article class="clinical-card">
+
+                <div class="clinical-card-top">
+
+                    <div class="clinical-icon clinical-icon-pink">
+                        <i data-lucide="activity"></i>
+                    </div>
+
+                    <span class="clinical-badge badge-pink">
+                        PREVENZIONE ROSA
+                    </span>
+
+                </div>
+
+
+                <h3>Percorso Donna &amp; Senologia</h3>
+
+                <p class="clinical-card-description">
+                    Valutazione senologica e ginecologica integrata
+                    per tutte le età della donna.
+                </p>
+
+
+                <div class="clinical-features">
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Mammografia 3D con Tomosintesi:</strong>
+                            massimo contrasto per intercettare lesioni precocissime.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Ostetricia Specialistica:</strong>
+                            Ecografia morfologica, Flussimetria ed
+                            Ecocardiocolordoppler fetale.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            Visita senologica clinica ed ecografia mammaria
+                            bilaterale con refertazione contestuale.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="clinical-card-footer">
+
+                    <span>Sede Fantozzi &amp; Molino</span>
+
+                    <a href="#prenota">
+                        Richiedi
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 CARD 2 - GASTRO
+            ================================================== -->
+
+            <article class="clinical-card">
+
+                <div class="clinical-card-top">
+
+                    <div class="clinical-icon clinical-icon-orange">
+                        <i data-lucide="briefcase-medical"></i>
+                    </div>
+
+                    <span class="clinical-badge badge-orange">
+                        H12 SENZA DOLORE
+                    </span>
+
+                </div>
+
+
+                <h3>Percorso Gastrointestinale H12</h3>
+
+                <p class="clinical-card-description">
+                    Endoscopia digestiva indolore con supporto
+                    costante di anestesista dedicato.
+                </p>
+
+
+                <div class="clinical-features">
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Gastroscopia e Colonscopia:</strong>
+                            in sedazione profonda, nessun fastidio né
+                            ricordo doloroso.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Diagnostica Avanzata:</strong>
+                            Videocapsula endoscopica ingeribile e
+                            Rettoscopia specialistica.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>PH-impedenziometria:</strong>
+                            diagnosi fine del reflusso gastroesofageo
+                            e della motilità.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="clinical-card-footer">
+
+                    <span>Sede Largo Fantozzi</span>
+
+                    <a href="#prenota">
+                        Richiedi
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 CARD 3 - IMAGING
+            ================================================== -->
+
+            <article class="clinical-card">
+
+                <div class="clinical-card-top">
+
+                    <div class="clinical-icon clinical-icon-blue">
+                        <i data-lucide="scan-line"></i>
+                    </div>
+
+                    <span class="clinical-badge badge-blue">
+                        ANTI-CLAUSTROFOBIA
+                    </span>
+
+                </div>
+
+
+                <h3>Imaging Senza Ansia</h3>
+
+                <p class="clinical-card-description">
+                    Tecnologie aperte e dosaggi minimi per adulti,
+                    anziani e pazienti ansiosi.
+                </p>
+
+
+                <div class="clinical-features">
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Risonanza Magnetica Aperta Fuji Lucent Plus 0.4 T:</strong>
+                            campo aperto a 360°, ideale per claustrofobia e obesità.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>TC Cone Beam Odontoiatrica:</strong>
+                            scansione 3D maxillo-facciale a radiazioni
+                            estremamente ridotte.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            Radiologia Digitale generale ed ecografie
+                            multidisciplinari in alta risoluzione.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="clinical-card-footer">
+
+                    <span>Sede Fantozzi - Valmontone</span>
+
+                    <a href="#prenota">
+                        Richiedi
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 CARD 4 - DENSITOMETRIA
+            ================================================== -->
+
+            <article class="clinical-card">
+
+                <div class="clinical-card-top">
+
+                    <div class="clinical-icon clinical-icon-teal">
+                        <i data-lucide="accessibility"></i>
+                    </div>
+
+                    <span class="clinical-badge badge-teal">
+                        MOC HORIZON DXA
+                    </span>
+
+                </div>
+
+
+                <h3>Densitometria Ossea &amp; Postura</h3>
+
+                <p class="clinical-card-description">
+                    Prevenzione dell'osteoporosi e riabilitazione
+                    funzionale dell'apparato motorio.
+                </p>
+
+
+                <div class="clinical-features">
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Morfometria Vertebrale (MXA Assorbimetrica):</strong>
+                            dose radiogena drasticamente ridotta rispetto
+                            alla radiografia.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>BodyLogic Horizon:</strong>
+                            analisi totale di densità ossea, massa magra
+                            e massa grassa corporea.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            Terapie riabilitative di FKT Fisioterapia,
+                            Osteopatia e infiltrazioni PRP articolari.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="clinical-card-footer">
+
+                    <span>Sede Molino &amp; Fantozzi</span>
+
+                    <a href="#prenota">
+                        Richiedi
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 CARD 5 - MELANOMA
+            ================================================== -->
+
+            <article class="clinical-card">
+
+                <div class="clinical-card-top">
+
+                    <div class="clinical-icon clinical-icon-gold">
+                        <i data-lucide="microscope"></i>
+                    </div>
+
+                    <span class="clinical-badge badge-gold">
+                        EPILUMINESCENZA
+                    </span>
+
+                </div>
+
+
+                <h3>Prevenzione Melanoma</h3>
+
+                <p class="clinical-card-description">
+                    Diagnostica dermatologica dermatoscopica
+                    per il monitoraggio dei nei atipici.
+                </p>
+
+
+                <div class="clinical-features">
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Mappatura Digitale dei Nei:</strong>
+                            archiviazione comparativa ad alta definizione temporale.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Epiluminescenza Ottica:</strong>
+                            analisi microscopica della struttura pigmentaria cutanea.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            Visite dermatologiche per acne, psoriasi,
+                            patologie veneree e piccoli interventi ambulatoriali.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="clinical-card-footer">
+
+                    <span>Sede Matteotti &amp; Fantozzi</span>
+
+                    <a href="#prenota">
+                        Richiedi
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 CARD 6 - CARDIO
+            ================================================== -->
+
+            <article class="clinical-card">
+
+                <div class="clinical-card-top">
+
+                    <div class="clinical-icon clinical-icon-red">
+                        <i data-lucide="heart"></i>
+                    </div>
+
+                    <span class="clinical-badge badge-red">
+                        CARDIO &amp; ATLETI
+                    </span>
+
+                </div>
+
+
+                <h3>Salute Cardiovascolare &amp; Sport</h3>
+
+                <p class="clinical-card-description">
+                    Diagnostica cardiaca completa non invasiva
+                    e idoneità agonistica sportiva.
+                </p>
+
+
+                <div class="clinical-features">
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Ecocardiocolordoppler:</strong>
+                            studio morfo-funzionale delle camere cardiache
+                            e delle valvole.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Monitoraggio Dinamico:</strong>
+                            Holter cardiaco 24h e Holter pressorio 24h
+                            con referto tempestivo.
+                        </p>
+                    </div>
+
+
+                    <div class="clinical-feature">
+                        <i data-lucide="circle-check"></i>
+
+                        <p>
+                            <strong>Centro Medicina dello Sport:</strong>
+                            visite d'idoneità agonistica e non agonistica
+                            per tutte le discipline.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="clinical-card-footer">
+
+                    <span>Sede Molino San Giovanni</span>
+
+                    <a href="#prenota">
+                        Richiedi
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     STANDARD DIAGNOSTICO AVANZATO
+====================================================== -->
+
+<section class="advanced-diagnostics">
+
+    <div class="advanced-container">
+
+        <!-- COLONNA SINISTRA -->
+        <div class="advanced-content">
+
+            <span class="advanced-badge">
+                STANDARD DIAGNOSTICO AVANZATO
+            </span>
+
+            <h2>
+                Prevenire con precisione
+                millimetrica e il massimo rispetto
+                biologico
+            </h2>
+
+            <p class="advanced-description">
+                Dalla <strong>MOC Horizon DXA</strong> con scansione BodyLogic
+                all'innovativa <strong>Risonanza Magnetica Aperta Fuji Lucent Plus da 0.4 Tesla</strong>,
+                il nostro investimento è orientato alla sicurezza e al benessere emotivo del paziente.
+                Riduciamo lo stress da esame garantendo immagini di altissima fedeltà diagnostica
+                per il medico curante.
+            </p>
+
+
+            <!-- PUNTI DI FORZA -->
+
+            <div class="advanced-features">
+
+                <div class="advanced-feature">
+
+                    <div class="advanced-feature-icon">
+                        <i data-lucide="scale"></i>
+                    </div>
+
+                    <p>
+                        Scansione BodyLogic: misura esatta di densità ossea,
+                        massa grassa e magra
+                    </p>
+
+                </div>
+
+
+                <div class="advanced-feature">
+
+                    <div class="advanced-feature-icon">
+                        <i data-lucide="eye"></i>
+                    </div>
+
+                    <p>
+                        Campo Aperto Fuji Lucent: nessuna sensazione
+                        di chiusura durante l'esame
+                    </p>
+
+                </div>
+
+
+                <div class="advanced-feature">
+
+                    <div class="advanced-feature-icon">
+                        <i data-lucide="gauge"></i>
+                    </div>
+
+                    <p>
+                        Refertazione specialistica strutturata e
+                        scaricabile comodamente da casa
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTONI -->
+
+            <div class="advanced-actions">
+
+                <a href="#prenota" class="advanced-primary-button">
+                    Richiedi Esame Strumentale
+                </a>
+
+                <a href="#contatti" class="advanced-secondary-button">
+                    <i data-lucide="phone"></i>
+                    <span>Info e Tariffe</span>
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- COLONNA DESTRA -->
+        <div class="advanced-media">
+
+            <img
+                src="assets/fuji-lucent.jpeg"
+                alt="Risonanza Magnetica Aperta Fuji Lucent Plus"
+            >
+
+
+            <!-- INFO SOVRAPPOSTE ALLA FOTO -->
+
+            <div class="advanced-machine-info">
+
+                <div>
+
+                    <strong>
+                        Fuji Lucent Plus 0.4 T
+                    </strong>
+
+                    <span>
+                        Largo Fantozzi, 7 - Valmontone
+                    </span>
+
+                </div>
+
+
+                <span class="machine-status">
+                    ATTIVO
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SPECIALIZZAZIONI MEDICHE
+====================================================== -->
+
+<section class="specialties-section" id="specializzazioni">
+
+    <div class="specialties-container">
+
+        <!-- TESTATA -->
+        <div class="specialties-header">
+
+            <div class="specialties-heading">
+
+                <span class="specialties-eyebrow">
+                    POLO MEDICO AMBULATORIALE
+                </span>
+
+                <h2>
+                    Le 24 Specializzazioni Mediche
+                </h2>
+
+                <p>
+                    Una rete capillare di medici chirurghi e specialisti
+                    attivi nelle tre sedi di Valmontone.
+                </p>
+
+            </div>
+
+
+            <!-- RICERCA -->
+            <div class="specialties-search">
+
+                <i data-lucide="list-filter"></i>
+
+                <input
+                    type="search"
+                    id="specialtySearch"
+                    placeholder="Filtra branca medica..."
+                    aria-label="Filtra specializzazioni mediche"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             GRIGLIA 24 SPECIALIZZAZIONI
+        ================================================== -->
+
+        <div class="specialties-grid" id="specialtiesGrid">
+
+
+            <!-- 1 -->
+            <a href="#" class="specialty-card" data-specialty="allergologia prick patch test">
+
+                <i data-lucide="sparkles"></i>
+
+                <div>
+                    <h3>Allergologia</h3>
+                    <p>Prick &amp; patch test</p>
+                </div>
+
+            </a>
+
+
+            <!-- 2 -->
+            <a href="#" class="specialty-card" data-specialty="anestesiologia terapia del dolore">
+
+                <i data-lucide="bandage"></i>
+
+                <div>
+                    <h3>Anestesiologia</h3>
+                    <p>Terapia del dolore</p>
+                </div>
+
+            </a>
+
+
+            <!-- 3 -->
+            <a href="#" class="specialty-card" data-specialty="angiologia chirurgia vascolare">
+
+                <i data-lucide="droplet"></i>
+
+                <div>
+                    <h3>Angiologia</h3>
+                    <p>Chirurgia vascolare</p>
+                </div>
+
+            </a>
+
+
+            <!-- 4 -->
+            <a href="#" class="specialty-card" data-specialty="cardiologia ecg holter eco">
+
+                <i data-lucide="heart-pulse"></i>
+
+                <div>
+                    <h3>Cardiologia</h3>
+                    <p>Ecg, Holter, Eco</p>
+                </div>
+
+            </a>
+
+
+            <!-- 5 -->
+            <a href="#" class="specialty-card" data-specialty="dermatologia venereologia nei">
+
+                <i data-lucide="scan-line"></i>
+
+                <div>
+                    <h3>Dermatologia</h3>
+                    <p>Venereologia &amp; Nei</p>
+                </div>
+
+            </a>
+
+
+            <!-- 6 -->
+            <a href="#" class="specialty-card" data-specialty="diabetologia gestione glicemica">
+
+                <i data-lucide="droplets"></i>
+
+                <div>
+                    <h3>Diabetologia</h3>
+                    <p>Gestione glicemica</p>
+                </div>
+
+            </a>
+
+
+            <!-- 7 -->
+            <a href="#" class="specialty-card" data-specialty="endocrinologia tiroide metabolismo">
+
+                <i data-lucide="pill"></i>
+
+                <div>
+                    <h3>Endocrinologia</h3>
+                    <p>Tiroide e metabolismo</p>
+                </div>
+
+            </a>
+
+
+            <!-- 8 -->
+            <a href="#" class="specialty-card" data-specialty="fisioterapia osteopatia fkt">
+
+                <i data-lucide="accessibility"></i>
+
+                <div>
+                    <h3>Fisioterapia</h3>
+                    <p>Osteopatia &amp; FKT</p>
+                </div>
+
+            </a>
+
+
+            <!-- 9 -->
+            <a href="#" class="specialty-card" data-specialty="gastroenterologia endoscopia h12">
+
+                <i data-lucide="activity"></i>
+
+                <div>
+                    <h3>Gastroenterologia</h3>
+                    <p>Endoscopia &amp; H12</p>
+                </div>
+
+            </a>
+
+
+            <!-- 10 -->
+            <a href="#" class="specialty-card" data-specialty="ginecologia ostetricia morfo">
+
+                <i data-lucide="person-standing"></i>
+
+                <div>
+                    <h3>Ginecologia</h3>
+                    <p>Ostetricia &amp; Morfo</p>
+                </div>
+
+            </a>
+
+
+            <!-- 11 -->
+            <a href="#" class="specialty-card" data-specialty="medicina dello sport certificati agonistici">
+
+                <i data-lucide="dumbbell"></i>
+
+                <div>
+                    <h3>Medicina dello Sport</h3>
+                    <p>Certificati agonistici</p>
+                </div>
+
+            </a>
+
+
+            <!-- 12 -->
+            <a href="#" class="specialty-card" data-specialty="medicina estetica trattamenti viso corpo">
+
+                <i data-lucide="smile"></i>
+
+                <div>
+                    <h3>Medicina Estetica</h3>
+                    <p>Trattamenti viso/corpo</p>
+                </div>
+
+            </a>
+
+
+            <!-- 13 -->
+            <a href="#" class="specialty-card" data-specialty="neurologia neurochirurgia">
+
+                <i data-lucide="brain"></i>
+
+                <div>
+                    <h3>Neurologia</h3>
+                    <p>Neurochirurgia</p>
+                </div>
+
+            </a>
+
+
+            <!-- 14 -->
+            <a href="#" class="specialty-card" data-specialty="oculistica fondo oculare tono">
+
+                <i data-lucide="eye"></i>
+
+                <div>
+                    <h3>Oculistica</h3>
+                    <p>Fondo oculare &amp; tono</p>
+                </div>
+
+            </a>
+
+
+            <!-- 15 -->
+            <a href="#" class="specialty-card" data-specialty="ortopedia patologie articolari">
+
+                <i data-lucide="bone"></i>
+
+                <div>
+                    <h3>Ortopedia</h3>
+                    <p>Patologie articolari</p>
+                </div>
+
+            </a>
+
+
+            <!-- 16 -->
+            <a href="#" class="specialty-card" data-specialty="otorinolaringoiatria audiometria laringe">
+
+                <i data-lucide="ear"></i>
+
+                <div>
+                    <h3>Otorinolaringoiatria</h3>
+                    <p>Audiometria &amp; laringe</p>
+                </div>
+
+            </a>
+
+
+            <!-- 17 -->
+            <a href="#" class="specialty-card" data-specialty="pneumologia spirometria respiro">
+
+                <i data-lucide="lungs"></i>
+
+                <div>
+                    <h3>Pneumologia</h3>
+                    <p>Spirometria &amp; respiro</p>
+                </div>
+
+            </a>
+
+
+            <!-- 18 -->
+            <a href="#" class="specialty-card" data-specialty="podologia biomeccanica piede">
+
+                <i data-lucide="footprints"></i>
+
+                <div>
+                    <h3>Podologia</h3>
+                    <p>Biomeccanica del piede</p>
+                </div>
+
+            </a>
+
+
+            <!-- 19 -->
+            <a href="#" class="specialty-card" data-specialty="prp piastrine rigenerativa articolare">
+
+                <i data-lucide="syringe"></i>
+
+                <div>
+                    <h3>PRP Piastrine</h3>
+                    <p>Rigenerativa articolare</p>
+                </div>
+
+            </a>
+
+
+            <!-- 20 -->
+            <a href="#" class="specialty-card" data-specialty="radiologia ecografie internistiche">
+
+                <i data-lucide="scan"></i>
+
+                <div>
+                    <h3>Radiologia ed Ecografie</h3>
+                    <p>Ecografie internistiche</p>
+                </div>
+
+            </a>
+
+
+            <!-- 21 -->
+            <a href="#" class="specialty-card" data-specialty="reumatologia artriti connettiviti">
+
+                <i data-lucide="activity"></i>
+
+                <div>
+                    <h3>Reumatologia</h3>
+                    <p>Artriti &amp; connettiviti</p>
+                </div>
+
+            </a>
+
+
+            <!-- 22 -->
+            <a href="#" class="specialty-card" data-specialty="scienza alimentazione dietetica check up">
+
+                <i data-lucide="utensils"></i>
+
+                <div>
+                    <h3>Scienza Alimentazione</h3>
+                    <p>Dietetica &amp; check-up</p>
+                </div>
+
+            </a>
+
+
+            <!-- 23 -->
+            <a href="#" class="specialty-card" data-specialty="senologia percorso senologico">
+
+                <i data-lucide="venus"></i>
+
+                <div>
+                    <h3>Senologia</h3>
+                    <p>Percorso senologico</p>
+                </div>
+
+            </a>
+
+
+            <!-- 24 -->
+            <a href="#" class="specialty-card" data-specialty="urologia prevenzione maschile">
+
+                <i data-lucide="shield-plus"></i>
+
+                <div>
+                    <h3>Urologia</h3>
+                    <p>Prevenzione maschile</p>
+                </div>
+
+            </a>
+
+
+        </div>
+
+        <p class="specialties-count" id="specialtiesCount">
+            Stai visualizzando 4 di 24 specializzazioni
+        </p>
+
+        <button
+    type="button"
+    class="specialties-toggle"
+    id="specialtiesToggle"
+    aria-expanded="false"
+>
+    <span id="specialtiesToggleText">
+        Vedi tutte le 24 specializzazioni
+    </span>
+
+    <i data-lucide="chevron-down"></i>
+</button>
+
+        <!-- MESSAGGIO SE NON TROVA NULLA -->
+        <p class="specialties-empty" id="specialtiesEmpty">
+            Nessuna specializzazione trovata.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     GRUPPO BIANALISI E RETE REGIONALE
+====================================================== -->
+
+<section class="bianalisi-network">
+
+    <div class="bianalisi-container">
+
+        <!-- =================================================
+             BLOCCO PRINCIPALE BIANALISI
+        ================================================== -->
+
+        <div class="bianalisi-main-card">
+
+            <!-- SINISTRA -->
+            <div class="bianalisi-main-content">
+
+                <span class="bianalisi-label">
+                    INTEGRAZIONE NAZIONALE SANITARIA
+                </span>
+
+                <h2>
+                    Ecomedica è parte integrante del Gruppo
+                    Bianalisi
+                </h2>
+
+                <p class="bianalisi-description">
+                    Grazie alla partnership strategica con Bianalisi,
+                    leader nazionale nella medicina di laboratorio e
+                    diagnostica integrata, offriamo ai cittadini di Roma
+                    e provincia una rete capillare di laboratori accreditati,
+                    con prelievi rapidi senza prenotazione e consultazione
+                    telematica dei referti h24.
+                </p>
+
+                <div class="bianalisi-actions">
+
+                    <a
+                        href="https://referti.bianalisilazio.it"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="bianalisi-referti-button"
+                    >
+                        <i data-lucide="download"></i>
+
+                        <span>
+                            Scarica Referti
+                            <strong>(referti.bianalisilazio.it)</strong>
+                        </span>
+                    </a>
+
+                    <span class="bianalisi-analysis">
+                        Oltre 1.500 analisi cliniche e genetiche
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- DESTRA -->
+            <div class="bianalisi-info-card">
+
+                <div class="bianalisi-info-header">
+
+                    <div class="bianalisi-network-icon">
+                        <i data-lucide="network"></i>
+                    </div>
+
+                    <div>
+                        <strong>Punti Prelievo Collegati</strong>
+
+                        <span>
+                            Valmontone, Castelli Romani, Sabina e Roma
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <ul>
+
+                    <li>
+                        Prelievi dal Lunedì al Sabato 07:30 - 10:30
+                    </li>
+
+                    <li>
+                        Pacchetti Check-Up prevenzione completi
+                    </li>
+
+                    <li>
+                        Servizio prelievi domiciliari su richiesta
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RETE REGIONALE
+        ================================================== -->
+
+        <div class="regional-network">
+
+            <div class="regional-heading">
+
+                <span>
+                    RETE REGIONALE LAZIO
+                </span>
+
+                <h2>
+                    Laboratori di Analisi Cliniche Convenzionati
+                </h2>
+
+                <p>
+                    I presidi del Gruppo Ecomedica e Bianalisi
+                    attivi nel territorio del Lazio:
+                </p>
+
+            </div>
+
+
+            <div class="regional-grid">
+
+                <!-- CARD 1 -->
+                <article class="regional-card">
+
+                    <span class="regional-badge">
+                        VALMONTONE &amp; ARTENA
+                    </span>
+
+                    <h3>
+                        Laboratori Alfalab
+                    </h3>
+
+                    <p>
+                        Punti prelievo e chimica clinica a servizio
+                        del comprensorio Casilina e Colli Lepini
+                        con standard analitici elevati.
+                    </p>
+
+                    <a href="#">
+                        RETE ALFALAB BIANALISI
+                    </a>
+
+                </article>
+
+
+                <!-- CARD 2 -->
+                <article class="regional-card">
+
+                    <span class="regional-badge">
+                        VELLETRI &amp; S. MARIA DELLE MOLE
+                    </span>
+
+                    <h3>
+                        Laboratori Emlab
+                    </h3>
+
+                    <p>
+                        Presidi storici dei Castelli Romani integrati
+                        nel gruppo per microbiologia, tossicologia
+                        e coagulazione.
+                    </p>
+
+                    <a href="#">
+                        RETE EMLAB BIANALISI
+                    </a>
+
+                </article>
+
+
+                <!-- CARD 3 -->
+                <article class="regional-card">
+
+                    <span class="regional-badge">
+                        ROMA CAPITALE
+                    </span>
+
+                    <h3>
+                        Alfalab Majorana
+                    </h3>
+
+                    <p>
+                        L'hub diagnostico Ecomedica a Roma nel
+                        quadrante Portuense-Marconi per check-up
+                        ematochimici e specialistici.
+                    </p>
+
+                    <a href="#">
+                        ROMA PORTUENSE
+                    </a>
+
+                </article>
+
+
+                <!-- CARD 4 -->
+                <article class="regional-card">
+
+                    <span class="regional-badge">
+                        ARANOVA &amp; PALOMBARA SABINA
+                    </span>
+
+                    <h3>
+                        Ecomedica &amp; Emlab
+                    </h3>
+
+                    <p>
+                        Presidi dedicati sul litorale romano
+                        (Aranova-Fregene) e nella Sabina Romana
+                        con prelievi ed elettrocardiogrammi.
+                    </p>
+
+                    <a href="#">
+                        FIUMICINO &amp; SABINA
+                    </a>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     LE NOSTRE SEDI
+====================================================== -->
+
+<section class="locations-section" id="sedi">
+
+    <div class="locations-container">
+
+        <!-- TESTATA -->
+        <div class="locations-heading">
+
+            <span class="locations-badge">
+                PRESIDI OPERATIVI
+            </span>
+
+            <h2>
+                Le Nostre 3 Sedi a Valmontone (RM)
+            </h2>
+
+            <p>
+                Tre strutture moderne e coordinate nel cuore di Valmontone.
+                Orario continuato per accogliere le esigenze di lavoratori e famiglie.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             GRIGLIA SEDI
+        ================================================== -->
+
+        <div class="locations-grid">
+
+
+            <!-- =================================================
+                 FANTOZZI
+            ================================================== -->
+
+            <article class="location-card">
+
+                <div class="location-card-top">
+
+                    <div>
+
+                        <span class="location-type">
+                            SEDE CENTRALE
+                        </span>
+
+                        <h3>
+                            Ecomedica Fantozzi
+                        </h3>
+
+                    </div>
+
+                    <div class="location-main-icon">
+                        <i data-lucide="scan-line"></i>
+                    </div>
+
+                </div>
+
+
+                <p class="location-services">
+                    Polo di Alta Diagnostica per Immagini, RM Aperta,
+                    MOC DEXA &amp; Endoscopia
+                </p>
+
+
+                <div class="location-details">
+
+                    <div class="location-detail">
+
+                        <i data-lucide="map-pin"></i>
+
+                        <p>
+                            <strong>Largo Fantozzi, 7</strong>
+                            - 00038 Valmontone (RM)
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail">
+
+                        <i data-lucide="phone"></i>
+
+                        <p>
+                            <strong>Tel. 06.9596478</strong><br>
+                            <strong>Tel. 06.81152114</strong>
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail location-whatsapp">
+
+                        <i data-lucide="message-square"></i>
+
+                        <p>
+                            Cell/WhatsApp:
+                            <a href="tel:+393270037034">
+                                327.0037034
+                            </a>
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail">
+
+                        <i data-lucide="mail"></i>
+
+                        <p>
+                            <a href="mailto:info@ecomedicaonline.it">
+                                info@ecomedicaonline.it
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ORARI -->
+
+                <div class="location-hours">
+
+                    <div class="location-hours-title">
+
+                        <i data-lucide="clock-3"></i>
+
+                        <strong>
+                            Orari di Apertura
+                        </strong>
+
+                    </div>
+
+                    <p>
+                        LUN - VEN:
+                        <strong>08:00 - 20:00</strong>
+                    </p>
+
+                    <p>
+                        SABATO:
+                        <strong>09:00 - 13:00</strong>
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="tel:+393270037034"
+                    class="location-contact-button"
+                >
+                    <i data-lucide="phone"></i>
+                    <span>Contatta Fantozzi</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 MOLINO
+            ================================================== -->
+
+            <article class="location-card">
+
+                <div class="location-card-top">
+
+                    <div>
+
+                        <span class="location-type">
+                            POLO RIABILITATIVO &amp; ANALISI
+                        </span>
+
+                        <h3>
+                            Ecomedica Molino
+                        </h3>
+
+                    </div>
+
+                    <div class="location-main-icon">
+                        <i data-lucide="droplet"></i>
+                    </div>
+
+                </div>
+
+
+                <p class="location-services">
+                    Laboratorio Analisi Alfalab, Medicina dello Sport
+                    &amp; Fisiokinesiterapia
+                </p>
+
+
+                <div class="location-details">
+
+                    <div class="location-detail">
+
+                        <i data-lucide="map-pin"></i>
+
+                        <p>
+                            <strong>Via Molino San Giovanni, 16/B</strong>
+                            - 00038 Valmontone (RM)
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail">
+
+                        <i data-lucide="phone"></i>
+
+                        <p>
+                            <strong>Tel. 06.9596478</strong><br>
+                            <strong>Tel. 06.81152114</strong>
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail location-whatsapp">
+
+                        <i data-lucide="message-square"></i>
+
+                        <p>
+                            Cell/WhatsApp:
+                            <a href="tel:+393938374002">
+                                393.8374002
+                            </a>
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail">
+
+                        <i data-lucide="mail"></i>
+
+                        <p>
+                            <a href="mailto:info@ecomedicaonline.it">
+                                info@ecomedicaonline.it
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="location-hours">
+
+                    <div class="location-hours-title">
+
+                        <i data-lucide="clock-3"></i>
+
+                        <strong>
+                            Orari di Apertura
+                        </strong>
+
+                    </div>
+
+                    <p>
+                        LUN - VEN:
+                        <strong>08:00 - 20:00</strong>
+                    </p>
+
+                    <p>
+                        SABATO:
+                        <strong>09:00 - 13:00</strong>
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="tel:+393938374002"
+                    class="location-contact-button"
+                >
+                    <i data-lucide="phone"></i>
+                    <span>Contatta Molino</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 MATTEOTTI
+            ================================================== -->
+
+            <article class="location-card">
+
+                <div class="location-card-top">
+
+                    <div>
+
+                        <span class="location-type">
+                            POLIAMBULATORIO
+                        </span>
+
+                        <h3>
+                            Ecomedica Matteotti
+                        </h3>
+
+                    </div>
+
+                    <div class="location-main-icon">
+                        <i data-lucide="stethoscope"></i>
+                    </div>
+
+                </div>
+
+
+                <p class="location-services">
+                    Visite Medico-Specialistiche, Cardiologia,
+                    Ginecologia &amp; Senologia
+                </p>
+
+
+                <div class="location-details">
+
+                    <div class="location-detail">
+
+                        <i data-lucide="map-pin"></i>
+
+                        <p>
+                            <strong>Via Giacomo Matteotti, 72</strong>
+                            - 00038 Valmontone (RM)
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail">
+
+                        <i data-lucide="phone"></i>
+
+                        <p>
+                            <strong>Tel. 06.9596478</strong><br>
+                            <strong>Tel. 06.81152114</strong>
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail location-whatsapp">
+
+                        <i data-lucide="message-square"></i>
+
+                        <p>
+                            Cell/WhatsApp:
+                            <a href="tel:+393807807852">
+                                380.7807852
+                            </a>
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-detail">
+
+                        <i data-lucide="mail"></i>
+
+                        <p>
+                            <a href="mailto:info@ecomedicaonline.it">
+                                info@ecomedicaonline.it
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="location-hours">
+
+                    <div class="location-hours-title">
+
+                        <i data-lucide="clock-3"></i>
+
+                        <strong>
+                            Orari di Apertura
+                        </strong>
+
+                    </div>
+
+                    <p>
+                        LUN - VEN:
+                        <strong>08:00 - 20:00</strong>
+                    </p>
+
+                    <p>
+                        SABATO:
+                        <strong>09:00 - 13:00</strong>
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="tel:+393807807852"
+                    class="location-contact-button"
+                >
+                    <i data-lucide="phone"></i>
+                    <span>Contatta Matteotti</span>
+                </a>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     INFO ISTITUZIONALI + FOOTER
+====================================================== -->
+
+<section class="footer-top-panel">
+
+    <div class="footer-top-container">
+
+        <div class="footer-top-card">
+
+            <!-- SINISTRA -->
+            <div class="footer-top-text">
+
+                <h3>
+                    Trasparenza Amministrativa e Tutela Sanitaria
+                </h3>
+
+                <p>
+                    Ecomedica S.r.l. - C.F. e Partita IVA:
+                    <strong>07359731002</strong> | Gruppo Bianalisi Lazio.
+                </p>
+
+                <p>
+                    Data Protection Officer (DPO):
+                    <strong>Dr.ssa Gabriella Collacchi</strong> -
+                    Contatto Privacy:
+                    <a href="mailto:gabry.collacchi@gmail.com">
+                        gabry.collacchi@gmail.com
+                    </a>
+                </p>
+
+            </div>
+
+
+            <!-- DESTRA -->
+            <div class="footer-top-links">
+
+                <a href="#">
+                    Dicono di noi
+                </a>
+
+                <a href="#">
+                    Lavora con noi
+                </a>
+
+                <a href="#convenzioni">
+                    Convenzioni Attive
+                </a>
+
+                <a href="#">
+                    Privacy &amp; Cookie Policy
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<footer class="site-footer" id="contatti">
+
+    <div class="site-footer-container">
+
+        <div class="footer-main-grid">
+
+            <!-- =================================================
+                 COLONNA 1 - BRAND
+            ================================================== -->
+            <div class="footer-brand-column">
+
+                <div class="footer-brand-logos">
+
+                    <img
+                        src="assets/logo-ecomedica.png"
+                        alt="Logo Ecomedica"
+                        class="footer-brand-logo"
+                    >
+
+                    <div class="footer-brand-text">
+                        <strong>ECOMEDICA</strong>
+                        <span>Sedi Valmontone</span>
+                        <small>POLO DIAGNOSTICO LAZIO</small>
+                    </div>
+
+                </div>
+
+                <p class="footer-brand-description">
+                    Struttura sanitaria polispecialistica ad alta
+                    tecnologia diagnostica convenzionata SSN e fondi
+                    assicurativi. Parte integrante del network nazionale
+                    Bianalisi.
+                </p>
+
+                <div class="footer-certifications">
+                    <span>ISO 9001:2015</span>
+                    <span>ACCREDITATO SSN</span>
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 COLONNA 2 - SEDI
+            ================================================== -->
+            <div class="footer-column">
+                <h3>Sedi Valmontone</h3>
+
+                <div class="footer-location-boxes">
+
+                    <div class="footer-location-box">
+                        <strong>Sede Centrale &amp; Imaging - Fantozzi</strong>
+                        <p>Via A. Fantozzi, 8 - 00038 Valmontone (RM)</p>
+                        <a href="tel:+39069596478">
+                            Tel. 06.9596478 - Int. 1
+                        </a>
+                    </div>
+
+                    <div class="footer-location-box">
+                        <strong>Polo Analisi &amp; Fisioterapia - Molino</strong>
+                        <p>Via Casilina Km 42, Loc. Molino - Valmontone</p>
+                        <a href="tel:+39069596478">
+                            Tel. 06.9596478 - Int. 2
+                        </a>
+                    </div>
+
+                    <div class="footer-location-box">
+                        <strong>Poliambulatorio Specialistico - Matteotti</strong>
+                        <p>Piazza G. Matteotti, 3 - 00038 Valmontone</p>
+                        <a href="tel:+39069596478">
+                            Tel. 06.9596478 - Int. 3
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- =================================================
+                 COLONNA 3 - DIPARTIMENTI
+            ================================================== -->
+            <div class="footer-column">
+                <h3>Dipartimenti Clinici</h3>
+
+                <ul class="footer-links-list">
+                    <li><a href="#">Risonanza Magnetica &amp; TAC</a></li>
+                    <li><a href="#">Radiologia Digitale &amp; MOC</a></li>
+                    <li><a href="#">Cardiologia &amp; Angiologia</a></li>
+                    <li><a href="#">Ginecologia &amp; Senologia</a></li>
+                    <li><a href="#">Punto Prelievi Bianalisi</a></li>
+                    <li><a href="#convenzioni">Fondi Sanitari &amp; Assicurazioni</a></li>
+                    <li><a href="#referti-online">Porta Referti Digitale 24/7</a></li>
+                </ul>
+            </div>
+
+
+
+            <!-- =================================================
+                 COLONNA 4 - CONTATTI
+            ================================================== -->
+            <div class="footer-column footer-contacts-column">
+                <h3>Contatti &amp; Assistenza</h3>
+
+                <ul class="footer-contact-list">
+
+                    <li>
+                        <i data-lucide="phone"></i>
+                        <span>
+                            Centralino Unico:
+                            <strong>06.9596478</strong>
+                        </span>
+                    </li>
+
+                    <li>
+                        <i data-lucide="mail"></i>
+                        <a href="mailto:urp@ecomedicaonline.it">
+                            urp@ecomedicaonline.it
+                        </a>
+                    </li>
+
+                    <li>
+                        <i data-lucide="clock-3"></i>
+                        <span>
+                            Lun - Ven: 08:00 - 20:00<br>
+                            Sabato: 09:00 - 13:00
+                        </span>
+                    </li>
+
+                    <li>
+                        <i data-lucide="shield-plus"></i>
+                        <span>
+                            DPO Privacy Bianalisi:
+                            dpo@bianalisi.it
+                        </span>
+                    </li>
+
+                </ul>
+
+                <a href="#prenota" class="footer-appointment-button">
+                    Richiedi Appuntamento Online
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             BOTTOM BAR
+        ================================================== -->
+        <div class="footer-bottom-bar">
+
+            <p>
+                © 2025 Ecomedica S.r.l. - Gruppo Bianalisi.
+                P.IVA 04871291004. Direzione Sanitaria
+                Dott.ssa M. Rossi.
+            </p>
+
+            <div class="footer-bottom-links">
+                <a href="#">Informativa Privacy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Note Legali &amp; Trasparenza</a>
+                <a href="#">DPO Policy</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+    </main>
+
+</body>
+</html>
