@@ -3065,3 +3065,148 @@ html.has-js .reveal:not(.is-visible) {
     }
 
 }
+
+/* ==========================================
+   FRECCE VETTORIALI — NO EMOJI
+========================================== */
+
+.button-dark span,
+.nav-contact span,
+.shot-arrow {
+    font-size: 0;
+}
+
+/* Frecce disegnate con CSS */
+
+.button-dark span::before,
+.nav-contact span::before,
+.shot-arrow::before {
+    content: "";
+
+    display: block;
+
+    width: 13px;
+    height: 13px;
+
+    background-color: currentColor;
+
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M5 19 19 5M7 5h12v12'/%3E%3C/svg%3E") center / contain no-repeat;
+
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M5 19 19 5M7 5h12v12'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.shot-arrow::before {
+    width: 23px;
+    height: 23px;
+}
+
+/* ==========================================
+   FOTO — COLORE ALLO SCROLL SU MOBILE
+========================================== */
+
+@media (hover: none), (pointer: coarse) {
+
+    .project-shot img,
+    .about-photo img {
+        filter: grayscale(100%);
+
+        transition:
+            filter 0.8s ease,
+            transform 0.8s ease;
+    }
+
+    .project-shot.mobile-in-view img,
+    .about-photo.mobile-in-view img {
+        filter: grayscale(0%);
+    }
+
+    .about-photo.mobile-in-view img {
+        transform: scale(1.045);
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .project-shot img,
+    .about-photo img {
+        transition: none;
+    }
+
+}
+
+/* ==========================================
+   ALONE ROSA — VERSIONE TOUCH
+========================================== */
+
+.touch-aura {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 220px;
+    height: 220px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(219, 7, 80, 0.26) 0%,
+        rgba(219, 7, 80, 0.12) 35%,
+        rgba(219, 7, 80, 0.04) 60%,
+        transparent 75%
+    );
+
+    filter: blur(15px);
+
+    pointer-events: none;
+    z-index: 999;
+
+    opacity: 0;
+
+    transform: translate3d(-300px, -300px, 0)
+               translate(-50%, -50%);
+
+    transition: opacity 0.3s ease;
+}
+
+.touch-aura.is-active {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .touch-aura {
+        display: none;
+    }
+
+}
+
+/* ==========================================
+   ICONE SVG NEI COLLEGAMENTI
+========================================== */
+
+.icon-arrow {
+    display: inline-block;
+
+    width: 13px;
+    height: 13px;
+
+    flex-shrink: 0;
+
+    vertical-align: -1px;
+
+    stroke: currentColor;
+    stroke-width: 1.8;
+
+    fill: none;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.project-links a .icon-arrow,
+.footer-bottom a .icon-arrow {
+    margin-left: 5px;
+}

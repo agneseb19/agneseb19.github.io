@@ -430,6 +430,68 @@ if (hero && supportsMouse && !reducedMotion) {
 
 }
 
+/* ==========================================
+   HERO — INTERAZIONE TOUCH
+========================================== */
+
+if (hero && !reducedMotion) {
+
+    function updateHeroTouch(touch) {
+
+        const rect = hero.getBoundingClientRect();
+
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        mouse.x = Math.max(
+            -1,
+            Math.min(
+                1,
+                (touch.clientX - centerX) / (rect.width / 2)
+            )
+        );
+
+        mouse.y = Math.max(
+            -1,
+            Math.min(
+                1,
+                (touch.clientY - centerY) / (rect.height / 2)
+            )
+        );
+
+    }
+
+    hero.addEventListener("touchstart", function (event) {
+
+        if (event.touches.length === 1) {
+            updateHeroTouch(event.touches[0]);
+        }
+
+    }, { passive: true });
+
+
+    hero.addEventListener("touchmove", function (event) {
+
+        if (event.touches.length === 1) {
+            updateHeroTouch(event.touches[0]);
+        }
+
+    }, { passive: true });
+
+
+    function resetHeroTouch() {
+
+        mouse.x = 0;
+        mouse.y = 0;
+
+    }
+
+    hero.addEventListener("touchend", resetHeroTouch);
+
+    hero.addEventListener("touchcancel", resetHeroTouch);
+
+}
+
 
 /* ==========================================
    MOTORE DI ANIMAZIONE
@@ -712,5 +774,212 @@ if (universitySection && universityToggle && universityPanel) {
     });
 
 }
+
+/* ==========================================
+   MOBILE — FOTO A COLORI ALLO SCROLL
+========================================== */
+
+const touchDevice = window.matchMedia(
+    "(hover: none), (pointer: coarse)"
+).matches;
+
+if (touchDevice && "IntersectionObserver" in window) {
+
+    const colorImages = document.querySelectorAll(
+        ".project-shot, .about-photo"
+    );
+
+    const colorObserver = new IntersectionObserver(
+
+        function (entries) {
+
+            entries.forEach(function (entry) {
+
+                entry.target.classList.toggle(
+                    "mobile-in-view",
+                    entry.isIntersecting
+                );
+
+            });
+
+        },
+
+        {
+            rootMargin: "-30% 0px -30% 0px",
+            threshold: 0
+        }
+
+    );
+
+    colorImages.forEach(function (image) {
+        colorObserver.observe(image);
+    });
+
+}
+
+/* ==========================================
+   ALONE ROSA AL TOCCO
+========================================== */
+
+if (touchDevice && !reducedMotion) {
+
+    const touchAura = document.createElement("div");
+
+    touchAura.className = "touch-aura";
+
+    touchAura.setAttribute("aria-hidden", "true");
+
+    document.body.appendChild(touchAura);
+
+    let currentX = 0;
+    let currentY = 0;
+
+    let targetX = 0;
+    let targetY = 0;
+
+    let touchActive = false;
+    let auraFrame = null;
+
+
+    function animateTouchAura() {
+
+        currentX += (targetX - currentX) * 0.28;
+        currentY += (targetY - currentY) * 0.28;
+
+        touchAura.style.transform = `
+            translate3d(${currentX}px, ${currentY}px, 0)
+            translate(-50%, -50%)
+        `;
+
+        if (touchActive) {
+
+            auraFrame = requestAnimationFrame(animateTouchAura);
+
+        } else {
+
+            auraFrame = null;
+
+        }
+
+    }
+
+
+    document.addEventListener("touchstart", function (event) {
+
+        if (!event.touches.length) return;
+
+        const touch = event.touches[0];
+
+        currentX = targetX = touch.clientX;
+        currentY = targetY = touch.clientY;
+
+        touchActive = true;
+
+        touchAura.classList.add("is-active");
+
+        if (auraFrame === null) {
+            auraFrame = requestAnimationFrame(animateTouchAura);
+        }
+
+    }, { passive: true });
+
+
+    document.addEventListener("touchmove", function (event) {
+
+        if (!event.touches.length) return;
+
+        targetX = event.touches[0].clientX;
+        targetY = event.touches[0].clientY;
+
+    }, { passive: true });
+
+
+    function hideTouchAura() {
+
+        touchActive = false;
+
+        touchAura.classList.remove("is-active");
+
+        if (auraFrame !== null) {
+            cancelAnimationFrame(auraFrame);
+            auraFrame = null;
+        }
+
+    }
+
+    document.addEventListener("touchend", hideTouchAura);
+
+    document.addEventListener("touchcancel", hideTouchAura);
+
+}
+
+/* ==========================================
+   FRECCE VETTORIALI NEI LINK
+========================================== */
+
+const arrowPaths = {
+    "↗": "M5 19L19 5M7 5h12v12",
+    "↑": "M12 19V5M5 12l7-7 7 7"
+};
+
+document.querySelectorAll("a").forEach(function (link) {
+
+    // I pulsanti circolari hanno già la freccia CSS.
+    if (
+        link.classList.contains("nav-contact") ||
+        link.classList.contains("button-dark") ||
+        link.classList.contains("project-shot")
+    ) {
+        return;
+    }
+
+    Array.from(link.childNodes).forEach(function (node) {
+
+        if (node.nodeType !== Node.TEXT_NODE) return;
+
+        const text = node.textContent;
+
+        if (!/[↗↑]/.test(text)) return;
+
+        const fragment = document.createDocumentFragment();
+
+        text.split(/([↗↑])/).forEach(function (part) {
+
+            if (!arrowPaths[part]) {
+
+                fragment.appendChild(
+                    document.createTextNode(part)
+                );
+
+                return;
+            }
+
+            const svg = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "svg"
+            );
+
+            svg.setAttribute("viewBox", "0 0 24 24");
+            svg.setAttribute("class", "icon-arrow");
+            svg.setAttribute("aria-hidden", "true");
+
+            const path = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "path"
+            );
+
+            path.setAttribute("d", arrowPaths[part]);
+
+            svg.appendChild(path);
+
+            fragment.appendChild(svg);
+
+        });
+
+        node.replaceWith(fragment);
+
+    });
+
+});
 
 });
