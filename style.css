@@ -1535,3 +1535,327 @@ body {
         transition: none;
     }
 }
+
+/* =========================================
+   HERO — CERCHI DECORATIVI
+========================================= */
+
+.hero-photo {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+}
+
+.hero-photo::before,
+.hero-photo::after {
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-photo img {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-photo::after {
+    bottom: -42px;
+    left: -38px;
+
+    width: 150px;
+    height: 150px;
+
+    background: #deded8;
+    border-radius: 50%;
+
+    animation: circleFloat 4s ease-in-out infinite;
+}
+
+/* =========================================
+   PORTFOLIO REDESIGN 2026
+   SEZIONE PROGETTI
+========================================= */
+
+.projects {
+    position: relative;
+    overflow: hidden;
+
+    padding: 140px 40px 160px;
+
+    background: #101010;
+    color: #ffffff;
+}
+
+/* INTESTAZIONE */
+
+.projects .section-heading {
+    max-width: 1320px;
+    margin-bottom: 85px;
+}
+
+.projects .section-label {
+    color: #999999;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+}
+
+.projects .section-heading h2 {
+    max-width: 850px;
+
+    color: #ffffff;
+
+    font-size: clamp(52px, 6vw, 92px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -4px;
+}
+
+.projects .section-description {
+    color: #a5a5a5;
+
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* GRIGLIA PROGETTI */
+
+.projects-grid {
+    max-width: 1320px;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 85px 35px;
+}
+
+/* CARD */
+
+.projects .project-card {
+    min-width: 0;
+    overflow: visible;
+
+    background: transparent;
+
+    border: none;
+    border-radius: 0;
+
+    box-shadow: none;
+}
+
+.projects .project-card:hover {
+    box-shadow: none;
+}
+
+/* IMMAGINI */
+
+.projects .project-image {
+    padding: 0;
+    overflow: hidden;
+
+    background: #222222;
+    border-radius: 22px;
+}
+
+.projects .project-image img {
+    width: 100%;
+    height: 390px;
+
+    object-fit: cover;
+    object-position: center top;
+
+    border-radius: 22px;
+
+    transition:
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.8s ease;
+}
+
+.projects .project-card:hover .project-image img {
+    transform: scale(1.055);
+    filter: brightness(0.9);
+}
+
+/* CONTENUTO */
+
+.projects .project-content {
+    padding: 30px 0 0;
+
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 20px;
+}
+
+.projects .project-number {
+    padding-top: 5px;
+
+    color: #777777;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.projects .project-category {
+    margin-bottom: 15px;
+
+    color: #999999;
+
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    line-height: 1.7;
+}
+
+.projects .project-information h3 {
+    margin-bottom: 18px;
+
+    color: #ffffff;
+
+    font-size: clamp(26px, 2.5vw, 36px);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -1px;
+}
+
+.projects .project-information > p:not(.project-category) {
+    margin-bottom: 22px;
+
+    color: #aaaaaa;
+
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+.projects .project-information a {
+    display: inline-flex;
+    align-items: center;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: opacity 0.3s ease;
+}
+
+.projects .project-information a:hover {
+    opacity: 0.6;
+}
+
+/* CARD DELLA TESI */
+
+.projects .thesis-card {
+    grid-column: 1 / -1;
+
+    min-height: 330px;
+    padding: 50px;
+
+    display: flex;
+    align-items: center;
+
+    background: #1b1b1b;
+
+    border: 1px solid #303030;
+    border-radius: 24px;
+}
+
+.projects .thesis-card .project-content {
+    width: 100%;
+    max-width: 1050px;
+
+    padding: 0;
+}
+
+.projects .thesis-card .project-information h3 {
+    font-size: clamp(32px, 4vw, 55px);
+}
+
+.projects .thesis-card .project-status {
+    color: #eeeeee;
+    background: #333333;
+}
+
+.projects .thesis-card .project-status::before {
+    background: #eeeeee;
+}
+
+/* IMMAGINI SFALSATE */
+
+@media (min-width: 1001px) {
+
+    .projects .project-card:nth-child(even):not(.thesis-card) {
+        margin-top: 75px;
+    }
+
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 65px;
+    }
+
+    .projects .thesis-card {
+        grid-column: auto;
+    }
+
+}
+
+@media (max-width: 720px) {
+
+    .projects {
+        padding: 100px 20px;
+    }
+
+    .projects .project-image img {
+        height: 280px;
+    }
+
+    .projects .project-content {
+        grid-template-columns: 32px 1fr;
+        gap: 12px;
+    }
+
+    .projects .thesis-card {
+        padding: 25px;
+    }
+
+}
+
+/* =========================================
+   ANIMAZIONI PROGETTI
+========================================= */
+
+.projects .project-card.scroll-reveal {
+    opacity: 0;
+    transform: translateY(65px);
+
+    transition:
+        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects .project-card.scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.projects .project-card.scroll-reveal.is-visible:hover {
+    transform: translateY(-6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .projects .project-card.scroll-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .projects .project-card.scroll-reveal.is-visible:hover {
+        transform: none;
+    }
+
+}
