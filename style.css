@@ -1859,3 +1859,178 @@ body {
     }
 
 }
+
+/* =========================================
+   HERO — ORBITAL ANIMATION
+========================================= */
+
+/* CONTENITORE DELLE ORBITE */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* GRANDE AREA CIRCOLARE */
+
+.hero-orbits {
+    position: absolute;
+
+    width: 850px;
+    height: 850px;
+
+    top: 48%;
+    left: 62%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* CIRCONFERENZE */
+
+.hero-orbit {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    border: 1px solid rgba(35, 35, 35, 0.09);
+    border-radius: 50%;
+}
+
+/* ORBITA ESTERNA */
+
+.hero-orbit-1 {
+    width: 850px;
+    height: 850px;
+
+    margin-top: -425px;
+    margin-left: -425px;
+
+    animation: orbitRotation 32s linear infinite;
+}
+
+/* ORBITA CENTRALE */
+
+.hero-orbit-2 {
+    width: 650px;
+    height: 650px;
+
+    margin-top: -325px;
+    margin-left: -325px;
+
+    border-color: rgba(35, 35, 35, 0.12);
+
+    animation: orbitRotationReverse 25s linear infinite;
+}
+
+/* ORBITA INTERNA */
+
+.hero-orbit-3 {
+    width: 450px;
+    height: 450px;
+
+    margin-top: -225px;
+    margin-left: -225px;
+
+    border-color: rgba(35, 35, 35, 0.15);
+
+    animation: orbitRotation 19s linear infinite;
+}
+
+/* PALLINI NERI */
+
+.orbit-dot {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    top: 50%;
+    left: -4px;
+
+    background: #171717;
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.45);
+}
+
+/* DIMENSIONI DIFFERENTI DEI PALLINI */
+
+.hero-orbit-1 .orbit-dot {
+    width: 7px;
+    height: 7px;
+}
+
+.hero-orbit-2 .orbit-dot {
+    width: 6px;
+    height: 6px;
+}
+
+.hero-orbit-3 .orbit-dot {
+    width: 8px;
+    height: 8px;
+}
+
+/* =========================================
+   MOVIMENTO ORBITALE
+========================================= */
+
+@keyframes orbitRotation {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+@keyframes orbitRotationReverse {
+
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+
+}
+
+/* =========================================
+   FOTOGRAFIA SOPRA LE ORBITE
+========================================= */
+
+.hero-photo {
+    position: relative;
+    z-index: 3;
+}
+
+/* ELIMINIAMO I DUE VECCHI CERCHI */
+
+.hero-photo::before,
+.hero-photo::after {
+    content: none;
+}
+
+/* =========================================
+   ACCESSIBILITÀ
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-orbit {
+        animation: none !important;
+    }
+
+}
