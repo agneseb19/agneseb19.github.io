@@ -1060,3 +1060,478 @@ a {
     line-height: 1.7;
     margin: 24px 0;
 }
+
+/* =========================================
+   PORTFOLIO REDESIGN 2026
+   NAVBAR + HERO
+========================================= */
+
+/* NUOVA PALETTE */
+
+:root {
+    --blue: #171717;
+    --dark-blue: #111111;
+    --text: #202020;
+    --light-text: #737373;
+    --light-blue: #f0f0ed;
+    --background: #f7f7f4;
+    --border: #e5e5e1;
+    --white: #ffffff;
+}
+
+/* IMPOSTAZIONI GENERALI */
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar {
+    position: relative;
+
+    width: calc(100% - 80px);
+    max-width: 1380px;
+    min-height: 82px;
+
+    margin: 24px auto 0;
+    padding: 14px 20px 14px 28px;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 22px;
+
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.045);
+
+    animation: navEntrance 0.9s ease both;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+
+    background: #171717;
+    color: #ffffff;
+
+    border-radius: 14px;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    transition: transform 0.35s ease;
+}
+
+.logo:hover {
+    transform: rotate(-8deg);
+}
+
+.menu {
+    gap: 38px;
+}
+
+.menu a {
+    color: #333333;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: color 0.3s ease;
+}
+
+.menu a:hover {
+    color: #888888;
+}
+
+.contact-button {
+    padding: 14px 23px;
+
+    background: #171717;
+    color: #ffffff;
+
+    border-radius: 12px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.contact-button:hover {
+    background: #393939;
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    position: relative;
+
+    margin-top: -106px;
+    padding: 190px 40px 70px;
+
+    overflow: hidden;
+
+    background-color: #f7f7f4;
+    background-image: none;
+
+    border-bottom: none;
+}
+
+.hero-content {
+    position: relative;
+
+    max-width: 1320px;
+    min-height: 620px;
+
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 70px;
+}
+
+.hero-label {
+    margin-bottom: 28px;
+
+    color: #777777;
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+
+    animation: fadeUp 0.8s 0.2s both;
+}
+
+.hero-text h1 {
+    max-width: 760px;
+
+    color: #171717;
+
+    font-size: clamp(55px, 6vw, 92px);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -4.5px;
+
+    animation: fadeUp 1s 0.35s both;
+}
+
+.hero-text h1 span {
+    display: block;
+
+    color: #777777;
+}
+
+.hero-description {
+    max-width: 540px;
+    margin-top: 28px;
+
+    color: #6c6c6c;
+
+    font-size: 16px;
+    line-height: 1.85;
+
+    animation: fadeUp 1s 0.5s both;
+}
+
+/* PULSANTI HERO */
+
+.hero-buttons {
+    margin-top: 38px;
+    gap: 14px;
+
+    animation: fadeUp 1s 0.65s both;
+}
+
+.primary-button,
+.secondary-button {
+    padding: 16px 24px;
+
+    border-radius: 12px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        color 0.35s ease;
+}
+
+.primary-button {
+    background: #171717;
+    color: #ffffff;
+}
+
+.secondary-button {
+    background: transparent;
+    color: #171717;
+
+    border: 1px solid #d3d3cf;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+    transform: translateY(-4px);
+}
+
+/* =========================================
+   FOTOGRAFIA HERO
+========================================= */
+
+.hero-photo {
+    position: relative;
+    isolation: isolate;
+
+    animation: photoEntrance 1.3s 0.45s both;
+}
+
+.hero-photo::before {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    width: 260px;
+    height: 260px;
+
+    top: -45px;
+    right: -45px;
+
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 50%;
+
+    animation: circleFloat 7s ease-in-out infinite;
+}
+
+.hero-photo::after {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    width: 130px;
+    height: 130px;
+
+    bottom: -35px;
+    left: -35px;
+
+    background: #e8e8e3;
+    border-radius: 50%;
+
+    animation: circleFloat 5s ease-in-out infinite reverse;
+}
+
+.hero-photo img {
+    position: relative;
+
+    width: 100%;
+    max-width: 420px;
+    height: 520px;
+
+    object-fit: cover;
+    object-position: center 20%;
+
+    border: none;
+    border-radius: 24px;
+
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.09);
+
+    transition: transform 0.6s ease;
+}
+
+.hero-photo img:hover {
+    transform: scale(1.025);
+}
+
+/* =========================================
+   ANIMAZIONI
+========================================= */
+
+@keyframes navEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes photoEntrance {
+    from {
+        opacity: 0;
+        transform: translateX(50px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes circleFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* =========================================
+   ACCESSIBILITÀ ANIMAZIONI
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .navbar,
+    .hero-label,
+    .hero-text h1,
+    .hero-description,
+    .hero-buttons,
+    .hero-photo,
+    .hero-photo::before,
+    .hero-photo::after {
+        animation: none !important;
+    }
+}
+
+/* =========================================
+   PORTFOLIO REDESIGN 2026
+   SEZIONE CHI SONO
+========================================= */
+
+.about {
+    position: relative;
+    overflow: hidden;
+
+    padding: 150px 40px 170px;
+
+    background: #f7f7f4;
+}
+
+.about .section-heading {
+    max-width: 1320px;
+    margin-bottom: 85px;
+}
+
+.about .section-label {
+    color: #777777;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+}
+
+.about .section-heading h2 {
+    max-width: 900px;
+
+    color: #171717;
+
+    font-size: clamp(55px, 6vw, 95px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -4px;
+}
+
+.about-grid {
+    max-width: 1320px;
+
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 120px;
+
+    align-items: start;
+}
+
+.about-main-text p {
+    max-width: 760px;
+
+    margin-bottom: 32px;
+
+    color: #575757;
+
+    font-size: clamp(18px, 1.7vw, 23px);
+    font-weight: 400;
+    line-height: 1.85;
+}
+
+/* DETTAGLI PERSONALI */
+
+.about-details {
+    border-top: 1px solid #d8d8d4;
+}
+
+.about .detail {
+    padding: 28px 0;
+
+    grid-template-columns: 110px 1fr;
+    gap: 18px;
+
+    border-bottom: 1px solid #d8d8d4;
+}
+
+.about .detail span {
+    color: #888888;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.about .detail p {
+    color: #272727;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.65;
+}
+
+/* ANIMAZIONI ALLO SCROLL */
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(55px);
+
+    transition:
+        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-main-text .scroll-reveal:nth-child(2) {
+    transition-delay: 0.12s;
+}
+
+.about-main-text .scroll-reveal:nth-child(3) {
+    transition-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
