@@ -2,847 +2,1188 @@
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <meta name="description"
+    content="Portfolio di Agnese Barnaba: sviluppo front-end, web design, interfacce e progetti digitali.">
 
-    <meta
-        name="description"
-        content="Portfolio di Agnese Barnaba, Front-end Developer e UI/UX Designer."
-    >
+  <title>Agnese Barnaba | Portfolio</title>
 
-    <title>Agnese Barnaba | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500&display=swap"
+    rel="stylesheet">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-
-<script src="script.js" defer></script>
 
 <body>
 
-    <!-- NAVBAR -->
-    <header class="navbar">
+  <div class="scroll-progress"></div>
 
-        <a href="#home" class="logo">
-            AB
+  <!-- NAVBAR -->
+
+  <header class="site-header">
+
+    <nav class="nav-pill">
+
+      <a href="#home" class="brand">
+
+        <span class="brand-flower">
+          <i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i>
+        </span>
+
+        <span>AGNESE BARNABA</span>
+
+      </a>
+
+      <button class="menu-toggle"
+        type="button"
+        aria-label="Apri il menu"
+        aria-expanded="false"
+        aria-controls="nav-links">
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#projects">Progetti</a>
+        <a href="#about">Profilo</a>
+        <a href="#skills">Competenze</a>
+        <a href="#experience">Percorso</a>
+      </div>
+
+      <a href="#contact" class="nav-contact">
+        Contatti <span>↗</span>
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <main>
+
+    <!-- =====================================
+         HERO
+    ====================================== -->
+
+    <section class="hero" id="home">
+
+      <div class="hero-grid"></div>
+
+      <div class="hero-glow hero-glow-a"></div>
+      <div class="hero-glow hero-glow-b"></div>
+
+      <div class="hero-copy">
+
+        <span class="eyebrow hero-eyebrow">
+          <span class="online-dot"></span>
+          UI/UX DESIGNER · FRONT-END DEVELOPER
+        </span>
+
+        <h1 class="hero-title">
+
+          <span class="line">Designing</span>
+          <span class="line italic-line">digital</span>
+          <span class="line">experiences.</span>
+
+        </h1>
+
+        <p class="hero-intro">
+          Laureanda in Lingue nella Società dell’Informazione
+          presso l’Università di Roma Tor Vergata, con un
+          percorso orientato allo sviluppo front-end,
+          al web design e alla progettazione di interfacce digitali.
+        </p>
+
+        <div class="hero-actions">
+
+          <a href="#projects" class="button button-dark">
+            Esplora i progetti
+            <span>↗</span>
+          </a>
+
+          <a href="https://github.com/agneseb19"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="button button-light">
+            GitHub ↗
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- COLLAGE ANIMATO -->
+
+      <div class="hero-art">
+
+        <span class="hero-art-word word-ui">
+          UI/UX
+        </span>
+
+        <span class="hero-art-word word-design">
+          DESIGN
+        </span>
+
+        <span class="hero-art-word word-front">
+          FRONT-END
+        </span>
+
+        <span class="hero-spark spark-one"></span>
+        <span class="hero-spark spark-two"></span>
+        <span class="hero-spark spark-three"></span>
+
+
+        <!-- VYRA ONE -->
+
+        <div class="floating-preview preview-vyra"
+          data-depth="14">
+
+          <img
+            src="https://raw.githubusercontent.com/agneseb19/vyra-one/main/images/vyra-one-side.png"
+            alt="Anteprima VYRA ONE">
+
+        </div>
+
+
+        <!-- ECOMEDICA -->
+
+        <div class="floating-preview preview-ecomedica"
+          data-depth="-10">
+
+          <img
+            src="/projects/ecomedica/assets/ecomedica.png"
+            alt="Anteprima Ecomedica">
+
+        </div>
+
+
+        <!-- CREATIONWEB -->
+
+        <div class="floating-preview preview-creation"
+          data-depth="12">
+
+          <img
+            src="images/creationweb.png"
+            alt="Anteprima CreationWeb">
+
+        </div>
+
+
+        <!-- CUBO 3D -->
+
+        <div class="cube-scene">
+
+          <div class="cube">
+
+            <span class="cube-face cube-front">CODE</span>
+            <span class="cube-face cube-back">WEB</span>
+            <span class="cube-face cube-right">UI</span>
+            <span class="cube-face cube-left">UX</span>
+            <span class="cube-face cube-top">DESIGN</span>
+            <span class="cube-face cube-bottom">CREATE</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <a href="#projects" class="hero-scroll">
+        <span></span>
+        SCROLL TO EXPLORE
+      </a>
+
+    </section>
+
+
+    <!-- =====================================
+         NASTRO ANIMATO
+    ====================================== -->
+
+    <div class="ticker">
+
+      <div class="ticker-track">
+
+        <span>
+          UI/UX DESIGN ✳ FIGMA ✳ RESPONSIVE DESIGN ✳
+          FRONT-END DEVELOPMENT ✳ CREATIVE CODING ✳
+        </span>
+
+        <span>
+          UI/UX DESIGN ✳ FIGMA ✳ RESPONSIVE DESIGN ✳
+          FRONT-END DEVELOPMENT ✳ CREATIVE CODING ✳
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================
+         PROGETTI
+    ====================================== -->
+
+    <section class="projects section" id="projects">
+
+      <div class="section-top reveal">
+
+        <span class="kicker">
+          01 / PROGETTI
+        </span>
+
+        <h2>
+          Selected work<span class="heading-dot">.</span>
+        </h2>
+
+        <span class="section-side-note">
+          FRONT-END DEVELOPMENT · UI/UX DESIGN
+        </span>
+
+      </div>
+
+
+      <div class="project-list">
+
+        <!-- 01 VYRA ONE -->
+
+        <article class="project-row reveal">
+
+          <div class="project-index">
+            <strong>01</strong>
+            <span>PROGETTO PERSONALE<br>3D EXPERIENCE</span>
+          </div>
+
+          <a class="project-shot"
+            href="https://agneseb19.github.io/vyra-one/"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            <img
+              src="https://raw.githubusercontent.com/agneseb19/vyra-one/main/images/vyra-one-side.png"
+              alt="VYRA ONE">
+
+            <span class="shot-arrow">↗</span>
+
+          </a>
+
+          <div class="project-body">
+
+            <h3>VYRA ONE</h3>
+
+            <p>
+              Progetto personale di sperimentazione dedicato alle
+              animazioni web avanzate e alle esperienze tridimensionali
+              interattive. Landing page automotive con modello 3D,
+              animazioni legate allo scroll e configuratore
+              per la personalizzazione del veicolo.
+            </p>
+
+            <div class="tag-list">
+              <span>JAVASCRIPT</span>
+              <span>THREE.JS</span>
+              <span>GSAP</span>
+              <span>HTML5</span>
+              <span>CSS3</span>
+            </div>
+
+            <div class="project-links">
+              <a href="https://agneseb19.github.io/vyra-one/"
+                target="_blank">LIVE PROJECT ↗</a>
+
+              <a href="https://github.com/agneseb19/vyra-one"
+                target="_blank">GITHUB ↗</a>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 02 CREATIONWEB -->
+
+        <article class="project-row reveal">
+
+          <div class="project-index">
+            <strong>02</strong>
+            <span>PROGETTO REALE<br>SITO WEB</span>
+          </div>
+
+          <a class="project-shot"
+            href="https://agneseb19.github.io/creationweb-redesign/"
+            target="_blank">
+
+            <img src="images/creationweb.png"
+              alt="CreationWeb">
+
+            <span class="shot-arrow">↗</span>
+
+          </a>
+
+          <div class="project-body">
+
+            <h3>CreationWeb</h3>
+
+            <p>
+              Redesign e sviluppo del nuovo sito ufficiale di
+              CreationWeb, agenzia di comunicazione digitale.
+              Progetto realizzato con HTML, CSS e JavaScript,
+              con particolare attenzione al design,
+              alla navigazione e alle interazioni.
+            </p>
+
+            <div class="tag-list">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>JAVASCRIPT</span>
+              <span>UI/UX DESIGN</span>
+            </div>
+
+            <div class="project-links">
+              <a href="https://agneseb19.github.io/creationweb-redesign/"
+                target="_blank">
+                LIVE PROJECT ↗
+              </a>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 03 ECOMEDICA -->
+
+        <article class="project-row reveal">
+
+          <div class="project-index">
+            <strong>03</strong>
+            <span>PROGETTO PERSONALE<br>REDESIGN</span>
+          </div>
+
+          <a class="project-shot"
+            href="https://agneseb19.github.io/ecomedica-redesign/"
+            target="_blank">
+
+            <img
+              src="/projects/ecomedica/assets/ecomedica.png"
+              alt="Redesign Ecomedica">
+
+            <span class="shot-arrow">↗</span>
+
+          </a>
+
+          <div class="project-body">
+
+            <h3>Ecomedica<br>Valmontone</h3>
+
+            <p>
+              Progetto personale e non commissionato di redesign
+              del sito Ecomedica, nato come esercitazione
+              per approfondire UI design e sviluppo front-end.
+              Il progetto non è stato completato né commissionato
+              dall’azienda.
+            </p>
+
+            <div class="tag-list">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>UI DESIGN</span>
+            </div>
+
+            <div class="project-links">
+              <a href="https://agneseb19.github.io/ecomedica-redesign/"
+                target="_blank">
+                VEDI PROGETTO ↗
+              </a>
+            </div>
+
+          </div>
+
+        </article>
+
+        <!-- =====================================
+     PROGETTI UNIVERSITARI
+====================================== -->
+
+<section class="university-section">
+
+    <div class="university-header">
+
+        <span class="university-label">
+            PROGETTI UNIVERSITARI
+        </span>
+
+        <h3>
+            Progetti universitari
+        </h3>
+
+        <div class="university-actions">
+
+            <span class="university-count">
+                05
+            </span>
+
+            <button
+                type="button"
+                class="university-toggle"
+                aria-expanded="false"
+                aria-controls="university-projects"
+                aria-label="Mostra progetti universitari"
+            >
+                <span class="university-toggle-icon">+</span>
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="university-panel" id="university-projects" inert>
+
+        <div class="university-panel-inner">
+
+            <div class="university-cards">
+
+        <!-- 04 POSTE ITALIANE -->
+
+        <article class="project-row reveal">
+
+          <div class="project-index">
+            <strong>04</strong>
+            <span>PROGETTO UNIVERSITARIO</span>
+          </div>
+
+          <a class="project-shot"
+            href="https://www.figma.com/design/SlVJYv1SK6yWmSKxtP7421/Redesign-App-Poste-Italiane?node-id=0-1"
+            target="_blank">
+
+            <img src="images/poste-italiane.png"
+              alt="Poste Italiane Redesign">
+
+            <span class="shot-arrow">↗</span>
+
+          </a>
+
+          <div class="project-body">
+
+            <h3>Poste Italiane<br>Redesign</h3>
+
+            <p>
+              Progetto universitario di redesign dell’interfaccia
+              di Poste Italiane, realizzato in Figma con
+              particolare attenzione all’usabilità,
+              all’organizzazione dei contenuti e alla user experience.
+            </p>
+
+            <div class="tag-list">
+              <span>FIGMA</span>
+              <span>UI/UX DESIGN</span>
+              <span>PROTOTYPING</span>
+            </div>
+
+            <div class="project-links">
+              <a href="https://www.figma.com/design/SlVJYv1SK6yWmSKxtP7421/Redesign-App-Poste-Italiane?node-id=0-1"
+                target="_blank">
+                APRI IN FIGMA ↗
+              </a>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 05 MYWELLNESS -->
+
+        <article class="project-row reveal">
+
+          <div class="project-index">
+            <strong>05</strong>
+            <span>PROGETTO UNIVERSITARIO</span>
+          </div>
+
+          <a class="project-shot"
+            href="https://mywellnessdiary.altervista.org"
+            target="_blank">
+
+            <img src="images/mywellness-diary.png"
+              alt="MyWellness Diary">
+
+            <span class="shot-arrow">↗</span>
+
+          </a>
+
+          <div class="project-body">
+
+            <h3>MyWellness<br>Diary</h3>
+
+            <p>
+              Progetto universitario di realizzazione di un
+              sito fittizio dedicato al fitness e al benessere,
+              progettato con WordPress e organizzato per offrire
+              contenuti chiari e facili da trovare.
+            </p>
+
+            <div class="tag-list">
+              <span>WORDPRESS</span>
+              <span>WEB DESIGN</span>
+            </div>
+
+            <div class="project-links">
+              <a href="https://mywellnessdiary.altervista.org"
+                target="_blank">
+                VEDI PROGETTO ↗
+              </a>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 06 NEWFITNESS -->
+
+        <article class="project-row reveal">
+
+          <div class="project-index">
+            <strong>06</strong>
+            <span>PROGETTO UNIVERSITARIO</span>
+          </div>
+
+          <a class="project-shot"
+            href="projects/newfitness-gym/"
+            target="_blank">
+
+            <img src="images/newfitness-gym.png"
+              alt="NewFitness Gym">
+
+            <span class="shot-arrow">↗</span>
+
+          </a>
+
+          <div class="project-body">
+
+            <h3>NewFitness<br>Gym</h3>
+
+            <p>
+              Esercitazione universitaria sulla creazione di
+              un sito con HTML5 e CSS3, lavorando sulla struttura
+              delle pagine, sull’organizzazione dei contenuti
+              e sulla progettazione dell’interfaccia.
+            </p>
+
+            <div class="tag-list">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>FRONT-END</span>
+            </div>
+
+            <div class="project-links">
+              <a href="projects/newfitness-gym/"
+                target="_blank">
+                VISITA IL SITO ↗
+              </a>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 07 ACROSS THE MAP -->
+
+        <article class="project-row reveal">
+
+          <div class="project-index">
+            <strong>07</strong>
+            <span>PROGETTO UNIVERSITARIO</span>
+          </div>
+
+          <a class="project-shot"
+            href="https://acrossthemap.altervista.org/"
+            target="_blank">
+
+            <img src="images/across-the-map.png"
+              alt="Across the Map">
+
+            <span class="shot-arrow">↗</span>
+
+          </a>
+
+          <div class="project-body">
+
+            <h3>Across<br>the Map</h3>
+
+            <p>
+              Progetto universitario in lingua inglese
+              dedicato alla comunicazione digitale multimodale,
+              con attenzione alla struttura e all’organizzazione
+              visiva dei contenuti.
+            </p>
+
+            <div class="tag-list">
+              <span>DIGITAL COMMUNICATION</span>
+              <span>WEB DESIGN</span>
+            </div>
+
+            <div class="project-links">
+              <a href="https://acrossthemap.altervista.org/"
+                target="_blank">
+                VISITA IL SITO ↗
+              </a>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 08 TESI -->
+
+        <article class="project-row thesis-row reveal">
+
+          <div class="project-index">
+            <strong>08</strong>
+            <span>TESI DI LAUREA<br>PROGETTO IN CORSO</span>
+          </div>
+
+          <div class="thesis-visual">
+
+            <span class="thesis-eyebrow">
+              GENERATIVE AI × LUXURY DIGITAL DESIGN
+            </span>
+
+            <div class="thesis-monogram">
+              A<span>✳</span>
+            </div>
+
+            <span class="thesis-footer">
+              AUREA · MEDITERRANEAN RETREAT
+            </span>
+
+          </div>
+
+          <div class="project-body">
+
+            <h3>AI &amp; Luxury<br>Digital Design</h3>
+
+            <p>
+              Tesi sull’utilizzo dell’AI generativa nei
+              processi di digital design per il settore luxury,
+              con focus sul prompt engineering.
+              La parte pratica analizza la progettazione della
+              homepage AUREA, un Mediterranean Retreat a Ravello,
+              attraverso prompt a complessità crescente.
+            </p>
+
+            <p class="thesis-quote">
+              «Quanto bisogna dire all’AI prima che smetta
+              di creare un generico hotel di lusso
+              e inizi davvero a creare AUREA?»
+            </p>
+
+            <div class="tag-list">
+              <span>AI GENERATIVA</span>
+              <span>PROMPT ENGINEERING</span>
+              <span>FIGMA MAKE</span>
+            </div>
+
+            <span class="project-in-progress">
+              PROGETTO IN CORSO
+            </span>
+
+          </div>
+
+        </article>
+
+                    </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================
+         PROFILO
+    ====================================== -->
+
+    <section class="about section" id="about">
+
+      <div class="about-backdrop"></div>
+
+      <div class="about-heading reveal">
+
+        <span class="kicker">02 / PROFILO</span>
+
+        <h2>
+          Curiosa,<br>
+          organizzata,<br>
+          concreta<span class="heading-dot">.</span>
+        </h2>
+
+      </div>
+
+      <div class="about-cards">
+
+        <figure class="about-photo reveal">
+
+          <img src="images/profile.png"
+            alt="Foto di Agnese Barnaba">
+
+          <figcaption>
+            UI/UX DESIGNER · FRONT-END DEVELOPER
+          </figcaption>
+
+        </figure>
+
+
+        <div class="about-bio reveal">
+
+          <p>
+            Sono Agnese, laureanda in
+            <em>Lingue nella Società dell'Informazione</em>
+            all'Università di Roma Tor Vergata.
+            Il mio percorso unisce tecnologie web,
+            comunicazione digitale e lingue.
+          </p>
+
+          <p>
+            Mi sto orientando verso lo
+            <em>sviluppo front-end</em>
+            e la progettazione UI/UX.
+            Ho lavorato alla realizzazione di siti web
+            con HTML5, CSS3 e WordPress e alla
+            progettazione di interfacce attraverso Figma.
+          </p>
+
+          <p>
+            Mi interessa trasformare idee
+            in interfacce chiare, funzionali
+            e visivamente coerenti.
+          </p>
+
+        </div>
+
+
+        <div class="facts-card reveal">
+
+          <dl>
+
+            <div>
+              <dt>FORMAZIONE</dt>
+              <dd>Università di Roma Tor Vergata</dd>
+            </div>
+
+            <div>
+              <dt>AMBITO</dt>
+              <dd>Front-end Development &amp; UI Design</dd>
+            </div>
+
+            <div>
+              <dt>DISPONIBILITÀ</dt>
+              <dd>Opportunità lavorative e collaborazioni</dd>
+            </div>
+
+          </dl>
+
+        </div>
+
+
+        <a class="github-card reveal"
+          href="https://github.com/agneseb19"
+          target="_blank"
+          rel="noopener noreferrer">
+
+          <span>GITHUB ↗</span>
+
+          <strong>agneseb19</strong>
+
+          <small>ESPLORA I MIEI REPOSITORY ↗</small>
+
         </a>
 
-        <nav class="menu">
-            <a href="#about">Chi sono</a>
-            <a href="#projects">Progetti</a>
-            <a href="#skills">Competenze</a>
-            <a href="#contact">Contatti</a>
-        </nav>
+      </div>
 
-        <a href="#contact" class="contact-button">
-            Parliamo
-        </a>
-
-    </header>
+    </section>
 
 
-    <main>
+    <!-- =====================================
+         COMPETENZE
+    ====================================== -->
 
-        <!-- HERO -->
-<section class="hero" id="home">
+    <section class="skills section" id="skills">
 
-    <!-- ANIMAZIONE ORBITALE HERO -->
+      <div class="skills-layout">
 
-<div class="hero-orbits" aria-hidden="true">
+        <div class="skills-aside reveal">
 
-    <div class="hero-orbit hero-orbit-1">
-        <span class="orbit-dot"></span>
-    </div>
+          <span class="kicker">
+            03 / COMPETENZE TECNICHE
+          </span>
 
-    <div class="hero-orbit hero-orbit-2">
-        <span class="orbit-dot"></span>
-    </div>
+          <h2>
+            Design<br>
+            meets<br>
+            code<span class="heading-dot">.</span>
+          </h2>
 
-    <div class="hero-orbit hero-orbit-3">
-        <span class="orbit-dot"></span>
-    </div>
+          <div class="skills-orbit">
+
+            <span class="orbit-center"></span>
+
+            <span class="orbit-label orbit-label-one">UI</span>
+            <span class="orbit-label orbit-label-two">UX</span>
+            <span class="orbit-label orbit-label-three">DEV</span>
+
+          </div>
+
+        </div>
+
+
+        <!-- GRIGLIA COMPETENZE TECNICHE -->
+
+<div class="skills-grid">
+
+    <!-- 01 FRONT-END -->
+
+    <article class="skill-tile reveal">
+
+        <span>01</span>
+
+        <h3>Front-end</h3>
+
+        <p>
+            HTML5 CSS3 Responsive Design
+        </p>
+
+    </article>
+
+
+    <!-- 02 UI/UX DESIGN -->
+
+    <article class="skill-tile reveal">
+
+        <span>02</span>
+
+        <h3>UI/UX Design</h3>
+
+        <p>
+            Figma UI Design Gerarchia visiva
+            UX basics
+        </p>
+
+    </article>
+
+
+    <!-- 03 CMS -->
+
+    <article class="skill-tile reveal">
+
+        <span>03</span>
+
+        <h3>CMS</h3>
+
+        <p>
+            WordPress Altervista Gestione contenuti
+            Personalizzazione grafica
+        </p>
+
+    </article>
+
+
+    <!-- 04 STRUMENTI -->
+
+    <article class="skill-tile reveal">
+
+        <span>04</span>
+
+        <h3>Strumenti</h3>
+
+        <p>
+            Visual Studio Code GitHub
+            Chrome DevTools Microsoft Office
+        </p>
+
+    </article>
+
+
+    <!-- 05 AI & INNOVAZIONE -->
+
+    <article class="skill-tile reveal">
+
+        <span>05</span>
+
+        <h3>AI &amp; Innovazione</h3>
+
+        <p>
+            Figma Make Prompt Engineering
+            AI Generativa
+        </p>
+
+    </article>
+
+
+    <!-- 06 DATABASE -->
+
+    <article class="skill-tile reveal">
+
+        <span>06</span>
+
+        <h3>Database</h3>
+
+        <p>
+            SQL MySQL
+        </p>
+
+    </article>
 
 </div>
 
-    <div class="hero-content">
+      </div>
 
-        <div class="hero-text">
+    </section>
 
-            <p class="hero-label">
-    CIAO, SONO AGNESE
-</p>
+<!-- =====================================
+     LINGUE
+====================================== -->
 
-<h1>
-    Front-end Developer
-    <span>&amp; Web Designer</span>
-</h1>
+<section class="languages section" id="languages">
 
-<p class="hero-description">
-    Laureanda in Lingue nella Società dell’Informazione
-    all’Università di Roma Tor Vergata, con un percorso
-    orientato allo sviluppo front-end, al web design e alla
-    progettazione di interfacce digitali.
-    
-</p>
-            <div class="hero-buttons">
+    <div class="languages-container">
 
-                <a href="#projects" class="primary-button">
-                    Scopri i progetti
-                </a>
+        <div class="languages-heading reveal">
 
-                <a href="#about" class="secondary-button">
-                    Chi sono
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="hero-photo">
-            <img
-                src="images/profile.png"
-                alt="Foto di Agnese Barnaba"
-            >
-        </div>
-
-
-    </div>
-
-
-            <!-- TRE CARATTERISTICHE -->
-            <div class="highlights">
-
-                <div class="highlight">
-
-                    <span class="highlight-number">
-                        01
-                    </span>
-
-                    <h2>
-                        UI design orientato
-                        all’usabilità
-                    </h2>
-
-                </div>
-
-
-                <div class="highlight">
-
-                    <span class="highlight-number">
-                        02
-                    </span>
-
-                    <h2>
-                        Sviluppo responsive
-                        e accessibile
-                    </h2>
-
-                </div>
-
-
-                <div class="highlight">
-
-                    <span class="highlight-number">
-                        03
-                    </span>
-
-                    <h2>
-                        Attenzione a identità
-                        e contenuti
-                    </h2>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CHI SONO -->
-        <section class="about section" id="about">
-
-            <div class="section-heading scroll-reveal">
-
-                <p class="section-label">
-                    CHI SONO
-                </p>
-
-                <h2>
-                    Design, comunicazione
-                    e tecnologia.
-                </h2>
-
-            </div>
-
-
-            <div class="about-grid">
-
-                <div class="about-main-text">
-
-                   <p class="scroll-reveal">
-    Sono Agnese e sono una laureanda in Lingue nella Società
-    dell’Informazione all’Università di Roma Tor Vergata.
-    Il mio percorso unisce tecnologie web, comunicazione digitale
-    e lingue.
-</p>
-
-<p class="scroll-reveal">
-    Mi sto orientando verso lo sviluppo front-end e la progettazione
-    UI/UX. Ho lavorato alla realizzazione di siti web con HTML5,
-    CSS3 e WordPress e alla progettazione di interfacce responsive
-    attraverso Figma.
-</p>
-
-<p class="scroll-reveal">
-    Mi interessa soprattutto il punto d’incontro tra sviluppo e design:
-    trasformare un’idea in un’interfaccia chiara, funzionale
-    e visivamente coerente.
-</p>
-
-                </div>
-
-
-                <div class="about-details scroll-reveal">
-
-                    <div class="detail">
-
-                        <span>Formazione</span>
-
-                        <p>
-                            Università degli Studi di Roma Tor Vergata
-                        </p>
-
-                    </div>
-
-
-                    <div class="detail">
-
-                        <span>Ambito</span>
-
-                        <p>
-                            Front-end development e UI/UX design
-                        </p>
-
-                    </div>
-
-
-                    <div class="detail">
-
-                        <span>Disponibilità</span>
-
-                        <p>
-                            Nuove opportunità lavorative e collaborazioni
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- PROGETTI -->
-        <section class="projects section" id="projects">
-
-            <div class="section-heading projects-heading scroll-reveal">
-
-                <div>
-
-                    <p class="section-label">
-                        PROGETTI
-                    </p>
-
-                    <h2>
-                        Una selezione
-                        dei miei lavori
-                    </h2>
-
-                </div>
-
-                <p class="section-description">
-                    Una selezione di progetti personali e accademici
-                    tra sviluppo front-end, UI/UX design e web design.
-                </p>
-
-            </div>
-
-
-            <div class="projects-grid">
-
-                <!-- ========================================
-     VYRA ONE — 3D EXPERIENCE
-======================================== -->
-
-<article class="project-card scroll-reveal">
-
-    <div class="project-image">
-        <img
-            src="https://raw.githubusercontent.com/agneseb19/vyra-one/main/images/vyra-one-side.png"
-            alt="VYRA ONE - Concept automotive 3D interattivo"
-        >
-    </div>
-
-    <div class="project-content">
-
-        <div class="project-number">
-            01
-        </div>
-
-        <div class="project-information">
-
-            <p class="project-category">
-                PROGETTO PERSONALE · THREE.JS · GSAP · JAVASCRIPT
-            </p>
-
-            <h3>
-                VYRA ONE — 3D Experience
-            </h3>
-
-            <p>
-                Progetto personale di sperimentazione dedicato
-                alle animazioni web avanzate e alle esperienze
-                tridimensionali interattive.
-
-                Ho sviluppato una landing page automotive
-                utilizzando HTML, CSS, JavaScript, Three.js
-                e GSAP, integrando un modello 3D interattivo,
-                animazioni cinematografiche legate allo scroll
-                e un configuratore per la personalizzazione
-                del veicolo.
-
-                Il progetto esplora le possibilità del 3D
-                nel web design e l'utilizzo delle animazioni
-                per creare esperienze digitali immersive.
-            </p>
-
-            <a
-                href="https://agneseb19.github.io/vyra-one/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Esplora il progetto
-                <span>↗</span>
-            </a>
-
-        </div>
-
-    </div>
-
-</article>
-
-<!-- CREATIONWEB -->
-<article class="project-card scroll-reveal">
-
-    <div class="project-image">
-        <img
-            src="images/creationweb.png"
-            alt="Nuovo sito ufficiale CreationWeb"
-        >
-    </div>
-
-    <div class="project-content">
-
-        <div class="project-number">
-            02
-        </div>
-
-        <div class="project-information">
-
-            <p class="project-category">
-                PROGETTO REALE · HTML/CSS/JS · UI/UX DESIGN
-            </p>
-
-            <h3>
-                CreationWeb
-            </h3>
-
-            <p>
-                Redesign e sviluppo del nuovo sito ufficiale di CreationWeb,
-                agenzia di comunicazione digitale. Il progetto è stato
-                realizzato in HTML, CSS e JavaScript ed è attualmente
-                in fase di pubblicazione: andrà online a breve come
-                nuovo sito dell’agenzia.
-            </p>
-
-            <a
-                href="https://agneseb19.github.io/creationweb-redesign/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Visita il nuovo sito
-                <span>↗</span>
-            </a>
-
-        </div>
-
-    </div>
-
-</article>
-                
-                <!-- REDESIGN ECOMEDICA -->
-                <article class="project-card scroll-reveal">
-
-                    <div class="project-image">
-
-                        <img
-                            src="/projects/ecomedica/assets/ecomedica.png"
-                            alt="Redesign del sito Ecomedica"
-                        >
-
-                    </div>
-
-                    <div class="project-content">
-
-                        <div class="project-number">
-                            03
-                        </div>
-
-                        <div class="project-information">
-
-                            <p class="project-category">
-                                PROGETTO PERSONALE · UI/UX DESIGN · HTML/CSS/JS
-                            </p>
-
-                            <h3>
-                                Redesign Ecomedica
-                            </h3>
-
-                            <p>
-    Progetto personale di redesign del sito Ecomedica, nato come
-    esercitazione per approfondire UI design e sviluppo front-end.
-    Il progetto non è stato completato né commissionato dall’azienda,
-    ma sviluppato autonomamente a scopo di pratica.
-                            </p>
-
-                            <a href="https://agneseb19.github.io/ecomedica-redesign/"
-                                target="_blank"> Vedi il progetto
-                                <span>↗</span>
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-                
-
-                 <!-- PROGETTO POSTE ITALIANE -->
-                <article class="project-card scroll-reveal">
-
-                    <div class="project-image">
-
-                        <img
-                            src="images/poste-italiane.png"
-                            alt="Redesign del sito Poste Italiane"
-                        >
-
-                    </div>
-
-                    <div class="project-content">
-
-                        <div class="project-number">
-                            04
-                        </div>
-
-                        <div class="project-information">
-
-                            <p class="project-category">
-                                PROGETTO UNIVERSITARIO · UI/UX DESIGN · FIGMA
-                            </p>
-
-                            <h3>
-                                Poste Italiane Redesign
-                            </h3>
-
-                            <p>
-    Progetto universitario di redesign dell’interfaccia di Poste Italiane,
-    realizzato in Figma con particolare attenzione a usabilità,
-    organizzazione dei contenuti e user experience. 
-    Obiettivo: rendere la navigazione più chiara, moderna e intuitiva.
-                            </p>
-
-                            <a href="https://www.figma.com/design/SlVJYv1SK6yWmSKxtP7421/Redesign-App-Poste-Italiane?node-id=0-1&t=cDa11VwNbGKDDC7r-1">
-                                Apri il progetto in Figma
-                                <span>↗</span>
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROGETTO MYWELLNESS -->
-                <article class="project-card scroll-reveal">
-
-                    <div class="project-image">
-
-                        <img
-                            src="images/mywellness-diary.png"
-                            alt="Sito MyWellness Diary"
-                        >
-
-                    </div>
-
-                    <div class="project-content">
-
-                        <div class="project-number">
-                            05
-                        </div>
-
-                        <div class="project-information">
-
-                            <p class="project-category">
-                                PROGETTO UNIVERSITARIO · WEB DESIGN · WORDPRESS
-                            </p>
-
-                            <h3>
-                                MyWellness Diary
-                            </h3>
-
-                            <p>
-                                Progetto universitario di realizzazione di 
-                                un sito fittizio dedicato al fitness e al benessere,
-                                progettato con WordPress e organizzato
-                                per offrire contenuti chiari e facili da trovare.
-                            </p>
-
-                            <a href="https://mywellnessdiary.altervista.org">
-                                Vedi il progetto
-                                <span>↗</span>
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-               <!-- PROGETTO NEWFITNESS GYM -->
-<article class="project-card scroll-reveal">
-
-    <div class="project-image">
-        <img
-            src="images/newfitness-gym.png"
-            alt="Anteprima del sito NewFitness Gym"
-        >
-    </div>
-
-    <div class="project-content">
-
-        <div class="project-number">
-            06
-        </div>
-
-        <div class="project-information">
-
-            <p class="project-category">
-                PROGETTO UNIVERSITARIO · FRONT-END DEVELOPMENT · HTML/CSS
-            </p>
-
-            <h3>
-                NewFitness Gym
-            </h3>
-
-            <p>
-                Progetto universitario sviluppato come esercitazione
-                sulla creazione di un sito web sviluppato con HTML5 e CSS3,
-                lavorando sulla struttura delle pagine,
-                sull'organizzazione dei contenuti e sulla
-                progettazione dell'interfaccia.
-            </p>
-
-            <a
-                href="projects/newfitness-gym/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Visita il sito
-                <span>↗</span>
-            </a>
-
-        </div>
-
-    </div>
-
-</article>
-
-
-<!-- PROGETTO ACROSS THE MAP -->
-<article class="project-card scroll-reveal">
-
-    <div class="project-image">
-        <img
-            src="images/across-the-map.png"
-            alt="Anteprima del sito Across the Map"
-        >
-    </div>
-
-    <div class="project-content">
-
-        <div class="project-number">
-            07
-        </div>
-
-        <div class="project-information">
-
-            <p class="project-category">
-               PROGETTO UNIVERSITARIO · DIGITAL COMMUNICATION · WEB DESIGN
-            </p>
-
-            <h3>
-                Across the Map
-            </h3>
-
-            <p>
-                Progetto universitario in lingua inglese dedicato alla comunicazione
-                digitale multimodale, con attenzione alla struttura,
-                all’organizzazione visiva dei contenuti e all’esperienza
-                di un pubblico internazionale.
-            </p>
-
-            <a
-                href="https://acrossthemap.altervista.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Visita il sito
-                <span>↗</span>
-            </a>
-
-        </div>
-
-    </div>
-
-</article>
-
-                <!-- PROGETTO TESI -->
-<article class="project-card thesis-card scroll-reveal">
-
-    <div class="project-content">
-
-        <div class="project-number">
-            08
-        </div>
-
-        <div class="project-information">
-
-            <p class="project-category">
-                TESI DI LAUREA · AI GENERATIVA · PROMPT ENGINEERING 
-            </p>
-
-            <h3>
-                AI &amp; Luxury Digital Design
-            </h3>
-
-            <p>
-    Tesi di laurea sull’utilizzo dell’AI generativa nei processi di digital
-    design per il settore luxury, con focus sul prompt engineering e sulla
-    capacità delle istruzioni di guidare coerenza visiva e identità di brand.
-</p>
-
- <p class="thesis-question">
-    “Quanto bisogna dire all’AI prima che smetta di creare
-    un generico hotel di lusso e inizi davvero a creare AUREA?”
-</p>
-            
-<p>
-    Per la parte pratica ho progettato AUREA, un concept di Mediterranean
-    Retreat ultra-luxury a Ravello, costruendo una sequenza di prompt a
-    complessità crescente. Ho analizzato gli output prodotti con Figma Make
-    e ChatGPT in HTML/CSS, osservando come target, palette, typography,
-    art direction, contenuti e vincoli modificano progressivamente la homepage
-    e riducono errori, elementi fuori contesto e interpretazioni generiche del lusso.
-</p>
-
-           
-
-            <span class="project-status">
-                Progetto in corso
+            <span class="kicker">
+                LINGUE
             </span>
 
         </div>
 
-    </div>
+        <div class="languages-grid">
 
-</article>
+            <!-- ITALIANO -->
 
-            </div>
+            <div class="language-card reveal">
 
-        </section>
+                <span class="language-name">
+                    Italiano
+                </span>
 
+                <div class="language-info">
 
-        <!-- COMPETENZE -->
-        <section class="skills section" id="skills">
-
-            <div class="section-heading scroll-reveal">
-
-                <p class="section-label">
-                    COMPETENZE
-                </p>
-
-                <h2>
-                    Gli strumenti che utilizzo
-                </h2>
-
-            </div>
-
-
-            <div class="skills-grid">
-
-                <div class="skill-box scroll-reveal">
-
-                    <span>01</span>
-
-                    <h3>
-                        Front-end
-                    </h3>
-
-                    <p>
-                        HTML5, CSS3 per la realizzazione di pagine web strutturate, responsive e accessibili.
-                    </p>
-
-                </div>
-
-
-                <div class="skill-box scroll-reveal">
-
-                    <span>02</span>
-
-                    <h3>
-                        UI/UX Design
-                    </h3>
-
-                    <p>
-                        Figma, wireframe, prototipi e progettazione
-                        di interfacce semplici e intuitive.
-                    </p>
-
-                </div>
-
-
-                <div class="skill-box scroll-reveal">
-
-                    <span>03</span>
-
-                    <h3>
-                        WordPress
-                    </h3>
-
-                    <p>
-                        Creazione e gestione di siti attraverso
-                        WordPress e personalizzazione dei contenuti.
-                    </p>
-
-                </div>
-
-
-                <div class="skill-box scroll-reveal">
-
-                    <span>04</span>
-
-                    <h3>
-                        Digital Communication
-                    </h3>
-
-                    <p>
-                        Web writing, organizzazione dei contenuti
-                        e comunicazione digitale per pubblici diversi.
-                    </p>
+                    <h3>Madrelingua</h3>
 
                 </div>
 
             </div>
 
-        </section>
 
-    </main>
+            <!-- INGLESE -->
 
+            <div class="language-card reveal">
 
-    <!-- FOOTER -->
-<footer class="footer" id="contact">
+                <span class="language-name">
+                    Inglese
+                </span>
 
-    <div class="footer-main scroll-reveal">
+                <div class="language-info">
 
-        <p class="footer-label">
-            CONTATTI
-        </p>
+                    <h3>C1</h3>
 
-        <h2>
-            Get in Touch:
-        </h2>
+                    <p>Attestato universitario</p>
 
-        <p class="footer-description">
-            Per informazioni, opportunità lavorative o collaborazioni,
-            puoi scrivermi tramite email oppure contattarmi attraverso
-            LinkedIn.
-        </p>
+                </div>
 
-        <a
-            href="mailto:agnese.barnaba19@gmail.com"
-            class="footer-email"
-        >
-            agnese.barnaba19@gmail.com
-        </a>
-
-    </div>
+            </div>
 
 
-    <div class="footer-bottom">
+            <!-- SPAGNOLO -->
 
-        <p>
-            © 2026 Agnese Barnaba
-        </p>
+            <div class="language-card reveal">
 
-        <div class="footer-links">
+                <span class="language-name">
+                    Spagnolo
+                </span>
 
-            <a
-                href="https://github.com/agneseb19"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                GitHub
-            </a>
+                <div class="language-info">
 
-            <a
-                href="https://www.linkedin.com/in/agnese-barnaba-4b5944252/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                LinkedIn
-            </a>
+                    <h3>C1</h3>
 
-            <a href="#home">
-                Torna su ↑
-            </a>
+                    <p>Attestato universitario</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FRANCESE -->
+
+            <div class="language-card reveal">
+
+                <span class="language-name">
+                    Francese
+                </span>
+
+                <div class="language-info">
+
+                    <h3>A1</h3>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
-</footer>
+</section>
+
+    <!-- =====================================
+         PERCORSO
+    ====================================== -->
+
+    <section class="experience section" id="experience">
+
+      <div class="experience-heading reveal">
+
+        <span class="kicker">
+          04 / PERCORSO
+        </span>
+
+        <h2>
+          Formazione ed<br>
+          esperienze<span class="heading-dot">.</span>
+        </h2>
+
+      </div>
+
+      <div class="experience-columns">
+
+        <div class="timeline">
+
+          <h3>FORMAZIONE</h3>
+
+          <article class="timeline-item reveal">
+
+            <span>UNIVERSITÀ</span>
+
+            <h4>Università degli Studi di Roma Tor Vergata</h4>
+
+            <p>
+              Laurea Triennale in Lingue nella
+              Società dell’Informazione — LINFO
+            </p>
+
+            <small>
+              Percorso interdisciplinare su lingue,
+              informatica, comunicazione digitale e tecnologie web.
+              Tesi dedicata all'AI generativa e al luxury digital design.
+            </small>
+
+          </article>
+
+        </div>
+
+
+        <div class="timeline">
+
+          <h3>ESPERIENZE PROFESSIONALI</h3>
+
+          <article class="timeline-item reveal">
+
+            <span>RETAIL</span>
+
+            <h4>Dainese S.p.A.</h4>
+
+            <p>Sales Assistant</p>
+
+            <small>
+              Assistenza alla clientela,
+              gestione delle operazioni di vendita e cassa,
+              organizzazione del punto vendita
+              e lavoro in team.
+            </small>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================
+         CONTATTI
+    ====================================== -->
+
+    <footer class="contact section" id="contact">
+
+      <div class="contact-inner reveal">
+
+        <span class="kicker">
+          05 / CONTATTI
+        </span>
+
+        <p>HAI UN PROGETTO IN MENTE?</p>
+
+        <h2>
+          Let's work<br>
+          <em>together.</em><span class="heading-dot">*</span>
+        </h2>
+
+        <a class="contact-mail"
+          href="mailto:agnese.barnaba19@gmail.com">
+
+          agnese.barnaba19@gmail.com
+
+          <span>↗</span>
+
+        </a>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>© 2026 AGNESE BARNABA</span>
+
+        <div>
+
+          <a href="https://github.com/agneseb19"
+            target="_blank"
+            rel="noopener noreferrer">
+            GITHUB ↗
+          </a>
+
+          <a href="https://www.linkedin.com/in/agnese-barnaba-4b5944252/"
+            target="_blank"
+            rel="noopener noreferrer">
+            LINKEDIN ↗
+          </a>
+
+          <a href="#home">TORNA SU ↑</a>
+
+        </div>
+
+      </div>
+
+    </footer>
+
+  </main>
 
 </body>
-
 </html>
