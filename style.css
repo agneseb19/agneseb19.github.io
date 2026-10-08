@@ -2604,6 +2604,43 @@ html.has-js .reveal:not(.is-visible) {
     font-size: 12px;
 }
 
+/* PULSANTE + PIÙ GRANDE E BIANCO */
+
+.university-toggle {
+    width: 62px;
+    height: 62px;
+
+    background: #ffffff;
+    color: #242126;
+
+    border: 1px solid #ded9df;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.university-toggle-icon {
+    font-size: 30px;
+    line-height: 1;
+}
+
+/* HOVER ROSA */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .university-toggle:hover {
+        background: var(--pink);
+        color: #ffffff;
+        transform: scale(1.07);
+    }
+
+}
+
 .university-toggle {
     cursor: pointer;
 
@@ -2892,6 +2929,36 @@ html.has-js .reveal:not(.is-visible) {
     border-color: #777079;
 }
 
+/* TAG TECNOLOGIE — TESI AUREA */
+
+.university-cards .thesis-row .tag-list span {
+    color: #f5f0f5;
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+
+    background: rgba(255, 255, 255, 0.06);
+
+    font-size: 10px;
+    font-weight: 500;
+
+    padding: 8px 11px;
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+/* EFFETTO HOVER */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .university-cards .thesis-row .tag-list span:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.8);
+    }
+
+}
+
 /* ==========================================
    RESPONSIVE
 ========================================== */
@@ -2926,11 +2993,15 @@ html.has-js .reveal:not(.is-visible) {
         font-size: 28px;
     }
 
-    .university-count,
-    .university-toggle {
-        width: 38px;
-        height: 38px;
-    }
+    .university-count {
+    width: 38px;
+    height: 38px;
+}
+
+.university-toggle {
+    width: 52px;
+    height: 52px;
+}
 
     .university-actions {
         gap: 8px;
