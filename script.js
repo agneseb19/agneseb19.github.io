@@ -545,20 +545,26 @@ if (heroArt && !reducedMotion) {
 
             /* Oscillazione continua */
 
-            const floatingX =
-                Math.sin(time) * object.amplitude;
+            const mobileAnimation = window.matchMedia(
+    "(max-width: 760px)"
+).matches;
 
-            const floatingY =
-                Math.cos(time * 0.85) * object.amplitude;
+const movementScale = mobileAnimation ? 0.45 : 1;
+
+const floatingX =
+    Math.sin(time) * object.amplitude * movementScale;
+
+const floatingY =
+    Math.cos(time * 0.85) * object.amplitude * movementScale;
 
 
             /* MOVIMENTO SINCRONIZZATO CON IL CURSORE */
 
 const mouseOffsetX =
-    smoothMouse.x * object.depth * 1.5;
+    smoothMouse.x * object.depth * 1.5 * movementScale;
 
 const mouseOffsetY =
-    smoothMouse.y * object.depth * 1.5;
+    smoothMouse.y * object.depth * 1.5 * movementScale;
 
 
             /* Piccola rotazione */

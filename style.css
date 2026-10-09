@@ -3210,3 +3210,109 @@ html.has-js .reveal:not(.is-visible) {
 .footer-bottom a .icon-arrow {
     margin-left: 5px;
 }
+
+/* ==========================================
+   HERO MOBILE — COLLAGE PIÙ ARIOSO
+========================================== */
+
+@media screen and (max-width: 760px) {
+
+    /* PIÙ SPAZIO PER LE ANIMAZIONI */
+
+    .hero-art {
+        width: 100%;
+        height: 650px;
+
+        margin-top: 70px;
+        margin-bottom: 45px;
+
+        position: relative;
+    }
+
+    /* SCRITTA UI/UX */
+
+    .word-ui {
+        top: 3%;
+        left: 7%;
+
+        font-size: clamp(48px, 12vw, 65px);
+
+        z-index: 1;
+    }
+
+    /* SCRITTA DESIGN */
+
+    .word-design {
+        top: 42%;
+        right: 0;
+
+        font-size: clamp(43px, 11vw, 60px);
+
+        z-index: 5;
+    }
+
+    /* SCRITTA FRONT-END */
+
+    .word-front {
+        bottom: 4%;
+        left: 3%;
+
+        font-size: clamp(35px, 9vw, 52px);
+
+        z-index: 2;
+    }
+
+    /* IMMAGINE VYRA ONE */
+
+    .preview-vyra {
+        width: 142px;
+        height: 112px;
+
+        top: 13%;
+        right: 2%;
+
+        z-index: 4;
+    }
+
+    /* IMMAGINE ECOMEDICA */
+
+    .preview-ecomedica {
+        width: 145px;
+        height: 108px;
+
+        bottom: 28%;
+        left: 2%;
+
+        z-index: 4;
+    }
+
+    /* IMMAGINE CREATIONWEB */
+
+    .preview-creation {
+        width: 145px;
+        height: 112px;
+
+        bottom: 15%;
+        right: 2%;
+
+        z-index: 4;
+    }
+
+    /* CUBO 3D */
+
+    .cube-scene {
+        width: 95px;
+        height: 95px;
+
+        top: 29%;
+        left: 34%;
+
+        z-index: 3;
+    }
+
+    .cube {
+        width: 95px;
+        height: 95px;
+    }
+
+}
