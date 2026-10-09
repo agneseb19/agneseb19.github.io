@@ -636,13 +636,13 @@ p {
 }
 
 .preview-vyra {
-    width: 185px;
-    height: 139px;
+    width: 142px;
+    height: 112px;
 
-    right: 18%;
-    top: 1%;
+    top: 5%;
+    right: 1%;
 
-    --rot: 5deg;
+    z-index: 4;
 }
 
 .preview-ecomedica {
