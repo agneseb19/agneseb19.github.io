@@ -3617,3 +3617,42 @@ html.has-js .reveal:not(.is-visible) {
     aspect-ratio: 16 / 10;
     align-self: center;
 }
+
+/* ==========================================
+   CONTATTI — TITOLO PIÙ CONTENUTO
+========================================== */
+
+.contact {
+    min-height: 0;
+}
+
+.contact-inner h2 {
+    margin: 20px 0 30px;
+    font-size: clamp(56px, 6.2vw, 124px);
+    line-height: 0.92;
+    letter-spacing: -0.085em;
+}
+
+.contact-mail {
+    gap: 20px;
+    font-size: clamp(17px, 1.5vw, 28px);
+}
+
+.footer-bottom {
+    margin-top: 80px;
+}
+
+@media (max-width: 760px) {
+
+    .contact-inner h2 {
+        font-size: clamp(46px, 13vw, 70px);
+    }
+
+    .contact-mail {
+        font-size: clamp(15px, 4.4vw, 20px);
+    }
+
+    .footer-bottom {
+        margin-top: 60px;
+    }
+}
