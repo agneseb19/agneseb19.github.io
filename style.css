@@ -3316,3 +3316,254 @@ html.has-js .reveal:not(.is-visible) {
     }
 
 }
+
+/* ==========================================
+   PROFILO — LAYOUT COMPATTO E RESPONSIVE
+========================================== */
+
+.about-heading {
+    margin-bottom: clamp(40px, 4vw, 70px);
+}
+
+.about-heading h2 {
+    font-size: clamp(48px, 5.4vw, 106px);
+    line-height: 1;
+    letter-spacing: -0.085em;
+}
+
+.about-cards {
+    grid-template-columns: minmax(230px, 0.75fr) 1.25fr 0.85fr;
+    grid-template-areas:
+        "photo bio bio"
+        "photo facts github";
+    gap: 16px;
+}
+
+.about-photo {
+    grid-area: photo;
+    min-height: 0;
+    border-radius: 18px;
+}
+
+.about-photo img {
+    height: 100%;
+    min-height: 0;
+}
+
+.about-photo figcaption {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    padding: 11px;
+    font-size: 9px;
+}
+
+.about-bio {
+    grid-area: bio;
+
+    padding: clamp(22px, 2.3vw, 44px);
+    border-radius: 18px;
+
+    font-size: clamp(16px, 1.25vw, 22px);
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+}
+
+.about-bio p {
+    margin-bottom: 0.9em;
+}
+
+.about-bio b {
+    font-weight: 600;
+}
+
+.about-bio em {
+    text-decoration-thickness: 3px;
+}
+
+.facts-card {
+    grid-area: facts;
+
+    min-height: 0;
+    padding: 8px 22px;
+    border-radius: 18px;
+}
+
+.facts-card dl > div {
+    padding: 12px 0;
+}
+
+.facts-card dt {
+    margin-bottom: 5px;
+    font-size: 10px;
+}
+
+.facts-card dd {
+    font-size: clamp(14px, 1vw, 17px);
+    line-height: 1.4;
+}
+
+.github-card {
+    grid-area: github;
+
+    min-height: 0;
+    padding: 20px 22px;
+    gap: 18px;
+    border-radius: 18px;
+}
+
+.github-card span,
+.github-card small {
+    font-size: 10px;
+}
+
+.github-card strong {
+    font-size: clamp(30px, 2.8vw, 54px);
+    line-height: 1;
+}
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+
+    .about-cards {
+        grid-template-columns: minmax(200px, 0.8fr) 1fr;
+        grid-template-areas:
+            "photo bio"
+            "facts github";
+    }
+
+    .about-bio {
+        font-size: 16px;
+    }
+}
+
+/* Smartphone */
+
+@media (max-width: 640px) {
+
+    .about-heading {
+        margin-bottom: 36px;
+    }
+
+    .about-heading h2 {
+        font-size: clamp(46px, 13vw, 64px);
+    }
+
+    .about-cards {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "photo"
+            "bio"
+            "facts"
+            "github";
+        gap: 12px;
+    }
+
+    .about-photo {
+        width: 100%;
+        max-width: 300px;
+        aspect-ratio: 4 / 5;
+    }
+
+    .about-photo img {
+        height: 100%;
+    }
+
+    .about-bio {
+        padding: 22px;
+        font-size: 15px;
+    }
+
+    .github-card strong {
+        font-size: 34px;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE — RIFINITURE (schermi grandi → smartphone)
+========================================== */
+
+/* Contenuti allineati alla stessa larghezza massima delle altre sezioni */
+
+.section-top,
+.project-list {
+    max-width: 1580px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Schermi molto grandi: hero contenuta, senza elementi dispersi ai lati */
+
+@media (min-width: 1800px) {
+
+    .hero {
+        min-height: 960px;
+        padding-left: calc((100% - 1580px) / 2);
+        padding-right: calc((100% - 1580px) / 2);
+    }
+
+    .hero-art {
+        width: 900px;
+        right: calc((100% - 1580px) / 2);
+    }
+}
+
+/* Tablet: collage della hero tutto dentro lo schermo */
+
+@media (max-width: 1150px) and (min-width: 761px) {
+
+    .hero-art {
+        right: 3%;
+        transform: translateY(-40%) scale(0.76);
+    }
+}
+
+/* Competenze: riquadri più compatti */
+
+.skills-aside h2 {
+    margin: 40px 0 50px;
+    font-size: clamp(56px, 5.4vw, 106px);
+}
+
+.skill-tile {
+    min-height: clamp(160px, 12vw, 220px);
+    padding: 20px 22px 24px;
+}
+
+.skill-tile h3 {
+    margin: auto 0 10px;
+    font-size: clamp(22px, 1.7vw, 32px);
+}
+
+.skill-tile p {
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+
+    .skills-aside h2 {
+        margin: 24px 0 30px;
+        font-size: clamp(50px, 14vw, 70px);
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .skill-tile {
+        min-height: 150px;
+        padding: 14px 14px 16px;
+    }
+
+    .skill-tile h3 {
+        font-size: 19px;
+        letter-spacing: -0.04em;
+    }
+
+    .skill-tile p {
+        font-size: 10px;
+        line-height: 1.6;
+    }
+}
