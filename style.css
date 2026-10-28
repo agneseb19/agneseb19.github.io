@@ -3567,3 +3567,53 @@ html.has-js .reveal:not(.is-visible) {
         line-height: 1.6;
     }
 }
+
+/* ==========================================
+   ANTEPRIME PROGETTI — PAGINA INTERA, SENZA TAGLI
+========================================== */
+
+.project-list > .project-row {
+    grid-template-columns:
+        minmax(90px, 0.42fr)
+        minmax(360px, 1.75fr)
+        minmax(260px, 0.95fr);
+}
+
+.project-list > .project-row .project-shot {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+}
+
+.project-list > .project-row .project-shot img {
+    object-position: center top;
+}
+
+@media (max-width: 1150px) {
+
+    .project-list > .project-row {
+        grid-template-columns:
+            80px
+            minmax(300px, 1.4fr)
+            minmax(240px, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+
+    .project-list > .project-row {
+        grid-template-columns: 1fr;
+    }
+
+    .project-list > .project-row .project-shot {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+/* Progetti universitari: miniatura con le proporzioni dello screenshot */
+
+.university-cards .project-row:not(.thesis-row) .project-shot {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    align-self: center;
+}
