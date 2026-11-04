@@ -16,13 +16,18 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20261028c">
-  <script src="script.js?v=20261028c" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261104f">
+  <script src="script.js?v=20261104a" defer></script>
+  <script src="hero-gallery.js?v=20261104f" defer></script>
+  <script src="interactions.js?v=20261104c" defer></script>
 </head>
 
 <body>
 
   <div class="scroll-progress"></div>
+
+  <!-- CURSORE PERSONALIZZATO (solo con il mouse) -->
+  <div class="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"><em class="cursor-label"></em></span></div>
 
   <!-- NAVBAR -->
 
@@ -51,7 +56,7 @@
       </button>
 
       <div class="nav-links" id="nav-links">
-        <a href="#projects">Progetti</a>
+        <a href="#home">Progetti</a>
         <a href="#about">Profilo</a>
         <a href="#skills">Competenze</a>
         <a href="#experience">Percorso</a>
@@ -69,137 +74,377 @@
   <main>
 
     <!-- =====================================
-         HERO
+         HERO — GALLERIA DEI PROGETTI
+         1) Schermata iniziale: anteprime che fluttuano
+            intorno al titolo + pulsante "Scopri i progetti"
+         2) Dopo il clic: i progetti in fila su una parete curva
     ====================================== -->
 
-    <section class="hero" id="home">
+    <section class="gh" id="home" data-state="intro">
 
-      <div class="hero-grid"></div>
+      <div class="gh-backdrop" aria-hidden="true"></div>
 
-      <div class="hero-glow hero-glow-a"></div>
-      <div class="hero-glow hero-glow-b"></div>
 
-      <div class="hero-copy">
+      <!-- ANTEPRIME FLUTTUANTI
+           data-depth = quanto si muovono seguendo il mouse
+           (numeri alti = più vicine, si muovono di più) -->
 
-        <span class="eyebrow hero-eyebrow">
-          <span class="online-dot"></span>
-          WEB DESIGNER · FRONT-END DEVELOPER
-        </span>
+      <div class="gh-floats" aria-hidden="true">
 
-        <h1 class="hero-title">
-
-          <span class="line">Designing</span>
-          <span class="line italic-line">digital</span>
-          <span class="line">experiences.</span>
-
-        </h1>
-
-        <p class="hero-intro">
-          Mi occupo di web design e sviluppo front-end, trasformando idee e progetti grafici in siti web funzionali, interattivi e curati nei dettagli. Unisco attenzione all'estetica, usabilità e tecnologia per creare esperienze digitali coinvolgenti.
-        </p>
-
-        <div class="hero-actions">
-
-          <a href="#projects" class="button button-dark">
-            Esplora i progetti
-            <span>↗</span>
-          </a>
-
-          <a href="https://github.com/agneseb19"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="button button-light">
-            GitHub ↗
-          </a>
-
+        <div class="gh-float f1" data-depth="26">
+          <img src="https://raw.githubusercontent.com/agneseb19/vyra-one/main/images/vyra-one-side.png" alt="">
         </div>
+
+        <div class="gh-float f2" data-depth="12">
+          <img src="images/creationweb.png" alt="">
+        </div>
+
+        <div class="gh-float f3" data-depth="34">
+          <img src="images/new-connection.jpg?v=3" alt="">
+        </div>
+
+        <div class="gh-float f4" data-depth="8">
+          <img src="projects/ecomedica/assets/ecomedica.png" alt="">
+        </div>
+
+        <div class="gh-float f5" data-depth="20">
+          <img src="images/poste-italiane.png" alt="">
+        </div>
+
+
+        <div class="gh-float f7" data-depth="16">
+          <img src="images/across-the-map.png" alt="">
+        </div>
+
+        <span class="gh-orb o1" data-depth="40"></span>
+        <span class="gh-orb o2" data-depth="10"></span>
+        <span class="gh-orb o3" data-depth="22"></span>
 
       </div>
 
 
-      <!-- COLLAGE ANIMATO -->
+      <!-- TESTO CENTRALE -->
 
-      <div class="hero-art">
+      <div class="gh-intro">
 
-        <span class="hero-art-word word-ui">
-          UI/UX
+        <span class="gh-eyebrow">
+          <span class="online-dot"></span>
+          WEB DESIGNER · FRONT-END DEVELOPER
         </span>
 
-        <span class="hero-art-word word-design">
-          DESIGN
-        </span>
+        <h1 class="gh-title">
+          Designing <em>digital</em> experiences.
+        </h1>
 
-        <span class="hero-art-word word-front">
-          FRONT-END
-        </span>
+        <p class="gh-sub">
+          Portfolio di <strong>Agnese Barnaba</strong>
+        </p>
 
-        <span class="hero-spark spark-one"></span>
-        <span class="hero-spark spark-two"></span>
-        <span class="hero-spark spark-three"></span>
+        <p class="gh-text">
+          Trasformo idee e progetti grafici in siti web
+          <strong>funzionali, interattivi e curati nei dettagli</strong>,
+          unendo estetica, usabilità e tecnologia.
+        </p>
+
+        <button type="button" class="gh-enter" aria-controls="gh-gallery">
+          Scopri i progetti
+          <span aria-hidden="true">→</span>
+        </button>
+
+      </div>
 
 
-        <!-- VYRA ONE -->
+      <!-- GALLERIA CURVA DEI PROGETTI
+           Per aggiungere un progetto: copia un <button class="gh-card">
+           e un <article class="pd-item"> qui sotto con lo stesso data-project. -->
 
-        <div class="floating-preview preview-vyra"
-          data-depth="14">
+      <div class="gh-gallery" id="gh-gallery" aria-label="Progetti" hidden>
 
-          <img
-            src="https://raw.githubusercontent.com/agneseb19/vyra-one/main/images/vyra-one-side.png"
-            alt="Anteprima VYRA ONE">
-
+        <div class="gh-gallery-head">
+          <span class="gh-gallery-kicker">SELECTED WORK</span>
+          <span class="gh-gallery-count"><b class="gh-current">01</b> / <span class="gh-total">07</span></span>
         </div>
 
+        <div class="gh-stage">
 
-        <!-- ECOMEDICA -->
+          <div class="gh-track">
 
-        <div class="floating-preview preview-ecomedica"
-          data-depth="-10">
+            
+            <button type="button" class="gh-card" data-project="new-connection" aria-label="Apri i dettagli di New Connection">
+              <span class="gh-card-media"><img src="images/mobile/new-connection.jpg" alt="New Connection — versione mobile" loading="lazy"><span class="gh-card-open" aria-hidden="true">Apri ↗</span></span>
+              <span class="gh-card-info"><span>01</span><strong>New Connection</strong><small>Three.js · Online a breve</small></span>
+            </button>
 
-          <img
-            src="projects/ecomedica/assets/ecomedica.png"
-            alt="Anteprima Ecomedica">
+            <button type="button" class="gh-card" data-project="vyra-one" aria-label="Apri i dettagli di VYRA ONE">
+              <span class="gh-card-media"><img src="images/mobile/vyra-one.jpg" alt="VYRA ONE — versione mobile" loading="lazy"><span class="gh-card-open" aria-hidden="true">Apri ↗</span></span>
+              <span class="gh-card-info"><span>02</span><strong>VYRA ONE</strong><small>3D experience</small></span>
+            </button>
 
-        </div>
+            <button type="button" class="gh-card" data-project="creationweb" aria-label="Apri i dettagli di CreationWeb">
+              <span class="gh-card-media"><img src="images/mobile/creationweb.jpg" alt="CreationWeb — versione mobile" loading="lazy"><span class="gh-card-open" aria-hidden="true">Apri ↗</span></span>
+              <span class="gh-card-info"><span>03</span><strong>CreationWeb</strong><small>Sito web</small></span>
+            </button>
 
+            <button type="button" class="gh-card" data-project="ecomedica" aria-label="Apri i dettagli di Ecomedica Valmontone">
+              <span class="gh-card-media"><img src="images/mobile/ecomedica.jpg" alt="Ecomedica — versione mobile" loading="lazy"><span class="gh-card-open" aria-hidden="true">Apri ↗</span></span>
+              <span class="gh-card-info"><span>04</span><strong>Ecomedica</strong><small>Redesign</small></span>
+            </button>
 
-        <!-- CREATIONWEB -->
+            <button type="button" class="gh-card" data-project="poste-italiane" aria-label="Apri i dettagli di Poste Italiane Redesign">
+              <span class="gh-card-media"><img src="images/mobile/poste-italiane.jpg?v=3" alt="Poste Italiane — versione mobile" loading="lazy"><span class="gh-card-open" aria-hidden="true">Apri ↗</span></span>
+              <span class="gh-card-info"><span>05</span><strong>Poste Italiane</strong><small>UI/UX · Figma</small></span>
+            </button>
 
-        <div class="floating-preview preview-creation"
-          data-depth="12">
+            <button type="button" class="gh-card" data-project="across-the-map" aria-label="Apri i dettagli di Across the Map">
+              <span class="gh-card-media"><img src="images/mobile/across-the-map.jpg" alt="Across the Map — versione mobile" loading="lazy"><span class="gh-card-open" aria-hidden="true">Apri ↗</span></span>
+              <span class="gh-card-info"><span>06</span><strong>Across the Map</strong><small>Digital communication</small></span>
+            </button>
 
-          <img
-            src="images/creationweb.png"
-            alt="Anteprima CreationWeb">
-
-        </div>
-
-
-        <!-- CUBO 3D -->
-
-        <div class="cube-scene">
-
-          <div class="cube">
-
-            <span class="cube-face cube-front">CODE</span>
-            <span class="cube-face cube-back">WEB</span>
-            <span class="cube-face cube-right">UI</span>
-            <span class="cube-face cube-left">UX</span>
-            <span class="cube-face cube-top">DESIGN</span>
-            <span class="cube-face cube-bottom">CREATE</span>
+            <button type="button" class="gh-card" data-project="tesi-aurea" aria-label="Apri i dettagli di AI & Luxury Digital Design">
+              <span class="gh-card-media"><img src="images/mobile/aurea.jpg" alt="AI & Luxury Design — versione mobile" loading="lazy"><span class="gh-card-open" aria-hidden="true">Apri ↗</span></span>
+              <span class="gh-card-info"><span>07</span><strong>AI & Luxury Design</strong><small>Tesi di laurea</small></span>
+            </button>
 
           </div>
 
         </div>
 
+        <button type="button" class="gh-arrow gh-prev" aria-label="Progetto precedente">←</button>
+        <button type="button" class="gh-arrow gh-next" aria-label="Progetto successivo">→</button>
+
+        <div class="gh-gallery-foot">
+          <button type="button" class="gh-back">← Indietro</button>
+          <span class="gh-hint">TRASCINA O USA LE FRECCE</span>
+          <span class="gh-all-hint">CLICCA UN PROGETTO PER I DETTAGLI</span>
+        </div>
+
       </div>
 
+    </section>
 
-      <a href="#projects" class="hero-scroll">
-        <span></span>
-        SCROLL TO EXPLORE
-      </a>
+    <!-- =====================================
+         DETTAGLIO PROGETTO
+         Compare sotto la galleria quando si clicca una card.
+         Ogni <article class="pd-item"> corrisponde a una card
+         (stesso data-project).
+    ====================================== -->
+
+    <section class="pd" id="progetto" hidden aria-label="Dettagli del progetto">
+
+      <div class="pd-inner">
+
+        <div class="pd-top">
+          <span class="pd-kicker">PROGETTO <b class="pd-num">01</b> / 07</span>
+          <button type="button" class="pd-close">Chiudi <span aria-hidden="true">✕</span></button>
+        </div>
+
+        <article class="pd-item" data-project="new-connection" data-index="01" hidden>
+
+          <header class="pd-head">
+            <span class="pd-type">PROGETTO REALE · ONLINE A BREVE</span>
+            <h2 class="pd-title">New Connection</h2>
+          </header>
+
+          <figure class="pd-shot">
+            <div class="pd-browser" aria-hidden="true">
+              <span class="pd-dots"><i></i><i></i><i></i></span>
+              <span class="pd-url">newconnection · in arrivo</span>
+            </div>
+            <div class="pd-shot-img">
+              <img src="images/new-connection.jpg?v=3" alt="New Connection — versione desktop" loading="lazy">
+            </div>
+          </figure>
+
+          <div class="pd-body">
+            <div class="pd-text">
+              <p>Sito web multipagina per un negozio di informatica, elettronica e riparazioni a Valmontone. Home, Servizi, Assistenza e Contatti sono pagine dedicate, con animazioni 3D interattive sviluppate con Three.js: modelli da ruotare e trascinare e lo smontaggio dello smartphone che segue lo scroll.</p>
+            </div>
+            <div class="pd-meta">
+              <div class="tag-list"><span>JAVASCRIPT</span><span>THREE.JS</span><span>HTML5</span><span>CSS3</span></div>
+              <span class="project-in-progress">IN ARRIVO · A BREVE ONLINE</span>
+            </div>
+          </div>
+
+        </article>
+        <article class="pd-item" data-project="vyra-one" data-index="02" hidden>
+
+          <header class="pd-head">
+            <span class="pd-type">PROGETTO PERSONALE · 3D EXPERIENCE</span>
+            <h2 class="pd-title">VYRA ONE</h2>
+          </header>
+
+          <figure class="pd-shot">
+            <div class="pd-browser" aria-hidden="true">
+              <span class="pd-dots"><i></i><i></i><i></i></span>
+              <span class="pd-url">agneseb19.github.io/vyra-one</span>
+            </div>
+            <div class="pd-shot-img">
+              <img src="https://raw.githubusercontent.com/agneseb19/vyra-one/main/images/vyra-one-side.png" alt="VYRA ONE — versione desktop" loading="lazy">
+            </div>
+          </figure>
+
+          <div class="pd-body">
+            <div class="pd-text">
+              <p>Concept automotive interattivo sviluppato con HTML, CSS, JavaScript, Three.js e GSAP. Il progetto esplora il creative development attraverso un modello 3D, animazioni cinematografiche legate allo scrolling e un configuratore per la personalizzazione del veicolo, con l'obiettivo di creare un'esperienza web immersiva.</p>
+            </div>
+            <div class="pd-meta">
+              <div class="tag-list"><span>JAVASCRIPT</span><span>THREE.JS</span><span>GSAP</span><span>HTML5</span><span>CSS3</span></div>
+              <div class="project-links"><a href="https://agneseb19.github.io/vyra-one/" target="_blank" rel="noopener noreferrer">LIVE PROJECT ↗</a><a href="https://github.com/agneseb19/vyra-one" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></div>
+            </div>
+          </div>
+
+        </article>
+        <article class="pd-item" data-project="creationweb" data-index="03" hidden>
+
+          <header class="pd-head">
+            <span class="pd-type">PROGETTO REALE · SITO WEB</span>
+            <h2 class="pd-title">CreationWeb</h2>
+          </header>
+
+          <figure class="pd-shot">
+            <div class="pd-browser" aria-hidden="true">
+              <span class="pd-dots"><i></i><i></i><i></i></span>
+              <span class="pd-url">creationweb.it</span>
+            </div>
+            <div class="pd-shot-img">
+              <img src="images/creationweb.png" alt="CreationWeb — versione desktop" loading="lazy">
+            </div>
+          </figure>
+
+          <div class="pd-body">
+            <div class="pd-text">
+              <p>Redesign e sviluppo del nuovo sito ufficiale di CreationWeb, agenzia di comunicazione digitale. Progetto realizzato con HTML, CSS e JavaScript, con particolare attenzione al design, alla navigazione e alle interazioni.</p>
+            </div>
+            <div class="pd-meta">
+              <div class="tag-list"><span>HTML5</span><span>CSS3</span><span>JAVASCRIPT</span><span>UI/UX DESIGN</span></div>
+              <div class="project-links"><a href="https://creationweb.it/" target="_blank" rel="noopener noreferrer">LIVE PROJECT ↗</a></div>
+            </div>
+          </div>
+
+        </article>
+        <article class="pd-item" data-project="ecomedica" data-index="04" hidden>
+
+          <header class="pd-head">
+            <span class="pd-type">PROGETTO PERSONALE · REDESIGN</span>
+            <h2 class="pd-title">Ecomedica Valmontone</h2>
+          </header>
+
+          <figure class="pd-shot">
+            <div class="pd-browser" aria-hidden="true">
+              <span class="pd-dots"><i></i><i></i><i></i></span>
+              <span class="pd-url">agneseb19.github.io/ecomedica-redesign</span>
+            </div>
+            <div class="pd-shot-img">
+              <img src="projects/ecomedica/assets/ecomedica.png" alt="Ecomedica Valmontone — versione desktop" loading="lazy">
+            </div>
+          </figure>
+
+          <div class="pd-body">
+            <div class="pd-text">
+              <p>Progetto personale e non commissionato di redesign del sito Ecomedica, realizzato a scopo di esercitazione e non ancora completo. Ho ripensato l'interfaccia e l'organizzazione dei contenuti, lavorando sulla navigazione, sulla presentazione delle prestazioni e sull'esperienza utente attraverso HTML, CSS e JavaScript.</p>
+            </div>
+            <div class="pd-meta">
+              <div class="tag-list"><span>HTML5</span><span>CSS3</span><span>JAVASCRIPT</span><span>UI DESIGN</span></div>
+              <div class="project-links"><a href="https://agneseb19.github.io/ecomedica-redesign/" target="_blank" rel="noopener noreferrer">VEDI PROGETTO ↗</a></div>
+            </div>
+          </div>
+
+        </article>
+        <article class="pd-item" data-project="poste-italiane" data-index="05" hidden>
+
+          <header class="pd-head">
+            <span class="pd-type">PROGETTO UNIVERSITARIO</span>
+            <h2 class="pd-title">Poste Italiane Redesign</h2>
+          </header>
+
+          <figure class="pd-shot">
+            <div class="pd-browser" aria-hidden="true">
+              <span class="pd-dots"><i></i><i></i><i></i></span>
+              <span class="pd-url">figma.com · Redesign App Poste Italiane</span>
+            </div>
+            <div class="pd-shot-img">
+              <img src="images/poste-italiane.png" alt="Poste Italiane Redesign — versione desktop" loading="lazy">
+            </div>
+          </figure>
+
+          <div class="pd-body">
+            <div class="pd-text">
+              <p>Progetto universitario di redesign dell’interfaccia di Poste Italiane, realizzato in Figma con particolare attenzione all’usabilità, all’organizzazione dei contenuti e alla user experience.</p>
+            </div>
+            <div class="pd-meta">
+              <div class="tag-list"><span>FIGMA</span><span>UI/UX DESIGN</span><span>PROTOTYPING</span></div>
+              <div class="project-links"><a href="https://www.figma.com/design/SlVJYv1SK6yWmSKxtP7421/Redesign-App-Poste-Italiane?node-id=0-1" target="_blank" rel="noopener noreferrer">APRI IN FIGMA ↗</a></div>
+            </div>
+          </div>
+
+        </article>
+        <article class="pd-item" data-project="across-the-map" data-index="06" hidden>
+
+          <header class="pd-head">
+            <span class="pd-type">PROGETTO UNIVERSITARIO</span>
+            <h2 class="pd-title">Across the Map</h2>
+          </header>
+
+          <figure class="pd-shot">
+            <div class="pd-browser" aria-hidden="true">
+              <span class="pd-dots"><i></i><i></i><i></i></span>
+              <span class="pd-url">acrossthemap.altervista.org</span>
+            </div>
+            <div class="pd-shot-img">
+              <img src="images/across-the-map.png" alt="Across the Map — versione desktop" loading="lazy">
+            </div>
+          </figure>
+
+          <div class="pd-body">
+            <div class="pd-text">
+              <p>Progetto universitario in lingua inglese dedicato alla comunicazione digitale multimodale, con attenzione alla struttura e all’organizzazione visiva dei contenuti.</p>
+            </div>
+            <div class="pd-meta">
+              <div class="tag-list"><span>DIGITAL COMMUNICATION</span><span>WEB DESIGN</span></div>
+              <div class="project-links"><a href="https://acrossthemap.altervista.org/" target="_blank" rel="noopener noreferrer">VISITA IL SITO ↗</a></div>
+            </div>
+          </div>
+
+        </article>
+        <article class="pd-item" data-project="tesi-aurea" data-index="07" hidden>
+
+          <header class="pd-head">
+            <span class="pd-type">TESI DI LAUREA · OTTOBRE 2026</span>
+            <h2 class="pd-title">AI &amp; Luxury Digital Design</h2>
+          </header>
+
+          <figure class="pd-shot">
+            <div class="pd-browser" aria-hidden="true">
+              <span class="pd-dots"><i></i><i></i><i></i></span>
+              <span class="pd-url">AUREA · Mediterranean Retreat · Ravello</span>
+            </div>
+            <div class="pd-shot-img">
+              <img src="images/aurea-desktop.jpg" alt="AI & Luxury Digital Design — versione desktop" loading="lazy">
+            </div>
+          </figure>
+
+          <div class="pd-body">
+            <div class="pd-text">
+              <p>Tesi di laurea dedicata al ruolo dell'intelligenza artificiale generativa nei processi di digital design per il settore del lusso. Attraverso il caso studio AUREA, un Mediterranean Retreat a Ravello, ho analizzato come il prompt engineering possa guidare la progettazione di interfacce digitali, confrontando gli output di Figma Make e ChatGPT e valutando l'impatto delle istruzioni sulla qualità del risultato visivo.</p>
+              <p class="pd-quote">«Quanto bisogna dire all’AI prima che smetta di creare un generico hotel di lusso e inizi davvero a creare AUREA?»</p>
+            </div>
+            <div class="pd-meta">
+              <div class="tag-list"><span>AI GENERATIVA</span><span>PROMPT ENGINEERING</span><span>FIGMA MAKE</span></div>
+              
+            </div>
+          </div>
+
+        </article>
+
+        <nav class="pd-nav" aria-label="Altri progetti">
+          <button type="button" class="pd-prev"><span aria-hidden="true">←</span> <em>Precedente</em> <strong class="pd-prev-name"></strong></button>
+          <button type="button" class="pd-next"><strong class="pd-next-name"></strong> <em>Successivo</em> <span aria-hidden="true">→</span></button>
+        </nav>
+
+      </div>
 
     </section>
+
 
 
     <!-- =====================================
@@ -223,471 +468,6 @@
       </div>
 
     </div>
-
-
-    <!-- =====================================
-         PROGETTI
-    ====================================== -->
-
-    <section class="projects section" id="projects">
-
-      <div class="section-top reveal">
-
-        <span class="kicker">
-          01 / PROGETTI
-        </span>
-
-        <h2>
-          Selected work<span class="heading-dot">.</span>
-        </h2>
-
-        <span class="section-side-note">
-          FRONT-END DEVELOPMENT · UI/UX DESIGN
-        </span>
-
-      </div>
-
-
-      <div class="project-list">
-
-        <!-- 01 NEW CONNECTION -->
-
-        <article class="project-row reveal">
-
-          <div class="project-index">
-            <strong>01</strong>
-            <span>PROGETTO REALE<br>ONLINE A BREVE</span>
-          </div>
-
-          <div class="project-shot">
-
-            <img src="images/new-connection.jpg?v=3"
-              alt="Anteprima del sito New Connection">
-
-          </div>
-
-          <div class="project-body">
-
-            <h3>New<br>Connection</h3>
-
-            <p>
-              Sito web multipagina per un negozio di informatica, elettronica e riparazioni a Valmontone. Home, Servizi, Assistenza e Contatti sono pagine dedicate, con animazioni 3D interattive sviluppate con Three.js: modelli da ruotare e trascinare e lo smontaggio dello smartphone che segue lo scroll.
-            </p>
-
-            <div class="tag-list">
-              <span>JAVASCRIPT</span>
-              <span>THREE.JS</span>
-              <span>HTML5</span>
-              <span>CSS3</span>
-            </div>
-
-            <span class="project-in-progress">
-              IN ARRIVO · A BREVE ONLINE
-            </span>
-
-          </div>
-
-        </article>
-
-
-        <!-- 02 VYRA ONE -->
-
-        <article class="project-row reveal">
-
-          <div class="project-index">
-            <strong>02</strong>
-            <span>PROGETTO PERSONALE<br>3D EXPERIENCE</span>
-          </div>
-
-          <a class="project-shot"
-            href="https://agneseb19.github.io/vyra-one/"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <img
-              src="https://raw.githubusercontent.com/agneseb19/vyra-one/main/images/vyra-one-side.png"
-              alt="VYRA ONE">
-
-            <span class="shot-arrow">↗</span>
-
-          </a>
-
-          <div class="project-body">
-
-            <h3>VYRA ONE</h3>
-
-            <p>
-              Concept automotive interattivo sviluppato con HTML, CSS, JavaScript, Three.js e GSAP. Il progetto esplora il creative development attraverso un modello 3D, animazioni cinematografiche legate allo scrolling e un configuratore per la personalizzazione del veicolo, con l'obiettivo di creare un'esperienza web immersiva.
-            </p>
-
-            <div class="tag-list">
-              <span>JAVASCRIPT</span>
-              <span>THREE.JS</span>
-              <span>GSAP</span>
-              <span>HTML5</span>
-              <span>CSS3</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://agneseb19.github.io/vyra-one/"
-                target="_blank">LIVE PROJECT ↗</a>
-
-              <a href="https://github.com/agneseb19/vyra-one"
-                target="_blank">GITHUB ↗</a>
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- 03 CREATIONWEB -->
-
-        <article class="project-row reveal">
-
-          <div class="project-index">
-            <strong>03</strong>
-            <span>PROGETTO REALE<br>SITO WEB</span>
-          </div>
-
-          <a class="project-shot"
-            href="https://creationweb.it/" target="_blank" rel="noopener noreferrer">
-
-            <img src="images/creationweb.png"
-              alt="CreationWeb">
-
-            <span class="shot-arrow">↗</span>
-
-          </a>
-
-          <div class="project-body">
-
-            <h3>CreationWeb</h3>
-
-            <p>
-              Redesign e sviluppo del nuovo sito ufficiale di
-              CreationWeb, agenzia di comunicazione digitale.
-              Progetto realizzato con HTML, CSS e JavaScript,
-              con particolare attenzione al design,
-              alla navigazione e alle interazioni.
-            </p>
-
-            <div class="tag-list">
-              <span>HTML5</span>
-              <span>CSS3</span>
-              <span>JAVASCRIPT</span>
-              <span>UI/UX DESIGN</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://creationweb.it/"
-                target="_blank">
-                LIVE PROJECT ↗
-              </a>
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- 04 ECOMEDICA -->
-
-        <article class="project-row reveal">
-
-          <div class="project-index">
-            <strong>04</strong>
-            <span>PROGETTO PERSONALE<br>REDESIGN</span>
-          </div>
-
-          <a class="project-shot"
-            href="https://agneseb19.github.io/ecomedica-redesign/"
-            target="_blank">
-
-            <img
-              src="projects/ecomedica/assets/ecomedica.png"
-              alt="Redesign Ecomedica">
-
-            <span class="shot-arrow">↗</span>
-
-          </a>
-
-          <div class="project-body">
-
-            <h3>Ecomedica<br>Valmontone</h3>
-
-            <p>
-              Progetto personale e non commissionato di redesign
-              del sito Ecomedica, realizzato a scopo di esercitazione
-              e non ancora completo.
-              Ho ripensato l'interfaccia e l'organizzazione dei contenuti, lavorando sulla navigazione, sulla presentazione delle prestazioni e sull'esperienza utente attraverso HTML, CSS e JavaScript.
-            </p>
-
-            <div class="tag-list">
-              <span>HTML5</span>
-              <span>CSS3</span>
-              <span>JAVASCRIPT</span>
-              <span>UI DESIGN</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://agneseb19.github.io/ecomedica-redesign/"
-                target="_blank">
-                VEDI PROGETTO ↗
-              </a>
-            </div>
-
-          </div>
-
-        </article>
-
-        <!-- =====================================
-     PROGETTI UNIVERSITARI
-====================================== -->
-
-<section class="university-section">
-
-    <div class="university-header">
-
-        <span class="university-label">
-            PROGETTI UNIVERSITARI
-        </span>
-
-        <h3>
-            Progetti universitari
-        </h3>
-
-        <div class="university-actions">
-
-            <span class="university-count">
-                04
-            </span>
-
-            <button
-                type="button"
-                class="university-toggle"
-                aria-expanded="false"
-                aria-controls="university-projects"
-                aria-label="Mostra progetti universitari"
-            >
-                <span class="university-toggle-icon">+</span>
-            </button>
-
-        </div>
-
-    </div>
-
-    <div class="university-panel" id="university-projects" inert>
-
-        <div class="university-panel-inner">
-
-            <div class="university-cards">
-
-        <!-- 05 POSTE ITALIANE -->
-
-        <article class="project-row reveal">
-
-          <div class="project-index">
-            <strong>05</strong>
-            <span>PROGETTO UNIVERSITARIO</span>
-          </div>
-
-          <a class="project-shot"
-            href="https://www.figma.com/design/SlVJYv1SK6yWmSKxtP7421/Redesign-App-Poste-Italiane?node-id=0-1"
-            target="_blank">
-
-            <img src="images/poste-italiane.png"
-              alt="Poste Italiane Redesign">
-
-            <span class="shot-arrow">↗</span>
-
-          </a>
-
-          <div class="project-body">
-
-            <h3>Poste Italiane<br>Redesign</h3>
-
-            <p>
-              Progetto universitario di redesign dell’interfaccia
-              di Poste Italiane, realizzato in Figma con
-              particolare attenzione all’usabilità,
-              all’organizzazione dei contenuti e alla user experience.
-            </p>
-
-            <div class="tag-list">
-              <span>FIGMA</span>
-              <span>UI/UX DESIGN</span>
-              <span>PROTOTYPING</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://www.figma.com/design/SlVJYv1SK6yWmSKxtP7421/Redesign-App-Poste-Italiane?node-id=0-1"
-                target="_blank">
-                APRI IN FIGMA ↗
-              </a>
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- 06 MYWELLNESS -->
-
-        <article class="project-row reveal">
-
-          <div class="project-index">
-            <strong>06</strong>
-            <span>PROGETTO UNIVERSITARIO</span>
-          </div>
-
-          <a class="project-shot"
-            href="https://mywellnessdiary.altervista.org"
-            target="_blank">
-
-            <img src="images/mywellness-diary.png"
-              alt="MyWellness Diary">
-
-            <span class="shot-arrow">↗</span>
-
-          </a>
-
-          <div class="project-body">
-
-            <h3>MyWellness<br>Diary</h3>
-
-            <p>
-              Progetto universitario di realizzazione di un
-              sito fittizio dedicato al fitness e al benessere,
-              progettato con WordPress e organizzato per offrire
-              contenuti chiari e facili da trovare.
-            </p>
-
-            <div class="tag-list">
-              <span>WORDPRESS</span>
-              <span>WEB DESIGN</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://mywellnessdiary.altervista.org"
-                target="_blank">
-                VEDI PROGETTO ↗
-              </a>
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- 07 ACROSS THE MAP -->
-
-        <article class="project-row reveal">
-
-          <div class="project-index">
-            <strong>07</strong>
-            <span>PROGETTO UNIVERSITARIO</span>
-          </div>
-
-          <a class="project-shot"
-            href="https://acrossthemap.altervista.org/"
-            target="_blank">
-
-            <img src="images/across-the-map.png"
-              alt="Across the Map">
-
-            <span class="shot-arrow">↗</span>
-
-          </a>
-
-          <div class="project-body">
-
-            <h3>Across<br>the Map</h3>
-
-            <p>
-              Progetto universitario in lingua inglese
-              dedicato alla comunicazione digitale multimodale,
-              con attenzione alla struttura e all’organizzazione
-              visiva dei contenuti.
-            </p>
-
-            <div class="tag-list">
-              <span>DIGITAL COMMUNICATION</span>
-              <span>WEB DESIGN</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://acrossthemap.altervista.org/"
-                target="_blank">
-                VISITA IL SITO ↗
-              </a>
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- 08 TESI -->
-
-        <article class="project-row thesis-row reveal">
-
-          <div class="project-index">
-            <strong>08</strong>
-            <span>TESI DI LAUREA<br>OTTOBRE 2026</span>
-          </div>
-
-          <div class="thesis-visual">
-
-            <span class="thesis-eyebrow">
-              GENERATIVE AI × LUXURY DIGITAL DESIGN
-            </span>
-
-            <div class="thesis-monogram">
-              A<span>✳</span>
-            </div>
-
-            <span class="thesis-footer">
-              AUREA · MEDITERRANEAN RETREAT
-            </span>
-
-          </div>
-
-          <div class="project-body">
-
-            <h3>AI &amp; Luxury<br>Digital Design</h3>
-
-            <p>
-              Tesi di laurea dedicata al ruolo dell'intelligenza artificiale generativa nei processi di digital design per il settore del lusso. Attraverso il caso studio AUREA, un Mediterranean Retreat a Ravello, ho analizzato come il prompt engineering possa guidare la progettazione di interfacce digitali, confrontando gli output di Figma Make e ChatGPT e valutando l'impatto delle istruzioni sulla qualità del risultato visivo.
-            </p>
-
-            <p class="thesis-quote">
-              «Quanto bisogna dire all’AI prima che smetta
-              di creare un generico hotel di lusso
-              e inizi davvero a creare AUREA?»
-            </p>
-
-            <div class="tag-list">
-              <span>AI GENERATIVA</span>
-              <span>PROMPT ENGINEERING</span>
-              <span>FIGMA MAKE</span>
-            </div>
-
-          </div>
-
-        </article>
-
-                    </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-      </div>
-
-    </section>
 
 
     <!-- =====================================

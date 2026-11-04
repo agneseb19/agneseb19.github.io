@@ -3659,3 +3659,1426 @@ html.has-js .reveal:not(.is-visible) {
         margin-top: 60px;
     }
 }
+
+
+/* ==========================================================
+   HERO — GALLERIA DEI PROGETTI (novembre 2026)
+   ----------------------------------------------------------
+   .gh              = la sezione intera (altezza schermo)
+   data-state       = "intro" (schermata iniziale)
+                      "gallery" (progetti in fila)
+   Il JavaScript è nel file hero-gallery.js
+========================================================== */
+
+.gh {
+    position: relative;
+
+    height: 100vh;
+    height: 100svh;
+    min-height: 620px;
+
+    overflow: hidden;
+
+    background: var(--paper);
+
+    isolation: isolate;
+}
+
+/* Sfondo morbido, come una stanza luminosa */
+
+.gh-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 45%, #ffffff 0%, rgba(255,255,255,0) 70%),
+        radial-gradient(ellipse 50% 40% at 15% 85%, rgba(219, 7, 80, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 40% at 88% 12%, rgba(120, 100, 160, 0.09) 0%, transparent 70%),
+        linear-gradient(180deg, #f4f3f1 0%, #eceaee 100%);
+}
+
+
+/* ==========================================
+   ANTEPRIME FLUTTUANTI
+========================================== */
+
+.gh-floats {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    transition: opacity 0.7s ease;
+}
+
+/* Il contenitore si muove col mouse (JS),
+   l'immagine dentro galleggia da sola (CSS). */
+
+.gh-float {
+    position: absolute;
+
+    width: var(--w, 200px);
+
+    transition:
+        opacity 0.9s ease,
+        filter 0.9s ease;
+
+    will-change: transform;
+}
+
+.gh-float img {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 30px 60px -20px rgba(36, 33, 38, 0.35),
+        0 8px 20px -10px rgba(36, 33, 38, 0.2);
+
+    transform: rotate(var(--r, 0deg));
+
+    animation: gh-bob var(--t, 7s) ease-in-out infinite alternate;
+    animation-delay: var(--d, 0s);
+}
+
+@keyframes gh-bob {
+    from { translate: 0 -10px; rotate: -1.5deg; }
+    to   { translate: 0 12px;  rotate: 1.5deg; }
+}
+
+/* Posizioni e dimensioni.
+   Le anteprime "lontane" sono più piccole e sfocate. */
+
+.gh-float.f1 { --w: 300px; --r: -6deg;  --t: 7s;   top: 14%;    left: 6%; }
+.gh-float.f2 { --w: 190px; --r: 5deg;   --t: 8.5s; top: 9%;     right: 22%;  filter: blur(1.5px); --d: -2s; }
+.gh-float.f3 { --w: 260px; --r: 7deg;   --t: 6.5s; bottom: 9%;  right: 9%;   --d: -1s; }
+.gh-float.f4 { --w: 150px; --r: -4deg;  --t: 9s;   top: 6%;     left: 34%;   filter: blur(3px); opacity: 0.75; --d: -4s; }
+.gh-float.f5 { --w: 220px; --r: -8deg;  --t: 7.5s; bottom: 12%; left: 12%;   --d: -3s; }
+.gh-float.f6 { --w: 140px; --r: 9deg;   --t: 10s;  bottom: 6%;  left: 42%;   filter: blur(4px); opacity: 0.6; }
+.gh-float.f7 { --w: 210px; --r: 4deg;   --t: 8s;   top: 22%;    right: 5%;   --d: -5s; }
+
+/* Piccole sfere colorate */
+
+.gh-orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    animation: gh-bob 6s ease-in-out infinite alternate;
+
+    transition: opacity 0.7s ease;
+}
+
+.gh-orb.o1 { width: 46px; height: 46px; top: 62%; left: 31%;  background: radial-gradient(circle at 30% 30%, #ff6f9c, var(--pink)); box-shadow: 0 18px 30px -12px rgba(219,7,80,0.5); }
+.gh-orb.o2 { width: 22px; height: 22px; top: 18%; left: 26%;  background: radial-gradient(circle at 30% 30%, #fff, #c9c2d3); filter: blur(1px); }
+.gh-orb.o3 { width: 30px; height: 30px; top: 30%; right: 34%; background: radial-gradient(circle at 30% 30%, #6a6370, var(--ink)); animation-duration: 8s; }
+
+
+/* ==========================================
+   TESTO CENTRALE
+========================================== */
+
+.gh-intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+
+    width: min(560px, 88vw);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    transform: translate(-50%, -46%);
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.gh-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 26px;
+
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.gh-title {
+    margin: 0;
+
+    font-size: clamp(46px, 5.4vw, 86px);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.065em;
+}
+
+.gh-title em {
+    font-family: var(--serif);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+}
+
+.gh-sub {
+    margin: 18px 0 0;
+
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.gh-sub strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.gh-text {
+    max-width: 420px;
+
+    margin: 22px 0 34px;
+
+    font-size: 15px;
+    line-height: 1.6;
+    color: #5f5b63;
+}
+
+.gh-text strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+/* Pulsante a pillola */
+
+.gh-enter {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 16px 14px 26px;
+
+    font: 600 14px var(--sans);
+    color: white;
+
+    background: var(--ink);
+    border: 0;
+    border-radius: 50px;
+
+    box-shadow: 0 16px 34px -14px rgba(36, 33, 38, 0.55);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.gh-enter span {
+    display: grid;
+    place-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    background: var(--pink);
+    border-radius: 50%;
+
+    transition: transform 0.3s ease;
+}
+
+.gh-enter:hover {
+    transform: translateY(-2px);
+}
+
+.gh-enter:hover span {
+    transform: translateX(3px);
+}
+
+.gh-enter:focus-visible,
+.gh-arrow:focus-visible,
+.gh-back:focus-visible,
+.gh-card:focus-visible {
+    outline: 2px solid var(--pink);
+    outline-offset: 4px;
+}
+
+
+/* ==========================================
+   PASSAGGIO ALLA GALLERIA
+   (quando data-state="gallery")
+========================================== */
+
+/* Le anteprime si allontanano e svaniscono */
+
+.gh[data-state="gallery"] .gh-float,
+.gh[data-state="gallery"] .gh-orb {
+    opacity: 0 !important;
+    filter: blur(14px) !important;
+}
+
+.gh[data-state="gallery"] .gh-intro {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.94);
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   GALLERIA CURVA
+========================================== */
+
+.gh-gallery {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+
+    padding-top: 112px;   /* spazio per la navbar */
+
+    display: flex;
+    flex-direction: column;
+
+    opacity: 0;
+
+    transition: opacity 0.6s ease 0.25s;
+}
+
+.gh-gallery[hidden] {
+    display: none;
+}
+
+.gh[data-state="gallery"] .gh-gallery {
+    opacity: 1;
+}
+
+.gh-gallery-head {
+    width: min(100% - 10vw, 1500px);
+
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.gh-gallery-count b {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+/* Il "palco" con la prospettiva 3D */
+
+.gh-stage {
+    position: relative;
+
+    flex: 1;
+
+    perspective: 1500px;
+    perspective-origin: 50% 50%;
+
+    touch-action: pan-y;   /* sul telefono si può ancora scorrere la pagina in verticale */
+
+    cursor: grab;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.gh-stage.is-dragging {
+    cursor: grabbing;
+}
+
+.gh-track {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 0;
+    height: 0;
+
+    transform-style: preserve-3d;
+}
+
+/* Le card: il JS calcola posizione e rotazione */
+
+.gh-card {
+    --card-w: clamp(220px, 24vw, 370px);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: var(--card-w);
+
+    margin-left: calc(var(--card-w) / -2);
+    margin-top: calc(var(--card-w) * -0.72);
+
+    display: block;
+
+    color: var(--ink);
+    text-decoration: none;
+
+    backface-visibility: hidden;
+
+    will-change: transform, opacity;
+
+    -webkit-user-drag: none;
+}
+
+.gh-card-media {
+    position: relative;
+
+    aspect-ratio: 3 / 4;
+
+    overflow: hidden;
+
+    background: #dcd9df;
+    border-radius: 4px;
+
+    box-shadow: 0 30px 60px -30px rgba(36, 33, 38, 0.45);
+}
+
+.gh-card-media img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    pointer-events: none;
+
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.gh-card:hover .gh-card-media img {
+    transform: scale(1.06);
+}
+
+/* Card della tesi, senza immagine */
+
+.gh-card-thesis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+
+    background: linear-gradient(160deg, #2b272d 0%, #141215 100%);
+    color: #e9e2d0;
+}
+
+.gh-card-thesis span {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(70px, 7vw, 110px);
+    line-height: 1;
+}
+
+.gh-card-thesis i {
+    font-style: normal;
+    font-size: 0.4em;
+    color: var(--pink);
+    vertical-align: super;
+}
+
+.gh-card-thesis small {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    opacity: 0.7;
+}
+
+/* Didascalia sotto la card */
+
+.gh-card-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 12px;
+
+    padding-top: 14px;
+}
+
+.gh-card-info span {
+    grid-row: span 2;
+
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--pink);
+}
+
+.gh-card-info strong {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.gh-card-info small {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+/* Frecce rotonde ai lati */
+
+.gh-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+
+    width: 52px;
+    height: 52px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 18px;
+    color: var(--ink);
+
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 50%;
+
+    box-shadow: 0 10px 30px -10px rgba(36, 33, 38, 0.3);
+    backdrop-filter: blur(10px);
+
+    cursor: pointer;
+
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.gh-arrow:hover {
+    background: var(--ink);
+    color: white;
+}
+
+.gh-prev { left: 4vw; }
+.gh-next { right: 4vw; }
+
+.gh-prev:hover { transform: translateX(-3px); }
+.gh-next:hover { transform: translateX(3px); }
+
+/* Riga in basso */
+
+.gh-gallery-foot {
+    width: min(100% - 10vw, 1500px);
+
+    margin: 0 auto;
+    padding-bottom: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+}
+
+.gh-back,
+.gh-all {
+    padding: 10px 18px;
+
+    font: inherit;
+    color: var(--ink);
+    text-decoration: none;
+
+    background: white;
+    border: 1px solid #e5e3e5;
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.gh-back:hover,
+.gh-all:hover {
+    background: var(--ink);
+    color: white;
+}
+
+.gh-hint {
+    color: var(--muted);
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1100px) {
+
+    .gh-float.f1 { --w: 220px; left: 3%; }
+    .gh-float.f3 { --w: 200px; }
+    .gh-float.f5 { --w: 170px; left: 5%; }
+    .gh-float.f7 { --w: 160px; right: 2%; }
+    .gh-float.f4 { left: 30%; }
+
+}
+
+
+/* ==========================================
+   SMARTPHONE
+========================================== */
+
+@media (max-width: 760px) {
+
+    .gh {
+        min-height: 600px;
+    }
+
+    .gh-intro {
+        transform: translate(-50%, -42%);
+    }
+
+    .gh[data-state="gallery"] .gh-intro {
+        transform: translate(-50%, -55%) scale(0.94);
+    }
+
+    .gh-title {
+        font-size: clamp(40px, 12vw, 56px);
+    }
+
+    .gh-text {
+        font-size: 14px;
+        margin-bottom: 28px;
+    }
+
+    /* Meno anteprime e più piccole, ai bordi */
+
+    .gh-float.f1 { --w: 150px; top: 14%; left: -6%; }
+    .gh-float.f2 { display: none; }
+    .gh-float.f3 { --w: 140px; bottom: 5%; right: -4%; }
+    .gh-float.f4 { --w: 90px; top: 11%; left: auto; right: 8%; }
+    .gh-float.f5 { --w: 120px; bottom: 7%; left: 2%; }
+    .gh-float.f6 { display: none; }
+    .gh-float.f7 { --w: 110px; top: 72%; right: auto; left: 38%; filter: blur(3px); opacity: 0.6; }
+
+    .gh-orb.o1 { top: 80%; left: 70%; width: 30px; height: 30px; }
+    .gh-orb.o3 { top: 21%; right: 50%; }
+
+    /* Galleria */
+
+    .gh-gallery {
+        padding-top: 100px;
+    }
+
+    .gh-card {
+        --card-w: 58vw;
+    }
+
+    .gh-arrow {
+        width: 42px;
+        height: 42px;
+
+        bottom: 26px;
+    }
+
+    .gh-prev { left: calc(50% - 48px); }
+    .gh-next { left: calc(50% + 6px); }
+
+}
+
+@media (max-height: 700px) and (min-width: 761px) {
+
+    .gh-card {
+        --card-w: clamp(180px, 30vh, 260px);
+    }
+
+}
+
+
+/* ==========================================
+   CHI PREFERISCE MENO MOVIMENTO
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .gh-float img,
+    .gh-orb {
+        animation: none;
+    }
+
+}
+
+.gh-arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   RITOCCHI FINALI DELLA GALLERIA
+========================================== */
+
+/* Frecce in basso al centro, al posto della scritta:
+   così non coprono mai le card */
+
+.gh-arrow {
+    top: auto;
+    bottom: 22px;
+    right: auto;
+}
+
+.gh-prev { left: calc(50% - 60px); }
+.gh-next { left: calc(50% + 8px); }
+
+.gh-prev:hover,
+.gh-next:hover {
+    transform: none;
+}
+
+.gh-hint {
+    visibility: hidden;
+}
+
+/* Tablet in verticale: card più grandi */
+
+@media (min-width: 761px) and (orientation: portrait) {
+
+    .gh-card {
+        --card-w: 40vw;
+    }
+
+}
+
+/* Laptop con schermo basso: anteprime più piccole,
+   così non toccano il titolo */
+
+@media (min-width: 761px) and (max-height: 780px) {
+
+    .gh-float.f1 { --w: 210px; top: 20%; left: 3%; }
+    .gh-float.f2 { display: none; }
+    .gh-float.f3 { --w: 200px; }
+    .gh-float.f5 { --w: 170px; }
+    .gh-float.f7 { --w: 170px; top: 26%; right: 3%; }
+
+    .gh-orb.o3 { top: 16%; right: 40%; }
+
+    .gh-title {
+        font-size: clamp(42px, 4.6vw, 70px);
+    }
+
+    .gh-text {
+        margin-bottom: 26px;
+    }
+
+}
+
+
+/* ==========================================================
+   VERSIONE 2 — CARD MOBILE, DETTAGLIO PROGETTO, INTERAZIONI
+========================================================== */
+
+/* ---------- Card della galleria (ora sono pulsanti) ---------- */
+
+button.gh-card {
+    padding: 0;
+
+    font: inherit;
+    text-align: left;
+
+    background: none;
+    border: 0;
+
+    cursor: pointer;
+}
+
+.gh-card-media {
+    display: block;
+}
+
+.gh-card-media img {
+    display: block;
+    object-position: center top;
+}
+
+/* Progetti senza screenshot mobile: ritaglio dello screenshot desktop */
+
+.gh-card.is-crop .gh-card-media img {
+    object-position: 12% top;
+}
+
+/* Etichetta "Apri" che compare sulla card al centro */
+
+.gh-card-open {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+
+    padding: 9px 16px;
+
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: white;
+
+    background: rgba(36, 33, 38, 0.82);
+    border-radius: 50px;
+
+    backdrop-filter: blur(8px);
+
+    opacity: 0;
+    transform: translate(-50%, 10px);
+
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.gh-card.is-center .gh-card-open {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.gh-card.is-center .gh-card-media {
+    box-shadow:
+        0 40px 70px -30px rgba(36, 33, 38, 0.55),
+        0 0 0 1px rgba(36, 33, 38, 0.06);
+}
+
+.gh-all-hint {
+    color: var(--muted);
+}
+
+@media (max-width: 760px) {
+    .gh-all-hint {
+        display: none;
+    }
+}
+
+
+/* ==========================================
+   DETTAGLIO PROGETTO
+========================================== */
+
+.pd {
+    position: relative;
+
+    padding: 110px clamp(24px, 4.5vw, 100px) 120px;
+
+    background: #ffffff;
+    border-top: 1px solid var(--line);
+
+    overflow: hidden;
+}
+
+.pd[hidden] {
+    display: none;
+}
+
+/* Apertura: il pannello "sale" dal basso */
+
+.pd {
+    clip-path: inset(0 0 0 0 round 0);
+    transition: clip-path 0.9s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.pd:not(.is-open) {
+    clip-path: inset(18% 4% 0 4% round 40px);
+}
+
+.pd-inner {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.pd-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 50px;
+
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.pd-num {
+    color: var(--pink);
+    font-weight: 500;
+}
+
+.pd-close {
+    padding: 10px 18px;
+
+    font: inherit;
+    color: var(--ink);
+
+    background: var(--paper);
+    border: 1px solid #e5e3e5;
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.pd-close:hover {
+    background: var(--ink);
+    color: white;
+}
+
+/* Titolo grande */
+
+.pd-head {
+    margin-bottom: 46px;
+}
+
+.pd-type {
+    display: block;
+
+    margin-bottom: 18px;
+
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.pd-title {
+    margin: 0;
+
+    font-size: clamp(54px, 9vw, 150px);
+    font-weight: 500;
+    line-height: 0.9;
+    letter-spacing: -0.075em;
+}
+
+/* Screenshot orizzontale in una finestra del browser */
+
+.pd-shot {
+    margin: 0 0 60px;
+
+    overflow: hidden;
+
+    background: #f1eff2;
+    border: 1px solid #e3e0e5;
+    border-radius: 16px;
+
+    box-shadow: 0 50px 100px -50px rgba(36, 33, 38, 0.45);
+}
+
+.pd-browser {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    height: 42px;
+    padding: 0 16px;
+
+    background: #f7f6f8;
+    border-bottom: 1px solid #e3e0e5;
+}
+
+.pd-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.pd-dots i {
+    width: 10px;
+    height: 10px;
+
+    background: #d8d4db;
+    border-radius: 50%;
+}
+
+.pd-dots i:first-child {
+    background: var(--pink);
+}
+
+.pd-url {
+    flex: 1;
+
+    max-width: 440px;
+
+    padding: 6px 14px;
+
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+
+    background: white;
+    border-radius: 50px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pd-shot-img {
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+}
+
+.pd-shot-img img {
+    display: block;
+
+    width: 100%;
+    height: 112%;
+
+    object-fit: cover;
+    object-position: center top;
+
+    will-change: transform;
+}
+
+/* Testo + informazioni */
+
+.pd-body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(30px, 6vw, 110px);
+
+    padding-bottom: 70px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.pd-text p {
+    margin: 0;
+
+    font-size: clamp(18px, 1.6vw, 24px);
+    line-height: 1.55;
+    letter-spacing: -0.02em;
+}
+
+.pd-text .pd-quote {
+    margin-top: 26px;
+
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--pink);
+}
+
+.pd-meta .tag-list {
+    margin-bottom: 30px;
+}
+
+/* Precedente / Successivo */
+
+.pd-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding-top: 40px;
+}
+
+.pd-nav button {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+
+    padding: 0;
+
+    font: inherit;
+    color: var(--ink);
+
+    background: none;
+    border: 0;
+
+    cursor: pointer;
+}
+
+.pd-nav em {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.pd-nav strong {
+    font-size: clamp(22px, 2.6vw, 40px);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+
+    background: linear-gradient(var(--pink), var(--pink)) 0 100% / 0 2px no-repeat;
+
+    transition: background-size 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.3s;
+}
+
+.pd-nav button:hover strong {
+    color: var(--pink);
+    background-size: 100% 2px;
+}
+
+/* Entrata del contenuto (classe .is-in aggiunta dal JS) */
+
+.pd-item > * {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.pd-item.is-in > * {
+    opacity: 1;
+    transform: none;
+
+    transition:
+        opacity 0.9s ease,
+        transform 1s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.pd-item.is-in > *:nth-child(2) { transition-delay: 0.12s; }
+.pd-item.is-in > *:nth-child(3) { transition-delay: 0.24s; }
+
+.pd-item .pd-shot-img {
+    clip-path: inset(100% 0 0 0);
+}
+
+.pd-item.is-in .pd-shot-img {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 1.2s cubic-bezier(0.7, 0, 0.2, 1) 0.25s;
+}
+
+@media (max-width: 760px) {
+
+    .pd {
+        padding-top: 70px;
+        padding-bottom: 80px;
+    }
+
+    .pd-body {
+        grid-template-columns: 1fr;
+    }
+
+    .pd-shot-img {
+        aspect-ratio: 4 / 3;
+    }
+
+    .pd-browser {
+        height: 34px;
+    }
+
+    .pd-nav {
+        flex-direction: column;
+    }
+
+    .pd-next {
+        align-self: flex-end;
+    }
+
+}
+
+
+/* ==========================================
+   CURSORE PERSONALIZZATO
+========================================== */
+
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+
+    pointer-events: none;
+
+    display: none;
+}
+
+html.has-cursor .cursor {
+    display: block;
+}
+
+.cursor-dot,
+.cursor-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    border-radius: 50%;
+
+    will-change: transform;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+
+    background: var(--pink);
+}
+
+.cursor-ring {
+    width: 38px;
+    height: 38px;
+    margin: -19px 0 0 -19px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(36, 33, 38, 0.35);
+
+    transition:
+        width 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+        height 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+        margin 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+        background 0.35s ease,
+        border-color 0.35s ease;
+}
+
+.cursor-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    color: white;
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
+}
+
+/* Sopra link e pulsanti: l'anello si allarga */
+
+.cursor.is-link .cursor-ring {
+    width: 58px;
+    height: 58px;
+    margin: -29px 0 0 -29px;
+
+    border-color: var(--pink);
+}
+
+/* Sopra la galleria e le immagini: cerchio pieno con scritta */
+
+.cursor.is-label .cursor-ring {
+    width: 92px;
+    height: 92px;
+    margin: -46px 0 0 -46px;
+
+    background: var(--ink);
+    border-color: var(--ink);
+}
+
+.cursor.is-label .cursor-label {
+    opacity: 1;
+}
+
+.cursor.is-label .cursor-dot,
+.cursor.is-hidden .cursor-dot,
+.cursor.is-hidden .cursor-ring {
+    opacity: 0;
+}
+
+
+/* ==========================================
+   TITOLI CHE SALGONO PAROLA PER PAROLA
+========================================== */
+
+.split-word {
+    display: inline-block;
+
+    overflow: hidden;
+
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+
+    vertical-align: top;
+}
+
+.split-word > span {
+    display: inline-block;
+
+    transform: translateY(105%);
+
+    transition: transform 1s cubic-bezier(0.2, 0.75, 0.2, 1);
+    transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.is-split-in .split-word > span {
+    transform: none;
+}
+
+
+/* ==========================================
+   COMPETENZE: luce che segue il mouse
+========================================== */
+
+.skill-tile {
+    position: relative;
+    isolation: isolate;
+}
+
+.skill-tile::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: radial-gradient(
+        260px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(219, 7, 80, 0.55),
+        transparent 70%
+    );
+
+    opacity: 0;
+
+    transition: opacity 0.4s ease;
+}
+
+.skill-tile:hover::before {
+    opacity: 1;
+}
+
+.skill-tile h3 {
+    translate: var(--tx, 0) var(--ty, 0);
+    transition: translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+
+/* ==========================================
+   FOTO PROFILO: inclinazione 3D
+========================================== */
+
+.about-photo {
+    perspective: 900px;
+}
+
+.about-photo img {
+    rotate: var(--rx, 0) var(--ry, 0) 0 var(--ra, 0deg);
+
+    transition: rotate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+
+/* ==========================================
+   PERCORSO: linea che si riempie scorrendo
+========================================== */
+
+.timeline {
+    position: relative;
+}
+
+.timeline::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -22px;
+
+    width: 2px;
+    height: 100%;
+
+    background: var(--pink);
+
+    transform-origin: top;
+    transform: scaleY(var(--progress, 0));
+}
+
+@media (max-width: 760px) {
+    .timeline::after {
+        left: -12px;
+    }
+}
+
+.timeline-item {
+    transition: padding-left 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.timeline-item:hover {
+    padding-left: 18px;
+}
+
+.timeline-item:hover h4 {
+    color: var(--pink);
+}
+
+
+/* ==========================================
+   NASTRO: si inclina con la velocità di scroll
+========================================== */
+
+.ticker-track {
+    skew: var(--skew, 0deg) 0deg;
+}
+
+
+/* ==========================================
+   CONTATTI: scia di immagini che segue il mouse
+========================================== */
+
+.trail-img {
+    position: absolute;
+    z-index: 0;
+
+    width: 150px;
+    aspect-ratio: 3 / 4;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    box-shadow: 0 30px 60px -25px rgba(36, 33, 38, 0.45);
+
+    pointer-events: none;
+
+    opacity: 0;
+}
+
+.contact-inner h2 {
+    transition: letter-spacing 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+
+/* ==========================================
+   PULSANTI MAGNETICI
+========================================== */
+
+.is-magnetic {
+    translate: var(--mgx, 0) var(--mgy, 0);
+    transition: translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+
+/* ==========================================
+   MENO MOVIMENTO
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .split-word > span,
+    .pd-item > *,
+    .pd-item .pd-shot-img {
+        transform: none !important;
+        clip-path: none !important;
+        opacity: 1 !important;
+        transition: none !important;
+    }
+
+    .pd,
+    .pd:not(.is-open) {
+        clip-path: none;
+    }
+
+    .timeline::after {
+        display: none;
+    }
+
+}
+
+/* Col mouse c'è già il cursore "Apri": la pillola serve solo su touch */
+
+html.has-cursor .gh-card-open {
+    display: none;
+}
