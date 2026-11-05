@@ -5083,19 +5083,9 @@ html.has-cursor .gh-card-open {
     display: none;
 }
 
-/* VOLTA: lo screenshot si vede intero, senza ritagliare i lati
-   (il testo della hero sta vicino ai bordi). Lo sfondo scuro riempie
-   lo spazio che resta quando il riquadro è più alto dell'immagine. */
+/* Screenshot con <picture>: il browser sceglie la versione giusta
+   (16:9 su schermi larghi, 4:3 su schermi stretti) */
 
-.pd-item[data-project="volta-gym"] .pd-shot-img {
-    background: #0e0d0c;
-}
-
-.pd-item[data-project="volta-gym"] .pd-shot-img img {
-    height: 100%;
-
-    object-fit: contain;
-    object-position: center;
-
-    transform: none !important;
+.pd-shot-img picture {
+    display: contents;
 }
