@@ -5082,3 +5082,20 @@ html.has-cursor .cursor {
 html.has-cursor .gh-card-open {
     display: none;
 }
+
+/* VOLTA: lo screenshot si vede intero, senza ritagliare i lati
+   (il testo della hero sta vicino ai bordi). Lo sfondo scuro riempie
+   lo spazio che resta quando il riquadro è più alto dell'immagine. */
+
+.pd-item[data-project="volta-gym"] .pd-shot-img {
+    background: #0e0d0c;
+}
+
+.pd-item[data-project="volta-gym"] .pd-shot-img img {
+    height: 100%;
+
+    object-fit: contain;
+    object-position: center;
+
+    transform: none !important;
+}
