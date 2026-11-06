@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Jo Smash — Il tuo Smash Burger di fiducia a Valmontone</title>
+  <meta name="description" content="Jo smash, il tuo nuovo punto di riferimento per gli smash burger, preparati con ingredienti freschi e di alta qualità. Vieni a provarli!">
+  <!-- Redesign concept pubblicato nel portfolio: non deve comparire su Google al posto del sito ufficiale -->
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#F7F1E7">
+
+  <!-- Anteprima quando condividi il link (es. LinkedIn) -->
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="josmash">
+  <meta property="og:title" content="JoSmash — Redesign concept">
+  <meta property="og:description" content="Redesign concept del sito JoSmash: smash burger, motion design e scroll cinematografico. Progetto di Agnese Barnaba.">
+  <meta property="og:url" content="https://agneseb19.github.io/josmash-redesign/">
+  <meta property="og:image" content="https://agneseb19.github.io/images/josmash.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/ufficiali/favicon.png" type="image/png">
+
+  <!-- Font ospitati in locale (più veloci e conformi GDPR: nessuna richiesta a Google) -->
+  <link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Il burger della hero si carica per primo -->
+  <link rel="preload" as="image" type="image/avif"
+        imagesrcset="assets/img/concept/hero-burger-600.avif 600w, assets/img/concept/hero-burger-900.avif 900w, assets/img/concept/hero-burger-1153.avif 1153w"
+        imagesizes="(max-width: 899px) 82vw, 38vw">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script>
+    // 1) Segnala che JavaScript è attivo (serve a nascondere gli elementi prima dell'animazione d'ingresso)
+    document.documentElement.classList.add('js');
+    // 2) Rete di sicurezza: se gli script non partono, dopo 4 secondi mostra comunque tutto
+    setTimeout(function () { document.documentElement.classList.add('intro-done'); }, 4000);
+    // 3) Immagini ufficiali: prima cerca la copia locale, poi quella su josmash.it, poi mostra un segnaposto
+    window.jsImg = function (img) {
+      if (!img.dataset.tried && img.dataset.remote) { img.dataset.tried = '1'; img.src = img.dataset.remote; return; }
+      img.onerror = null;
+      var box = img.closest('[data-media]');
+      if (box) box.classList.add('is-missing');
+    };
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Jo Smash",
+    "alternateName": "JoSmash",
+    "description": "Il primo smash burger della provincia di Roma. Carne 100% italiana di bovino adulto, Bun Potato Rolls, cheddar e salse homemade.",
+    "url": "https://josmash.it/",
+    "telephone": "+39 06 8941 4209",
+    "email": "cibbajose@gmail.com",
+    "servesCuisine": ["Smash burger", "Hamburger"],
+    "hasMenu": "https://josmash.it/#menu",
+    "founder": { "@type": "Person", "name": "Josè" },
+    "foundingDate": "2024-05-30",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Via Nazionale, 33",
+      "addressLocality": "Valmontone",
+      "postalCode": "00038",
+      "addressRegion": "RM",
+      "addressCountry": "IT"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 41.7765944, "longitude": 12.9181375 },
+    "sameAs": [
+      "https://www.instagram.com/josmash_/",
+      "https://www.tiktok.com/@josmashvalmontone"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <header class="nav" data-nav>
+    <div class="nav__bar">
+      <a class="nav__brand" href="#top" data-media aria-label="Jo Smash, torna all'inizio">
+        <img class="nav__logo" src="assets/img/ufficiali/logo-josmash.png"
+             data-remote="https://josmash.it/wp-content/uploads/2024/07/logo-josmash-1.png"
+             alt="Jo Smash" width="120" height="40" onerror="jsImg(this)">
+        <span class="nav__wordmark" aria-hidden="true">JoSmash</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Navigazione principale">
+        <ul>
+          <li><a href="#top" data-nav-link>Home</a></li>
+          <li><a href="#chi-siamo" data-nav-link>Chi siamo</a></li>
+          <li><a href="#menu" data-nav-link>Menù</a></li>
+          <li><a href="#contatti" data-nav-link>Contatti</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn--tomato btn--sm nav__cta" data-magnetic
+         href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2"
+         target="_blank" rel="noopener">
+        <span>Ordina ora</span><span class="sr-only"> su Deliveroo (si apre in una nuova scheda)</span>
+      </a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+        <span class="nav__toggle-lines" aria-hidden="true"></span>
+        <span class="sr-only">Apri il menu</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Menu a schermo intero (smartphone e tablet) -->
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+    <nav aria-label="Navigazione mobile">
+      <ul class="mobile-menu__links">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#chi-siamo">Chi siamo</a></li>
+        <li><a href="#menu">Menù</a></li>
+        <li><a href="#contatti">Contatti</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-menu__foot">
+      <a class="btn btn--tomato" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordina con Deliveroo</a>
+      <p class="mobile-menu__social">
+        <a href="https://www.instagram.com/josmash_/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@josmashvalmontone" target="_blank" rel="noopener">TikTok</a>
+      </p>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============================================================
+         01 · HERO — THE CINEMATIC BURGER
+         La sezione resta "fissata" mentre scorri: il burger cresce,
+         separa le parole e si apre sulla foto macro.
+         ============================================================ -->
+    <section class="stage" id="top" data-bg="#F7F1E7" aria-label="Benvenuti da Jo Smash">
+      <div class="stage__inner">
+
+        <div class="hero" data-hero>
+          <div class="hero__glow" aria-hidden="true"></div>
+
+          <h1 class="hero__title">
+            <span class="hero__kicker" data-hero-kicker><span class="hero__mask"><span data-intro-line>Vieni a provare il primo</span></span></span>
+            <span class="hero__row">
+              <span class="hero__word hero__word--smash" data-hero-word="smash"><span class="hero__mask"><span data-intro-line>smash</span></span></span>
+
+              <!-- Il burger sta "tra" le due parole. 4 livelli annidati, ognuno con un compito:
+                   scroll → ingresso → fluttuazione/mouse → foto -->
+              <span class="hero__gap" aria-hidden="true">
+                <span class="burger" data-burger-scroll>
+                  <span class="burger__intro" data-burger-intro>
+                    <span class="burger__float" data-burger-float>
+                      <span class="burger__shadow"></span>
+                      <picture>
+                        <source type="image/avif" sizes="(max-width: 899px) 82vw, 38vw"
+                                srcset="assets/img/concept/hero-burger-600.avif 600w, assets/img/concept/hero-burger-900.avif 900w, assets/img/concept/hero-burger-1153.avif 1153w">
+                        <img class="burger__img" src="assets/img/concept/hero-burger-900.webp"
+                             srcset="assets/img/concept/hero-burger-600.webp 600w, assets/img/concept/hero-burger-900.webp 900w, assets/img/concept/hero-burger-1153.webp 1153w"
+                             sizes="(max-width: 899px) 82vw, 38vw" width="1153" height="948"
+                             alt="" fetchpriority="high" decoding="async" data-hero-img>
+                      </picture>
+                      <span class="burger__light"></span>
+                    </span>
+                  </span>
+                </span>
+
+                <!-- Etichette ingredienti (solo desktop largo) -->
+                <span class="hero__tags" data-hero-tags>
+                  <span class="tag tag--a" data-hero-tag><span class="tag__dot"></span>Carne 100% italiana</span>
+                  <span class="tag tag--b" data-hero-tag><span class="tag__dot"></span>Bun Potato Rolls</span>
+                  <span class="tag tag--c" data-hero-tag><span class="tag__dot"></span>Cheddar fuso</span>
+                  <span class="tag tag--d" data-hero-tag><span class="tag__dot"></span>Salse homemade</span>
+                </span>
+              </span>
+
+              <span class="hero__word hero__word--burger" data-hero-word="burger"><span class="hero__mask"><span data-intro-line>burger</span></span></span>
+            </span>
+            <span class="hero__kicker hero__kicker--b" data-hero-kicker><span class="hero__mask"><span data-intro-line>della provincia di Roma!</span></span></span>
+          </h1>
+
+          <div class="hero__foot">
+            <div class="hero__actions" data-hero-foot>
+              <a class="btn btn--tomato" href="#menu" data-magnetic>
+                <span>Scopri il menù</span>
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+              </a>
+              <a class="btn btn--ghost" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener" data-magnetic>
+                <span>Ordina ora</span><span class="sr-only"> su Deliveroo (si apre in una nuova scheda)</span>
+              </a>
+            </div>
+            <p class="hero__place" data-hero-foot>
+              <span>Via Nazionale 33</span>
+              <span>Valmontone (RM)</span>
+            </p>
+            <div class="hero__scroll" data-hero-foot aria-hidden="true">
+              <span class="hero__scroll-line"></span>
+              <span>Scorri</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto macro che si apre "dentro" il burger -->
+        <div class="manifesto" data-manifesto>
+          <div class="manifesto__media" data-manifesto-media>
+            <picture>
+              <source media="(max-width: 699px)" type="image/avif" srcset="assets/img/concept/macro-mobile-640.avif">
+              <source media="(max-width: 699px)" type="image/webp" srcset="assets/img/concept/macro-mobile-640.webp">
+              <source type="image/avif" sizes="100vw"
+                      srcset="assets/img/concept/macro-800.avif 800w, assets/img/concept/macro-1200.avif 1200w, assets/img/concept/macro-1496.avif 1496w">
+              <img src="assets/img/concept/macro-1200.webp"
+                   srcset="assets/img/concept/macro-800.webp 800w, assets/img/concept/macro-1200.webp 1200w, assets/img/concept/macro-1496.webp 1496w"
+                   sizes="100vw" width="1496" height="1000" alt="" decoding="async" data-manifesto-img>
+            </picture>
+          </div>
+          <div class="manifesto__scrim" aria-hidden="true"></div>
+          <h2 class="manifesto__title">
+            <span class="manifesto__line"><span class="hero__mask"><span data-manifesto-word>Smasha,</span></span></span>
+            <span class="manifesto__line manifesto__line--2"><span class="hero__mask"><span data-manifesto-word>Mordi</span></span></span>
+            <span class="manifesto__line manifesto__line--3"><span class="hero__mask"><span data-manifesto-word>e Godi.</span></span></span>
+          </h2>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         02 · BENVENUTI
+         ============================================================ -->
+    <section class="welcome" id="benvenuti" data-bg="#FFFDF8" aria-labelledby="welcome-title">
+      <div class="container welcome__grid">
+        <p class="eyebrow" data-reveal>Benvenuti da Jo Smash</p>
+        <h2 class="welcome__title display-2" id="welcome-title" data-split>
+          Il luogo in cui la passione per gli Smash&nbsp;Burger prende&nbsp;vita.
+        </h2>
+
+        <div class="welcome__text">
+          <p data-reveal>Nato dall’idea e dalla dedizione di <strong>Josè</strong>, un vero amante della buona cucina, Josmash è molto più di un semplice fast food: è un viaggio nel mondo degli smash burger, dove ogni ingrediente è selezionato con cura e ogni dettaglio è pensato per offrire il massimo del gusto.</p>
+          <p data-reveal>Josè ha voluto creare un punto di riferimento per chi cerca sapori autentici e qualità superiore, combinando tradizione e innovazione. Da <strong>Jo Smash</strong>, la freschezza e l’artigianalità si incontrano per offrirvi un’esperienza gastronomica indimenticabile, ricca di sapore, carattere e genuinità.</p>
+          <p class="welcome__invite" data-reveal>Vieni a scoprire il mondo degli smash dal gusto unico, non te ne pentirai!</p>
+          <a class="link-arrow" href="#chi-siamo" data-reveal>
+            <span>Chi siamo</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </a>
+        </div>
+
+        <figure class="welcome__burger" data-welcome-burger>
+          <picture>
+            <source type="image/avif" sizes="(max-width: 899px) 90vw, 50vw"
+                    srcset="assets/img/concept/burger-bbq-600.avif 600w, assets/img/concept/burger-bbq-1000.avif 1000w">
+            <img src="assets/img/concept/burger-bbq-1000.webp"
+                 srcset="assets/img/concept/burger-bbq-600.webp 600w, assets/img/concept/burger-bbq-1000.webp 1000w"
+                 sizes="(max-width: 899px) 90vw, 50vw" width="1000" height="781" loading="lazy" decoding="async"
+                 alt="Smash burger con bacon glassato, cheddar fuso e doppio patty">
+          </picture>
+        </figure>
+      </div>
+
+      <div class="pillars container" aria-labelledby="pillars-caption">
+        <p class="pillars__caption" id="pillars-caption" data-reveal>Gusto, qualità e passione: questi sono i pilastri dei nostri panini.</p>
+        <ul class="pillars__list" aria-hidden="true">
+          <li class="pillar" data-pillar>Gusto</li>
+          <li class="pillar" data-pillar>Qualità</li>
+          <li class="pillar" data-pillar>Passione</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         03 · CHI SIAMO — 1921 → 2024
+         ============================================================ -->
+    <section class="story" id="chi-siamo" data-bg="#F0BF58" aria-labelledby="story-title">
+      <div class="story__pin" data-story>
+        <div class="container story__grid">
+          <header class="story__head">
+            <p class="eyebrow">La storia</p>
+            <h2 class="display-3" id="story-title">Chi siamo</h2>
+          </header>
+
+          <p class="story__year" aria-hidden="true"><span data-story-year>1921</span></p>
+
+          <div class="story__track" aria-hidden="true">
+            <span>1921</span>
+            <span class="story__bar"><span class="story__bar-fill" data-story-bar></span></span>
+            <span>2024</span>
+          </div>
+
+          <div class="story__panels">
+            <article class="story__panel" data-story-panel>
+              <p class="story__label"><time datetime="1921">1921</time> · Wichita, Kansas</p>
+              <h3 class="story__panel-title">Nasceva il primo smash burger della storia.</h3>
+              <p>Nel 1921 una delle più antiche catene di fast food americane, <a href="https://it.wikipedia.org/wiki/White_Castle_%28azienda%29" target="_blank" rel="noopener">White Castle</a>, debuttava con il suo iconico hamburger quadrato, nel primo punto vendita a Wichita, in Kansas. Nasceva così, il primo smash burger della storia.</p>
+            </article>
+
+            <article class="story__panel" data-story-panel>
+              <p class="story__label"><time datetime="2024-05-30">30 maggio 2024</time> · Valmontone</p>
+              <h3 class="story__panel-title">Per la prima volta in Provincia di Roma.</h3>
+              <p>Presa ispirazione, decidiamo così di replicarlo nel miglior modo possibile, per la prima volta in Provincia di Roma, precisamente a Valmontone.</p>
+              <p>Il 30 maggio 2024 abbiamo aperto ufficialmente le porte di <strong>JoSmash</strong>, e vogliamo ringraziare di cuore tutte le persone che hanno partecipato a questo giorno speciale. È stato un momento indimenticabile, reso ancora più straordinario dalla vostra presenza e dal vostro entusiasmo.</p>
+              <figure class="story__photo" data-media>
+                <img src="assets/img/ufficiali/inaugurazione-josmash.png"
+                     data-remote="https://josmash.it/wp-content/uploads/2024/10/inaugurazione-josmash.png"
+                     alt="L’inaugurazione di JoSmash a Valmontone" loading="lazy" decoding="async" onerror="jsImg(this)">
+              </figure>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- Josè -->
+      <div class="founder container" aria-labelledby="founder-name">
+        <figure class="founder__photo" data-media data-founder-photo>
+          <!-- Foto originale di Josè: nessun filtro, nessun ritaglio (object-fit: contain) -->
+          <img src="assets/img/ufficiali/jose.png"
+               data-remote="https://josmash.it/wp-content/uploads/2024/10/jose.png"
+               alt="Josè, fondatore di Jo Smash" loading="lazy" decoding="async" onerror="jsImg(this)">
+          <figcaption class="founder__missing">Foto di Josè</figcaption>
+        </figure>
+
+        <div class="founder__text">
+          <p class="eyebrow" data-reveal>Fondatore</p>
+          <h3 class="founder__name" id="founder-name" data-split>Josè</h3>
+          <p class="founder__lead" data-reveal>Fondato da Josè, un amante della buona cucina con l’obiettivo di portare un’esperienza unica nel mondo dei smash burger, Jo Smash è sinonimo di qualità, sapore e autenticità.</p>
+          <p data-reveal>Ogni panino è preparato con ingredienti selezionati ed una tecnica perfetta che dona quella croccantezza e succosità inimitabile. Da Jo Smash, non si tratta solo di mangiare, ma di godere di un’esplosione di gusto in ogni boccone.</p>
+          <p data-reveal>La nostra passione per l’America ci ha spinti ad inaugurare un’esperienza unica nel mondo degli smash burger, portando un nuovo concetto di freschezza e qualità.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         04 · INGREDIENTI
+         ============================================================ -->
+    <section class="ingredients" id="ingredienti" data-bg="#F7F1E7" aria-labelledby="ing-title">
+      <div class="container">
+        <header class="ingredients__head">
+          <p class="eyebrow" data-reveal>Materie prime</p>
+          <h2 class="display-2" id="ing-title" data-split>I nostri ingredienti di altissima qualità</h2>
+          <p class="ingredients__intro" data-reveal>Ogni panino che creiamo è un viaggio nei sapori. Ogni morso racchiude la freschezza delle nostre materie prime e la cura artigianale con cui prepariamo ogni singolo panino.</p>
+        </header>
+
+        <div class="ingredients__layout">
+          <!-- Sticky su desktop: le foto si alternano mentre scorri -->
+          <div class="ing-stage" aria-hidden="true" data-ing-stage>
+            <div class="ing-stage__frame">
+              <picture class="ing-stage__img" data-ing-img>
+                <source type="image/avif" srcset="assets/img/concept/ing-carne-480.avif 480w, assets/img/concept/ing-carne-679.avif 679w" sizes="40vw">
+                <img src="assets/img/concept/ing-carne-679.webp" srcset="assets/img/concept/ing-carne-480.webp 480w, assets/img/concept/ing-carne-679.webp 679w" sizes="40vw" width="679" height="849" alt="" loading="lazy" decoding="async">
+              </picture>
+              <picture class="ing-stage__img" data-ing-img>
+                <source type="image/avif" srcset="assets/img/concept/ing-bun-480.avif 480w, assets/img/concept/ing-bun-560.avif 560w" sizes="40vw">
+                <img src="assets/img/concept/ing-bun-560.webp" srcset="assets/img/concept/ing-bun-480.webp 480w, assets/img/concept/ing-bun-560.webp 560w" sizes="40vw" width="560" height="700" alt="" loading="lazy" decoding="async">
+              </picture>
+              <picture class="ing-stage__img" data-ing-img>
+                <source type="image/avif" srcset="assets/img/concept/ing-cheddar-480.avif 480w, assets/img/concept/ing-cheddar-585.avif 585w" sizes="40vw">
+                <img src="assets/img/concept/ing-cheddar-585.webp" srcset="assets/img/concept/ing-cheddar-480.webp 480w, assets/img/concept/ing-cheddar-585.webp 585w" sizes="40vw" width="585" height="731" alt="" loading="lazy" decoding="async">
+              </picture>
+              <picture class="ing-stage__img" data-ing-img>
+                <source type="image/avif" srcset="assets/img/concept/ing-bacon-480.avif 480w, assets/img/concept/ing-bacon-702.avif 702w" sizes="40vw">
+                <img src="assets/img/concept/ing-bacon-702.webp" srcset="assets/img/concept/ing-bacon-480.webp 480w, assets/img/concept/ing-bacon-702.webp 702w" sizes="40vw" width="702" height="878" alt="" loading="lazy" decoding="async">
+              </picture>
+              <picture class="ing-stage__img" data-ing-img>
+                <source type="image/avif" srcset="assets/img/concept/ing-salse-480.avif 480w, assets/img/concept/ing-salse-800.avif 800w" sizes="40vw">
+                <img src="assets/img/concept/ing-salse-800.webp" srcset="assets/img/concept/ing-salse-480.webp 480w, assets/img/concept/ing-salse-800.webp 800w" sizes="40vw" width="800" height="1000" alt="" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <p class="ing-stage__count"><span data-ing-count>01</span> / 05</p>
+          </div>
+
+          <ol class="ing-list">
+            <li class="ing" data-ing>
+              <picture class="ing__img">
+                <source type="image/avif" srcset="assets/img/concept/ing-carne-480.avif">
+                <img src="assets/img/concept/ing-carne-480.webp" width="480" height="600" alt="Sezione di uno smash burger con doppio patty" loading="lazy" decoding="async">
+              </picture>
+              <span class="ing__num" aria-hidden="true">01</span>
+              <h3 class="ing__title">Carne 100% italiana</h3>
+              <p>Carne 100% italiana di bovino adulto, in doppio patty da 90&nbsp;gr. Ogni panino è preparato con ingredienti selezionati ed una tecnica perfetta che dona quella croccantezza e succosità inimitabile.</p>
+            </li>
+            <li class="ing" data-ing>
+              <picture class="ing__img">
+                <source type="image/avif" srcset="assets/img/concept/ing-bun-480.avif">
+                <img src="assets/img/concept/ing-bun-480.webp" width="480" height="600" alt="Bun lucido visto dall’alto" loading="lazy" decoding="async">
+              </picture>
+              <span class="ing__num" aria-hidden="true">02</span>
+              <h3 class="ing__title">Bun Potato Rolls</h3>
+              <p>I Bun Potato Rolls sono i nostri panini esclusivi, soffici e leggeri, preparati con farina di patate per un sapore inconfondibile e una consistenza irresistibile.</p>
+            </li>
+            <li class="ing" data-ing>
+              <picture class="ing__img">
+                <source type="image/avif" srcset="assets/img/concept/ing-cheddar-480.avif">
+                <img src="assets/img/concept/ing-cheddar-480.webp" width="480" height="600" alt="Cheddar fuso che cola sul patty" loading="lazy" decoding="async">
+              </picture>
+              <span class="ing__num" aria-hidden="true">03</span>
+              <h3 class="ing__title">Cheddar</h3>
+              <p>Il nostro cheddar si scioglie alla perfezione esaltando ogni boccone, dal gusto ricco e avvolgente, è selezionato tra i migliori formaggi.</p>
+            </li>
+            <li class="ing" data-ing>
+              <picture class="ing__img">
+                <source type="image/avif" srcset="assets/img/concept/ing-bacon-480.avif">
+                <img src="assets/img/concept/ing-bacon-480.webp" width="480" height="600" alt="Bacon croccante su cheddar fuso" loading="lazy" decoding="async">
+              </picture>
+              <span class="ing__num" aria-hidden="true">04</span>
+              <h3 class="ing__title">Bacon Croccante</h3>
+              <p>Il nostro bacon croccante è preparato con tagli selezionati di altissima qualità, dorato alla perfezione per garantire una croccantezza irresistibile.</p>
+            </li>
+            <li class="ing" data-ing>
+              <picture class="ing__img">
+                <source type="image/avif" srcset="assets/img/concept/ing-salse-480.avif">
+                <img src="assets/img/concept/ing-salse-480.webp" width="480" height="600" alt="Salsa cremosa sotto il bun" loading="lazy" decoding="async">
+              </picture>
+              <span class="ing__num" aria-hidden="true">05</span>
+              <h3 class="ing__title">Salse Homemade</h3>
+              <p>Le nostre salse homemade segrete sono create con ingredienti freschi e ricette esclusive, pensate per aggiungere un tocco unico ai nostri smash burger.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         05 · MENÙ
+         ============================================================ -->
+    <section class="menu" id="menu" data-bg="#FFFDF8" aria-labelledby="menu-title">
+      <div class="container">
+        <header class="menu__head">
+          <p class="eyebrow" data-reveal>Il nostro menù</p>
+          <h2 class="display-1" id="menu-title" data-split>Menù</h2>
+          <p class="menu__intro" data-reveal>Smash burger di altissima qualità e i nostri fritti. Ogni panino è disponibile da solo o in menu.</p>
+        </header>
+
+        <nav class="menu__cats" aria-label="Categorie del menù" data-menu-cats>
+          <a href="#smash-burger" class="chip" data-cat-link="smash-burger">Smash Burger <span class="chip__count">7</span></a>
+          <a href="#fritti" class="chip" data-cat-link="fritti">Fritti <span class="chip__count">7</span></a>
+        </nav>
+
+        <!-- SMASH BURGER -->
+        <div class="menu-burgers" id="smash-burger" data-cat="smash-burger">
+          <h3 class="menu__cat-title">Smash Burger</h3>
+
+          <div class="menu-burgers__layout">
+            <!-- Palco sticky (solo desktop): mostra la foto ufficiale del burger attivo -->
+            <div class="menu-stage" aria-hidden="true" data-menu-stage>
+              <div class="menu-stage__disc" data-menu-disc></div>
+              <span class="menu-stage__num" data-menu-num>01</span>
+              <div class="menu-stage__imgs" data-menu-imgs></div>
+            </div>
+
+            <ol class="burger-list" data-burger-list>
+              <li class="burger-item" data-burger-item data-tone="#D66A32">
+                <div class="burger-item__media" data-media>
+                  <img src="assets/img/ufficiali/oklahoma-smash.png" data-remote="https://josmash.it/wp-content/uploads/2026/01/oklahoma-smash-sito.png" alt="Oklahoma Smash" loading="lazy" decoding="async" onerror="jsImg(this)">
+                  <span class="media-missing" aria-hidden="true">Oklahoma Smash</span>
+                </div>
+                <div class="burger-item__body">
+                  <span class="burger-item__num" aria-hidden="true">01</span>
+                  <h4 class="burger-item__name">Oklahoma Smash</h4>
+                  <p class="burger-item__desc">Bun potato rolls, doppio Patty da 90gr, Cipolle, Cheddar, Bacon, Pickels, Senape, Ketchup.</p>
+                  <dl class="prices">
+                    <div><dt>Panino</dt><dd>€ 11,00</dd></div>
+                    <div><dt>Menu</dt><dd>€ 17,50</dd></div>
+                  </dl>
+                  <a class="burger-item__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Oklahoma Smash su Deliveroo (si apre in una nuova scheda)</span></a>
+                </div>
+              </li>
+
+              <li class="burger-item" data-burger-item data-tone="#F0BF58">
+                <div class="burger-item__media" data-media>
+                  <img src="assets/img/ufficiali/candy-smash.png" data-remote="https://josmash.it/wp-content/uploads/2026/01/candy-chat-josmash.png" alt="Candy Smash" loading="lazy" decoding="async" onerror="jsImg(this)">
+                  <span class="media-missing" aria-hidden="true">Candy Smash</span>
+                </div>
+                <div class="burger-item__body">
+                  <span class="burger-item__num" aria-hidden="true">02</span>
+                  <h4 class="burger-item__name">Candy Smash</h4>
+                  <p class="burger-item__desc">Bun potato rolls, doppio Patty da 90gr, Cheddar, Bacon candito, Salsa BBQ Miele.</p>
+                  <dl class="prices">
+                    <div><dt>Panino</dt><dd>€ 10,00</dd></div>
+                    <div><dt>Menu</dt><dd>€ 16,50</dd></div>
+                  </dl>
+                  <a class="burger-item__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Candy Smash su Deliveroo (si apre in una nuova scheda)</span></a>
+                </div>
+              </li>
+
+              <li class="burger-item" data-burger-item data-tone="#B93C2F">
+                <div class="burger-item__media" data-media>
+                  <img src="assets/img/ufficiali/hot-oklahoma.png" data-remote="https://josmash.it/wp-content/uploads/2026/09/jalapenos-pickels-jo-smash.png" alt="Hot Oklahoma" loading="lazy" decoding="async" onerror="jsImg(this)">
+                  <span class="media-missing" aria-hidden="true">Hot Oklahoma</span>
+                </div>
+                <div class="burger-item__body">
+                  <span class="burger-item__num" aria-hidden="true">03</span>
+                  <h4 class="burger-item__name">Hot Oklahoma</h4>
+                  <p class="burger-item__desc">Bun potato rolls, doppio Patty da 90gr, Ketchup al miele, Jalapenos OKC style, Cipolle OKC style, Cheddar e Bacon</p>
+                  <dl class="prices">
+                    <div><dt>Panino</dt><dd>€ 11,00</dd></div>
+                    <div><dt>Menu</dt><dd>€ 17,50</dd></div>
+                  </dl>
+                  <a class="burger-item__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Hot Oklahoma su Deliveroo (si apre in una nuova scheda)</span></a>
+                </div>
+              </li>
+
+              <li class="burger-item" data-burger-item data-tone="#E3B98A">
+                <div class="burger-item__media" data-media>
+                  <img src="assets/img/ufficiali/josmash-2-0.png" data-remote="https://josmash.it/wp-content/uploads/2026/01/josmash-sito-scontornato.png" alt="Josmash 2.0" loading="lazy" decoding="async" onerror="jsImg(this)">
+                  <span class="media-missing" aria-hidden="true">Josmash 2.0</span>
+                </div>
+                <div class="burger-item__body">
+                  <span class="burger-item__num" aria-hidden="true">04</span>
+                  <h4 class="burger-item__name">Josmash 2.0</h4>
+                  <p class="burger-item__desc">Bun potato rolls, doppio Patty da 90gr, Cheddar, Bacon, Salsa Josmash.</p>
+                  <dl class="prices">
+                    <div><dt>Panino</dt><dd>€ 9,00</dd></div>
+                    <div><dt>Menu</dt><dd>€ 15,50</dd></div>
+                  </dl>
+                  <a class="burger-item__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Josmash 2.0 su Deliveroo (si apre in una nuova scheda)</span></a>
+                </div>
+              </li>
+
+              <li class="burger-item" data-burger-item data-tone="#6B4532">
+                <div class="burger-item__media" data-media>
+                  <img src="assets/img/ufficiali/truffle-smash.png" data-remote="https://josmash.it/wp-content/uploads/2026/01/truffle-sito-josmash.png" alt="Truffle Smash" loading="lazy" decoding="async" onerror="jsImg(this)">
+                  <span class="media-missing" aria-hidden="true">Truffle Smash</span>
+                </div>
+                <div class="burger-item__body">
+                  <span class="burger-item__num" aria-hidden="true">05</span>
+                  <h4 class="burger-item__name">Truffle Smash</h4>
+                  <p class="burger-item__desc">Bun potato rolls, doppio Patty da 90gr, Cheddar, Cipolle Rosse Caramellate, Maionese al Tartufo.</p>
+                  <dl class="prices">
+                    <div><dt>Panino</dt><dd>€ 11,00</dd></div>
+                    <div><dt>Menu</dt><dd>€ 17,50</dd></div>
+                  </dl>
+                  <a class="burger-item__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Truffle Smash su Deliveroo (si apre in una nuova scheda)</span></a>
+                </div>
+              </li>
+
+              <li class="burger-item" data-burger-item data-tone="#F0BF58">
+                <div class="burger-item__media" data-media>
+                  <img src="assets/img/ufficiali/33rd-street.png" data-remote="https://josmash.it/wp-content/uploads/2026/09/cipolle-croccanti-jo-smash-burger.png" alt="33rd Street" loading="lazy" decoding="async" onerror="jsImg(this)">
+                  <span class="media-missing" aria-hidden="true">33rd Street</span>
+                </div>
+                <div class="burger-item__body">
+                  <span class="burger-item__num" aria-hidden="true">06</span>
+                  <h4 class="burger-item__name">33rd Street</h4>
+                  <p class="burger-item__desc">Bun potato rolls, doppio Patty da 90gr, Cipolle croccanti, Secret Sauce e Cheddar</p>
+                  <dl class="prices">
+                    <div><dt>Panino</dt><dd>€ 9,00</dd></div>
+                    <div><dt>Menu</dt><dd>€ 15,50</dd></div>
+                  </dl>
+                  <a class="burger-item__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> 33rd Street su Deliveroo (si apre in una nuova scheda)</span></a>
+                </div>
+              </li>
+
+              <li class="burger-item" data-burger-item data-tone="#D66A32">
+                <div class="burger-item__media" data-media>
+                  <img src="assets/img/ufficiali/potato-smash.png" data-remote="https://josmash.it/wp-content/uploads/2026/09/PANINO-CIPOLLE-CARAMELLATE-SCONTORN.png" alt="Potato Smash" loading="lazy" decoding="async" onerror="jsImg(this)">
+                  <span class="media-missing" aria-hidden="true">Potato Smash</span>
+                </div>
+                <div class="burger-item__body">
+                  <span class="burger-item__num" aria-hidden="true">07</span>
+                  <h4 class="burger-item__name">Potato Smash</h4>
+                  <p class="burger-item__desc">Bun potato rolls, doppio patty da 90gr, Rosti di patate, Salsa Jo, Cipolle caramellate e Bacon</p>
+                  <dl class="prices">
+                    <div><dt>Panino</dt><dd>€ 11,00</dd></div>
+                    <div><dt>Menu</dt><dd>€ 17,50</dd></div>
+                  </dl>
+                  <a class="burger-item__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Potato Smash su Deliveroo (si apre in una nuova scheda)</span></a>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="menu-notes">
+            <p class="menu-notes__beer" data-reveal><strong>Ogni menu con birra al posto della bibita costa € 3,00 in più.</strong></p>
+          </div>
+        </div>
+
+        <!-- FRITTI -->
+        <div class="menu-fried" id="fritti" data-cat="fritti">
+          <h3 class="menu__cat-title">Fritti</h3>
+          <ul class="fried-grid">
+            <li class="fried" data-fried>
+              <div class="fried__media" data-media><img src="assets/img/ufficiali/patatine-fritte.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/patate-fritte-1024x1024.png" alt="Patatine fritte" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="media-missing" aria-hidden="true">Patatine fritte</span></div>
+              <h4 class="fried__name">Patatine fritte<abbr title="potrebbe essere surgelato">*</abbr></h4>
+              <p class="fried__price">€ 4,00</p>
+              <a class="fried__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Patatine fritte su Deliveroo (si apre in una nuova scheda)</span></a>
+            </li>
+            <li class="fried" data-fried>
+              <div class="fried__media" data-media><img src="assets/img/ufficiali/american-cheese.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/american-cheese-josmash-1024x1024.png" alt="American Cheese" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="media-missing" aria-hidden="true">American Cheese</span></div>
+              <h4 class="fried__name">American Cheese<abbr title="potrebbe essere surgelato">*</abbr></h4>
+              <p class="fried__price">€ 4,50</p>
+              <a class="fried__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> American Cheese su Deliveroo (si apre in una nuova scheda)</span></a>
+            </li>
+            <li class="fried" data-fried>
+              <div class="fried__media" data-media><img src="assets/img/ufficiali/josmash-fries.png" data-remote="https://josmash.it/wp-content/uploads/2026/01/patatine-josmash-2.0.png" alt="Josmash Fries" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="media-missing" aria-hidden="true">Josmash Fries</span></div>
+              <h4 class="fried__name">Josmash Fries<abbr title="potrebbe essere surgelato">*</abbr></h4>
+              <p class="fried__price">€ 5,50</p>
+              <a class="fried__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Josmash Fries su Deliveroo (si apre in una nuova scheda)</span></a>
+            </li>
+            <li class="fried" data-fried>
+              <div class="fried__media" data-media><img src="assets/img/ufficiali/nuggets-di-pollo.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/nuggets-di-pollo-1024x1024.png" alt="Nuggets di pollo" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="media-missing" aria-hidden="true">Nuggets di pollo</span></div>
+              <h4 class="fried__name">Nuggets di pollo<abbr title="potrebbe essere surgelato">*</abbr></h4>
+              <p class="fried__price">€ 5,00</p>
+              <a class="fried__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Nuggets di pollo su Deliveroo (si apre in una nuova scheda)</span></a>
+            </li>
+            <li class="fried" data-fried>
+              <div class="fried__media" data-media><img src="assets/img/ufficiali/pulled-pork.png" data-remote="https://josmash.it/wp-content/uploads/2026/01/pulled-pork-sito2.png" alt="Pulled Pork" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="media-missing" aria-hidden="true">Pulled Pork</span></div>
+              <h4 class="fried__name">Pulled Pork<abbr title="potrebbe essere surgelato">*</abbr></h4>
+              <p class="fried__price">€ 5,00</p>
+              <a class="fried__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Pulled Pork su Deliveroo (si apre in una nuova scheda)</span></a>
+            </li>
+            <li class="fried" data-fried>
+              <div class="fried__media" data-media><img src="assets/img/ufficiali/chicken-tender.png" data-remote="https://josmash.it/wp-content/uploads/2026/09/TENDER-POLLO-JOSMASH-1024x1024.png" alt="Chicken Tender" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="media-missing" aria-hidden="true">Chicken Tender</span></div>
+              <h4 class="fried__name">Chicken Tender<abbr title="potrebbe essere surgelato">*</abbr></h4>
+              <p class="fried__price">€ 5,00</p>
+              <a class="fried__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Chicken Tender su Deliveroo (si apre in una nuova scheda)</span></a>
+            </li>
+            <li class="fried" data-fried>
+              <div class="fried__media" data-media><img src="assets/img/ufficiali/chicken-wings.png" data-remote="https://josmash.it/wp-content/uploads/2026/01/chicken-wings.png" alt="Chicken Wings" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="media-missing" aria-hidden="true">Chicken Wings</span></div>
+              <h4 class="fried__name">Chicken Wings<abbr title="potrebbe essere surgelato">*</abbr></h4>
+              <p class="fried__price">€ 5,00</p>
+              <a class="fried__order" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Ordinami!<span class="sr-only"> Chicken Wings su Deliveroo (si apre in una nuova scheda)</span></a>
+            </li>
+          </ul>
+
+          <div class="menu-notes menu-notes--grid">
+            <p data-reveal>Tutti i prodotti contrassegnati con (*) potrebbero essere surgelati, per maggiori info chiedi al nostro staff.</p>
+            <div class="allergens" data-reveal>
+              <h4>Allergeni</h4>
+              <p>Tutti i nostri panini possono contenere tracce di senape e maionese, il nostro pane inoltre può contenere tracce di uova, latte e glutine, per maggiori info chiedi al nostro staff.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         06 · LAVORA CON NOI + SOCIAL
+         ============================================================ -->
+    <section class="team" data-bg="#F7F1E7" aria-labelledby="team-title">
+      <div class="container">
+        <div class="team__card" data-team-card>
+          <p class="eyebrow">Entra a far parte del nostro team</p>
+          <h2 class="team__title display-3" id="team-title" data-split>Vuoi entrare nel mondo degli Smash Burger?</h2>
+          <a class="btn btn--espresso" href="https://it.indeed.com/viewjob?jk=cbca329888f0eb55" target="_blank" rel="noopener" data-magnetic>
+            <span>Inviaci la tua candidatura</span>
+            <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg>
+            <span class="sr-only"> (su Indeed, si apre in una nuova scheda)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="social" data-bg="#F7F1E7" aria-labelledby="social-title">
+      <div class="container social__head">
+        <h2 class="display-3" id="social-title" data-split>Seguici sui social</h2>
+        <p class="social__links" data-reveal>
+          <a class="btn btn--ghost" href="https://www.instagram.com/josmash_/" target="_blank" rel="noopener" data-magnetic><span>Instagram · @josmash_</span><span class="sr-only"> (si apre in una nuova scheda)</span></a>
+          <a class="btn btn--ghost" href="https://www.tiktok.com/@josmashvalmontone" target="_blank" rel="noopener" data-magnetic><span>TikTok · @josmashvalmontone</span><span class="sr-only"> (si apre in una nuova scheda)</span></a>
+        </p>
+      </div>
+
+      <div class="reels" data-reels>
+        <ul class="reels__track" data-reels-track>
+          <li><a class="reel" data-media href="https://www.instagram.com/reel/C-49LfdIr7a/" target="_blank" rel="noopener"><img src="assets/img/ufficiali/social-take-away.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/take-away-josmash-1024x1024.png" alt="Reel Instagram: take away" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="reel__label">Guarda il reel</span></a></li>
+          <li><a class="reel" data-media href="https://www.instagram.com/reel/C-KdaeMNk7p/" target="_blank" rel="noopener"><img src="assets/img/ufficiali/social-smash-burger-valmontone.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/smash-burger-valmontone-1024x1024.png" alt="Reel Instagram: smash burger a Valmontone" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="reel__label">Guarda il reel</span></a></li>
+          <li><a class="reel" data-media href="https://www.instagram.com/reel/DAWRzSjIQd_/" target="_blank" rel="noopener"><img src="assets/img/ufficiali/social-fidelity-card.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/fidelity-card-josmash-1024x1024.png" alt="Reel Instagram: fidelity card" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="reel__label">Guarda il reel</span></a></li>
+          <li><a class="reel" data-media href="https://www.instagram.com/reel/C_1Bj1fok7M/" target="_blank" rel="noopener"><img src="assets/img/ufficiali/social-smash.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/smash-1024x1024.png" alt="Reel Instagram: burger smash" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="reel__label">Guarda il reel</span></a></li>
+          <li><a class="reel" data-media href="https://www.instagram.com/reel/C9QOGCVIB_G/" target="_blank" rel="noopener"><img src="assets/img/ufficiali/social-smash-burger-provincia-di-roma.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/smash-burger-provincia-di-roma-1024x1024.png" alt="Reel Instagram: smash burger in provincia di Roma" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="reel__label">Guarda il reel</span></a></li>
+          <li><a class="reel" data-media href="https://www.instagram.com/reel/DAJP2M-oEAu/" target="_blank" rel="noopener"><img src="assets/img/ufficiali/social-io-smash.png" data-remote="https://josmash.it/wp-content/uploads/2024/09/io-smash-1024x1024.png" alt="Reel Instagram: smash" loading="lazy" decoding="async" onerror="jsImg(this)"><span class="reel__label">Guarda il reel</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         07 · VIENI A TROVARCI (CTA finale + contatti)
+         ============================================================ -->
+    <section class="visit" id="contatti" data-bg="#302019" data-theme="dark" aria-labelledby="visit-title">
+      <div class="container visit__grid">
+        <div class="visit__copy">
+          <p class="eyebrow eyebrow--light" data-reveal>Contatti</p>
+          <h2 class="visit__title display-1" id="visit-title" data-split>Vieni a trovarci!</h2>
+          <p class="visit__address" data-reveal>
+            <a href="https://www.google.com/maps/dir//Via+Nazionale,+33,+00038+Valmontone+RM" target="_blank" rel="noopener">Via Nazionale 33, Valmontone (RM)<span class="sr-only"> — indicazioni su Google Maps (si apre in una nuova scheda)</span></a>
+          </p>
+
+          <div class="visit__actions" data-reveal>
+            <a class="btn btn--tomato" href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener" data-magnetic><span>Ordina con Deliveroo</span><span class="sr-only"> (si apre in una nuova scheda)</span></a>
+            <a class="btn btn--butter" href="https://www.checomodo.it/attivita/josmash" target="_blank" rel="noopener" data-magnetic><span>Ordina con Che Comodo</span><span class="sr-only"> (si apre in una nuova scheda)</span></a>
+            <a class="btn btn--ghost-light" href="https://www.google.com/maps/dir//Via+Nazionale,+33,+00038+Valmontone+RM" target="_blank" rel="noopener" data-magnetic><span>Indicazioni stradali</span><span class="sr-only"> (si apre in una nuova scheda)</span></a>
+          </div>
+          <p class="visit__partners" data-reveal>Ordina le nostre bontà anche tramite Deliveroo e Che Comodo: scegli il tuo servizio di consegna preferito!</p>
+        </div>
+
+        <figure class="visit__burger" data-visit-burger>
+          <div class="visit__glow" aria-hidden="true"></div>
+          <picture>
+            <source type="image/avif" sizes="(max-width: 899px) 86vw, 44vw" srcset="assets/img/concept/burger-dark-600.avif 600w, assets/img/concept/burger-dark-991.avif 991w">
+            <img src="assets/img/concept/burger-dark-991.webp" srcset="assets/img/concept/burger-dark-600.webp 600w, assets/img/concept/burger-dark-991.webp 991w"
+                 sizes="(max-width: 899px) 86vw, 44vw" width="991" height="792" loading="lazy" decoding="async"
+                 alt="Smash burger con doppio patty, cheddar, bacon, cetriolini, ketchup e senape">
+          </picture>
+        </figure>
+
+        <ul class="contact-grid">
+          <li class="contact" data-contact>
+            <span class="contact__label">Chiamate</span>
+            <a class="contact__value" href="tel:+390689414209">06 8941 4209</a>
+          </li>
+          <li class="contact" data-contact>
+            <span class="contact__label">WhatsApp</span>
+            <a class="contact__value" href="https://wa.me/393914877809" target="_blank" rel="noopener">391 487 7809<span class="sr-only"> (si apre WhatsApp)</span></a>
+          </li>
+          <li class="contact" data-contact>
+            <span class="contact__label">E-mail</span>
+            <a class="contact__value" href="mailto:cibbajose@gmail.com?subject=JOSMASH">cibbajose@gmail.com</a>
+          </li>
+          <li class="contact" data-contact>
+            <span class="contact__label">Inviaci il tuo CV</span>
+            <a class="contact__value" href="https://it.indeed.com/viewjob?jk=cbca329888f0eb55" target="_blank" rel="noopener">Candidati su Indeed<span class="sr-only"> (si apre in una nuova scheda)</span></a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" data-theme="dark">
+    <div class="container footer__grid">
+      <div class="footer__brand" data-media>
+        <img class="footer__logo" src="assets/img/ufficiali/logo-josmash-footer.png"
+             data-remote="https://josmash.it/wp-content/uploads/2024/10/josmash-footer-1024x1024.png"
+             alt="Jo Smash" width="160" height="160" loading="lazy" decoding="async" onerror="jsImg(this)">
+        <p class="footer__claim">Smasha, Mordi e Godi.</p>
+      </div>
+
+      <nav class="footer__col" aria-label="Navigazione nel footer">
+        <h2 class="footer__title">Naviga</h2>
+        <ul>
+          <li><a href="#top">Home</a></li>
+          <li><a href="#chi-siamo">Chi siamo</a></li>
+          <li><a href="#menu">Menù</a></li>
+          <li><a href="#contatti">Contatti</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <h2 class="footer__title">Contatti</h2>
+        <ul>
+          <li><a href="https://www.google.com/maps/dir//Via+Nazionale,+33,+00038+Valmontone+RM" target="_blank" rel="noopener">Via Nazionale, 33 Valmontone (RM)</a></li>
+          <li><a href="mailto:cibbajose@gmail.com?subject=Josmash">cibbajose@gmail.com</a></li>
+          <li><a href="https://wa.me/393914877809" target="_blank" rel="noopener">WhatsApp 391 487 7809</a></li>
+          <li><a href="tel:+390689414209">06 8941 4209</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__title">Seguici</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/josmash_/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@josmashvalmontone" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://deliveroo.it/it/menu/Colleferro/valmontone/jo-smash?geohash=sr3jw55384g2" target="_blank" rel="noopener">Deliveroo</a></li>
+          <li><a href="https://www.checomodo.it/attivita/josmash" target="_blank" rel="noopener">Che Comodo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer__giant" aria-hidden="true"><span data-footer-giant>JoSmash</span></p>
+
+    <div class="container footer__legal">
+      <p>Copyright © 2024 JOSMASH. Tutti i diritti sono riservati. Non duplicare o ridistribuire in nessuna forma.</p>
+      <p>
+        <a href="https://www.iubenda.com/privacy-policy/49418661" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="https://www.iubenda.com/privacy-policy/49418661/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a>
+        <span>Sito realizzato da <a href="https://creationweb.it" target="_blank" rel="noopener">Creation Web</a></span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Librerie (copie locali: il sito funziona anche senza CDN) -->
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
