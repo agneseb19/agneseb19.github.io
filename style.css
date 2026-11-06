@@ -3761,6 +3761,7 @@ html.has-js .reveal:not(.is-visible) {
 .gh-float.f5 { --w: 220px; --r: -8deg;  --t: 7.5s; bottom: 12%; left: 12%;   --d: -3s; }
 .gh-float.f6 { --w: 140px; --r: 9deg;   --t: 10s;  bottom: 6%;  left: 42%;   filter: blur(4px); opacity: 0.6; }
 .gh-float.f7 { --w: 210px; --r: 4deg;   --t: 8s;   top: 22%;    right: 5%;   --d: -5s; }
+.gh-float.f8 { --w: 230px; --r: -5deg;  --t: 7.8s; top: 47%;    right: 3%;   --d: -2.5s; } /* JoSmash */
 
 /* Piccole sfere colorate */
 
@@ -4229,7 +4230,13 @@ html.has-js .reveal:not(.is-visible) {
     .gh-float.f5 { --w: 170px; left: 5%; }
     .gh-float.f7 { --w: 160px; right: 2%; }
     .gh-float.f4 { left: 30%; }
+    .gh-float.f8 { --w: 170px; right: 1%; }
 
+}
+
+/* JoSmash: sotto i 1000px coprirebbe il titolo, resta solo nella galleria */
+@media (max-width: 1000px) {
+    .gh-float.f8 { display: none; }
 }
 
 
@@ -4269,6 +4276,7 @@ html.has-js .reveal:not(.is-visible) {
     .gh-float.f5 { --w: 120px; bottom: 7%; left: 2%; }
     .gh-float.f6 { display: none; }
     .gh-float.f7 { --w: 110px; top: 72%; right: auto; left: 38%; filter: blur(3px); opacity: 0.6; }
+    .gh-float.f8 { display: none; }
 
     .gh-orb.o1 { top: 80%; left: 70%; width: 30px; height: 30px; }
     .gh-orb.o3 { top: 21%; right: 50%; }
