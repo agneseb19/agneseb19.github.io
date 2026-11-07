@@ -154,6 +154,104 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid 
 .in-detail #world::after { opacity: .55; }
 .in-detail .foot { opacity: 0; visibility: hidden; }
 
+/* =========================================================
+   LA COLLEZIONE LUCCIOLE: la griglia che arriva scorrendo
+   A riposo si vede il gioiello; passandoci sopra sfuma nella foto indossata.
+   ========================================================= */
+.atelier {
+  position: relative; pointer-events: auto;
+  padding: clamp(140px, 16vw, 230px) var(--edge) clamp(80px, 9vw, 130px);
+  background: linear-gradient(180deg, rgba(9, 8, 10, 0), var(--bg) clamp(120px, 14vw, 200px));   /* il muro sfuma nel buio */
+  transition: opacity .6s, visibility .6s;
+}
+.in-detail .atelier { opacity: 0; visibility: hidden; }
+.l-cab { max-width: 46rem; }
+.l-cab h2 { margin-top: 18px; font-size: clamp(44px, 5.6vw, 96px); line-height: .98; letter-spacing: -.01em; }
+.l-entra { margin-top: 22px; max-width: 30rem; color: var(--muted); font-size: 15px; }
+.l-filtri { display: flex; flex-wrap: wrap; gap: 8px; margin: clamp(40px, 5vw, 64px) 0 clamp(26px, 3vw, 40px); }
+.l-filtri button {
+  padding: 9px 18px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted);
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; transition: color .3s, border-color .3s, background .3s;
+}
+.l-filtri button:hover { color: var(--ink); border-color: rgba(241, 236, 228, .4); }
+.l-filtri button.on { color: var(--bg); background: var(--ink); border-color: var(--ink); }
+
+.l-griglia { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(44px, 4.4vw, 72px) clamp(16px, 2vw, 30px); }
+.l-card { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform 1.1s var(--ease); }
+.l-card.vista { opacity: 1; transform: none; }
+.l-card[hidden], .l-card.senza-foto { display: none; }
+
+.l-foto {
+  position: relative; display: block; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; isolation: isolate; border-radius: 3px;
+  background: radial-gradient(120% 80% at 50% 38%, color-mix(in srgb, var(--t) 16%, #131116), #0d0c0f 72%);
+  box-shadow: inset 0 0 0 1px rgba(241, 236, 228, .06);
+}
+.l-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s var(--ease), transform 1.4s var(--ease); }
+.l-oggetto.c { opacity: 1; transform: scale(1.03); }
+.l-indossato { transform: scale(1.07); }
+.l-foto.indossa .l-indossato.c, .l-foto:focus-visible .l-indossato.c { opacity: 1; transform: scale(1); }
+.l-foto.indossa .l-oggetto, .l-foto:focus-visible .l-oggetto { transform: scale(1.08); }
+@media (hover: hover) {
+  .l-foto:hover .l-indossato.c { opacity: 1; transform: scale(1); }
+  .l-foto:hover .l-oggetto { transform: scale(1.08); }
+}
+/* segnaposto finché la foto non c'è: il disegno del gioiello, in sottile */
+.l-segno { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 18px; color: color-mix(in srgb, var(--t) 70%, var(--ink)); }
+.l-segno svg { width: 34%; fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; opacity: .8; transition: transform 1.2s var(--ease); }
+.l-segno small { grid-area: 2 / 1; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; font-weight: 600; color: var(--faint); transition: opacity .5s; }
+.l-segno-b { opacity: 0; }
+.l-foto.indossa .l-segno-a { opacity: 0; }
+.l-foto.indossa .l-segno-b { opacity: 1; }
+@media (hover: hover) {
+  .l-foto:hover .l-segno-a { opacity: 0; }
+  .l-foto:hover .l-segno-b { opacity: 1; }
+  .l-foto:hover .l-segno svg { transform: scale(1.06); }
+}
+.l-num { position: absolute; left: 18px; top: 16px; z-index: 2; font-size: 10px; letter-spacing: .24em; font-weight: 600; color: rgba(241, 236, 228, .8); text-shadow: 0 1px 8px rgba(0, 0, 0, .4); }
+.l-ver {
+  position: absolute; left: 14px; bottom: 14px; z-index: 2; display: flex; align-items: center; gap: 9px; height: 34px; padding: 0 15px 0 12px;
+  border-radius: 99px; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; color: var(--ink);
+  background: rgba(12, 10, 13, .38); border: 1px solid rgba(241, 236, 228, .22); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  opacity: 0; transform: translateY(8px); transition: opacity .35s, transform .5s var(--ease), background .3s;
+}
+.l-ver i { width: 7px; height: 7px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 2px rgba(241, 236, 228, .75); }
+.l-foto.indossa .l-ver, .l-foto:focus-visible .l-ver { opacity: 1; transform: none; background: rgba(12, 10, 13, .55); }
+@media (hover: hover) { .l-foto:hover .l-ver { opacity: 1; transform: none; } }
+@media (hover: none) { .l-ver { opacity: 1; transform: none; } }   /* senza mouse il bottone si vede sempre: è un invito a toccare */
+.col-dito { display: none; }
+@media (hover: none) { .col-mouse { display: none; } .col-dito { display: inline; } }
+
+.l-info { display: grid; grid-template-columns: 1fr auto; align-items: baseline; column-gap: 16px; padding-top: 20px; }
+.l-info h3 { margin: 0; font: 400 clamp(26px, 2.2vw, 32px)/1.1 var(--serif); }
+.l-prezzo { font: 400 21px/1 var(--serif); }
+.l-dett { grid-column: 1 / -1; margin-top: 8px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--faint); }
+.l-desc { grid-column: 1 / -1; margin-top: 12px; max-width: 26rem; color: var(--muted); font-size: 13.5px; }
+.l-add {
+  grid-column: 1 / -1; justify-self: start; margin-top: 18px; position: relative; padding: 6px 0;
+  font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; transition: color .4s;
+}
+.l-add::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--t); transform-origin: left; transition: transform .5s var(--ease); }
+.l-add:hover::after { transform: scaleX(.35); }
+.l-add.added { color: var(--t); }
+
+@media (max-width: 1000px) {
+  .l-griglia { grid-template-columns: repeat(2, 1fr); gap: 40px 12px; }
+  .l-num { left: 12px; top: 11px; font-size: 9px; }
+  .l-ver { left: 9px; bottom: 9px; height: 28px; padding: 0 11px 0 9px; font-size: 8.5px; letter-spacing: .12em; gap: 7px; }
+  .l-info { padding-top: 14px; }
+  .l-info h3 { font-size: 22px; }
+  .l-prezzo { font-size: 17px; }
+  .l-dett { font-size: 8.5px; letter-spacing: .14em; }
+  .l-desc { font-size: 12.5px; }
+}
+@media (max-width: 520px) {
+  .l-ver span, .l-ver { font-size: 0; gap: 0; padding: 0; width: 28px; justify-content: center; }   /* telefono piccolo: solo il pallino */
+  .l-info { grid-template-columns: 1fr; }
+  .l-prezzo { margin-top: 4px; }
+  .l-desc { display: none; }
+  .l-add { margin-top: 12px; font-size: 9px; letter-spacing: .1em; white-space: nowrap; }
+}
+
 .foot { position: relative; padding: 0 var(--edge) calc(var(--edge) * .6 + env(safe-area-inset-bottom)); pointer-events: auto; transition: opacity .6s, visibility .6s; }
 .glass {
   position: relative; padding: clamp(26px, 3.4vw, 44px) clamp(24px, 3.4vw, 52px) clamp(20px, 2.4vw, 28px);
@@ -285,62 +383,6 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
-
-/* =========================================================
-   L'ANELLO IN 3D (ring3d.js)
-   #viewer.on   = scheda aperta: si può trascinare, si vede la scritta
-   #viewer.live = il cliente lo sta muovendo: al posto della foto c'è il modello 3D
-   ========================================================= */
-#viewer {
-  position: fixed; inset: 0; z-index: 20; visibility: hidden; cursor: grab; touch-action: none;
-}
-#viewer.on { visibility: visible; }
-#viewer:active { cursor: grabbing; }
-/* mentre lo muovi, SOLO l'anello della foto viene sfocato (così non si vede doppio):
-   la luce, la nicchia e il piedistallo restano esattamente come a riposo */
-#viewer::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-  -webkit-backdrop-filter: blur(60px); backdrop-filter: blur(60px);
-  -webkit-mask-image: radial-gradient(calc(var(--vs, 600px) * .4) calc(var(--vs, 600px) * .3) at var(--vx, 50%) calc(var(--vy, 50%) + var(--vs, 600px) * .02), #000 0, #000 72%, transparent 100%);
-          mask-image: radial-gradient(calc(var(--vs, 600px) * .4) calc(var(--vs, 600px) * .3) at var(--vx, 50%) calc(var(--vy, 50%) + var(--vs, 600px) * .02), #000 0, #000 72%, transparent 100%);
-  transition: opacity .65s cubic-bezier(.45, 0, .25, 1);
-}
-#v-canvas { position: absolute; display: block; opacity: 0; transition: opacity .65s cubic-bezier(.45, 0, .25, 1); pointer-events: none; }
-#viewer.live::before, #viewer.live #v-canvas { opacity: 1; }
-#viewer.rapido::before, #viewer.rapido #v-canvas { transition-duration: .28s; }   /* tornando al muro: più svelto */
-.v-corto { display: none; }
-
-.v-bar {
-  position: absolute; left: var(--vx, 50%); top: calc(var(--vy, 50%) + var(--vs, 600px) * .38); transform: translate(-50%, 8px);
-  display: flex; align-items: center; gap: 14px; opacity: 0; transition: opacity .6s var(--ease) .5s, transform .6s var(--ease) .5s;
-}
-#viewer.on .v-bar { opacity: 1; transform: translate(-50%, 0); }
-.v-hint {
-  display: flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 99px;
-  background: rgba(16, 14, 17, .62); border: 1px solid rgba(241, 236, 228, .14);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  font-size: 10px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; color: var(--muted); white-space: nowrap; pointer-events: none;
-}
-.v-hint b { color: var(--ink); font-weight: 600; }
-.v-ico { font-size: 14px; color: var(--accent); display: inline-block; animation: giro 3.2s var(--ease) infinite; }
-@keyframes giro { 0%, 55% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
-.v-reset {
-  padding: 9px 16px; border-radius: 99px; border: 1px solid var(--accent); color: var(--ink);
-  background: rgba(16, 14, 17, .62); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; white-space: nowrap;
-  opacity: 0; pointer-events: none; transition: opacity .4s var(--ease), background .3s;
-}
-.v-reset:hover { background: rgba(241, 236, 228, .1); }
-#viewer.live .v-reset { opacity: 1; pointer-events: auto; }
-@media (max-width: 760px), (orientation: portrait) and (max-width: 1024px) {
-  /* schermi piccoli: la striscia del 3D va in alto a destra, sotto il menu, così non copre la scheda */
-  .v-bar { left: auto; right: var(--edge); top: calc(84px + env(safe-area-inset-top)); transform: none; flex-direction: column; align-items: flex-end; gap: 8px; }
-  #viewer.on .v-bar { transform: none; }
-  .v-hint, .v-reset { padding: 8px 13px; font-size: 9px; letter-spacing: .16em; }
-  .v-lungo { display: none; }
-  .v-corto { display: inline; }
-}
-@media (prefers-reduced-motion: reduce) { .v-ico { animation: none; } }
-
 /* =========================================================
    SCHERMI PICCOLI: le nicchie in griglia (2 sopra, 3 sotto, o come stanno meglio)
    La classe "griglia" sull'<html> la mette script.js; le posizioni le calcola lui.

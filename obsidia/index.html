@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- Progetto concept nel portfolio: non indicizzare -->
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#09080a">
 <meta name="description" content="OBSIDIA, Haute Joaillerie. La collezione Nuit: cinque anelli nati dal buio dell'ossidiana. Progetto concept, marchio di fantasia.">
@@ -55,14 +54,6 @@
   <div id="shade" aria-hidden="true"></div>
 </div>
 
-<!-- ============ L'ANELLO IN 3D (sopra il primo piano, sotto la scheda) ============ -->
-<div id="viewer" aria-hidden="true">
-  <canvas id="v-canvas" role="img" aria-label="L'anello in 3D: trascina per girarlo, usa la rotella per avvicinarti"></canvas>
-  <div class="v-bar">
-    <p class="v-hint"><span class="v-ico" aria-hidden="true">↻</span> <b>Anello in 3D</b><span class="v-lungo">&nbsp;· trascinalo per vederlo da ogni lato</span><span class="v-corto">&nbsp;· trascinalo</span></p>
-    <button type="button" class="v-reset" id="v-reset">Rimetti dritto</button>
-  </div>
-</div>
 
 <!-- ============ LA PAGINA (sopra il mondo) ============ -->
 <main class="page">
@@ -73,6 +64,23 @@
       <p class="lede">Cinque anelli unici, nati dal buio dell'ossidiana.</p>
     </div>
     <p class="hint" aria-hidden="true"><span class="hint-dot"></span><span id="hint-text">Scegli un anello</span></p>
+  </section>
+
+  <!-- ============ LA SECONDA LINEA: Lucciole (si riempie da script.js) ============ -->
+  <section class="atelier" id="lucciole" aria-labelledby="l-tit">
+    <header class="l-cab">
+      <p class="eyebrow">La collezione Lucciole</p>
+      <h2 id="l-tit">Piccole luci, <em>ogni giorno.</em></h2>
+      <p class="l-entra">Oro 18 kt e pietre vere, pensati per non toglierli mai. <span class="col-mouse">Passa sopra</span><span class="col-dito">Tocca</span> un gioiello per vederlo indossato.</p>
+    </header>
+    <div class="l-filtri" role="group" aria-label="Filtra per tipo">
+      <button type="button" class="on" data-tipo="">Tutti</button>
+      <button type="button" data-tipo="anello">Anelli</button>
+      <button type="button" data-tipo="orecchini">Orecchini</button>
+      <button type="button" data-tipo="collana">Collane</button>
+      <button type="button" data-tipo="bracciale">Bracciali</button>
+    </div>
+    <ul class="l-griglia" id="l-griglia"></ul>
   </section>
 
   <footer class="foot" id="foot">
@@ -131,14 +139,6 @@
 <div class="scrim" id="scrim" aria-hidden="true"></div>
 <p class="toast" id="toast" role="status" aria-live="polite"></p>
 
-<!-- Three.js per l'anello in 3D (si scarica solo quando apri un anello) -->
-<script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-} }
-</script>
-<script src="ring3d.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>

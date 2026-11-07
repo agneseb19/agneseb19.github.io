@@ -28,6 +28,30 @@
       specs: [['Pietra', 'Onice nero'], ['Metallo', 'Oro giallo 18 kt'], ['Forma', 'Chevalier, incisione su richiesta']] },
   ];
 
+  /* ---------- 1b. LA COLLEZIONE LUCCIOLE (la griglia sotto il muro) ----------
+     Le foto stanno in media/collezione/: <slug>.webp (il gioiello da solo) e <slug>-indossato.webp
+     (sulla mano, all'orecchio, al collo o al polso). Finché una foto manca, la scheda mostra un segnaposto. */
+  const LUCCIOLE = [
+    { slug: 'favilla', nome: 'Favilla', tipo: 'anello', dove: 'mano', tinta: '#d9b77e', prezzo: 590,
+      dettaglio: 'Anello · Oro giallo 18 kt', desc: 'Una fedina sottile con sette diamanti a pavé. Da sola, o accanto a un solitario.' },
+    { slug: 'goccia', nome: 'Goccia', tipo: 'orecchini', dove: 'orecchio', tinta: '#8d8a93', prezzo: 420,
+      dettaglio: 'Orecchini · Ossidiana e oro giallo 18 kt', desc: 'Due gocce di ossidiana lucidata a specchio, sospese a un filo d\'oro.' },
+    { slug: 'stella', nome: 'Stella', tipo: 'collana', dove: 'collo', tinta: '#e8e1d4', prezzo: 680,
+      dettaglio: 'Collana · Diamante 0,10 ct, oro bianco 18 kt', desc: 'Un punto luce su una catena fine come un capello. Lunghezza 42 cm, regolabile.' },
+    { slug: 'filo', nome: 'Filo', tipo: 'bracciale', dove: 'polso', tinta: '#d9a45e', prezzo: 490,
+      dettaglio: 'Bracciale · Oro giallo 18 kt', desc: 'Un rigido sottilissimo che si apre e si chiude senza fermagli. Si porta a strati.' },
+    { slug: 'brace-piccola', nome: 'Scintilla', tipo: 'orecchini', dove: 'orecchio', tinta: '#e0606f', prezzo: 360,
+      dettaglio: 'Orecchini · Rubino, oro rosa 18 kt', desc: 'Un piccolo rubino al lobo, tenuto da quattro griffe. Il fratello minore di Brace.' },
+    { slug: 'eco', nome: 'Eco', tipo: 'anello', dove: 'mano', tinta: '#c9a17a', prezzo: 840,
+      dettaglio: 'Tris di anelli · Oro giallo, rosa e bianco 18 kt', desc: 'Tre fedine nei tre ori, da portare insieme o da dividere. Si vendono in set.' },
+    { slug: 'riflesso', nome: 'Riflesso', tipo: 'collana', dove: 'collo', tinta: '#7f9cf0', prezzo: 720,
+      dettaglio: 'Collana · Zaffiro, oro bianco 18 kt', desc: 'Uno zaffiro a goccia che cade sullo sterno. Il blu di Abisso, in piccolo.' },
+    { slug: 'notturno', nome: 'Notturno', tipo: 'bracciale', dove: 'polso', tinta: '#9a948c', prezzo: 540,
+      dettaglio: 'Bracciale · Onice, oro giallo 18 kt', desc: 'Una catena morbida con un ovale di onice al centro. Chiusura a moschettone.' },
+    { slug: 'germoglio', nome: 'Germoglio', tipo: 'anello', dove: 'mano', tinta: '#5fbf8f', prezzo: 650,
+      dettaglio: 'Anello · Smeraldo, oro giallo 18 kt', desc: 'Un piccolo smeraldo a taglio ottagonale su un gambo sottile. Il verde di Selva, per ogni giorno.' },
+  ];
+
   /* ---------- 2. LE MISURE, in frazioni dell'immagine (0 = bordo sinistro/alto, 1 = destro/basso) ----------
      nicchia: [x, y, larghezza, altezza] dell'apertura di ogni nicchia sul muro
      ritaglio: [x, y, larghezza, altezza] del pezzo di muro che ogni primo piano rappresenta
@@ -272,23 +296,6 @@
     wallPlate.style.transform = '';
   }
 
-  /* ---------- L'ANELLO IN 3D (vedi ring3d.js) ---------- */
-  const carica3d = () => (window.caricaAnello3D ? window.caricaAnello3D() : Promise.resolve(null));
-  function scatola3d(i) {   // dove sta l'anello nella foto: lì compare quello in 3D
-    const D = misuraPrimoPiano(i), [ax, ay] = ANELLO_IN_PRIMO_PIANO[i];
-    const cx = D.x + ax * D.w, cy = D.y + ay * D.h;
-    const size = D.w * 0.62;   // proporzionale alla foto: il 3D combacia con l'anello fotografato
-    return { cx, cy, size };
-  }
-  async function apri3d(i) {
-    const m = await carica3d();
-    if (m && aperto === i && !occupato) m.mostra(i, scatola3d(i));
-  }
-  async function chiudi3d(dritto = true) {   // dritto: se è stato girato, prima torna com'era nella foto
-    if (!window.caricaAnello3D) return;
-    const m = await carica3d();
-    if (m) await m.nascondi(dritto);
-  }
 
   const DURATA = ridotto ? 1 : 1500;
   const CURVA = 'cubic-bezier(.62, 0, .22, 1)';   // parte lenta, accelera, frena dolce
@@ -358,7 +365,6 @@
     sheet.hidden = false;
     requestAnimationFrame(() => sheet.classList.add('show'));
     occupato = false;
-    apri3d(i);
   }
 
   /* torna al muro: lo stesso movimento al contrario */
@@ -367,7 +373,7 @@
     occupato = true;
     const i = aperto;
     sheet.classList.remove('show');
-    await Promise.all([attendi(ridotto ? 0 : 120), chiudi3d()]);
+    await attendi(ridotto ? 0 : 120);
     wallLayer.style.opacity = 1;
     detailPlate.style.willChange = '';
     if (!ridotto && griglia()) {
@@ -411,7 +417,6 @@
     const i = (aperto + direzione + 5) % 5;
     sheet.classList.remove('show');
     const pronto = precarica(i);
-    chiudi3d(false);   // con le frecce si passa subito all'anello successivo
     await detailLayer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: ridotto ? 1 : 360, easing: 'ease-in', fill: 'forwards' }).finished;
     await Promise.race([pronto, attendi(2500)]);
     detailImg.src = srcPrimoPiano(i);
@@ -428,21 +433,26 @@
     detailLayer.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ridotto ? 1 : 560, easing: 'ease-out' });
     requestAnimationFrame(() => sheet.classList.add('show'));
     occupato = false;
-    apri3d(i);
   }
 
   /* ---------- 10. IL CARRELLO ---------- */
+  /* n da 0 a 4 = anelli Nuit; da 100 in su = Lucciole (100 + posizione nella lista) */
+  const prodotto = (n) => {
+    if (n < 100) { const a = ANELLI[n]; return { semplice: a.semplice, prezzo: a.prezzo, img: thumb(n), linea: 'Collezione Nuit' }; }
+    const l = LUCCIOLE[n - 100];
+    return { semplice: l.nome, prezzo: l.prezzo, img: `media/collezione/${l.slug}.webp`, linea: 'Collezione Lucciole' };
+  };
   const borsa = []; // { n, qta }
   function disegnaBorsa() {
     $('bag-list').innerHTML = borsa.map((b) => {
-      const a = ANELLI[b.n];
-      return `<li><img src="${thumb(b.n)}" alt=""><div><p class="bl-name">${a.semplice}</p><p class="bl-size">Collezione Nuit</p>
+      const a = prodotto(b.n);
+      return `<li><img src="${a.img}" alt="" onerror="this.style.visibility='hidden'"><div><p class="bl-name">${a.semplice}</p><p class="bl-size">${a.linea}</p>
         <p class="bl-qty"><button type="button" data-q="${b.n}" data-d="-1" aria-label="Uno in meno">−</button><span>${b.qta}</span><button type="button" data-q="${b.n}" data-d="1" aria-label="Uno in più">+</button></p></div>
         <span class="bl-price">${euro(a.prezzo * b.qta)}</span></li>`;
     }).join('');
     const tot = borsa.reduce((s, b) => s + b.qta, 0);
     $('bag-count').textContent = tot;
-    $('bag-total').textContent = euro(borsa.reduce((s, b) => s + ANELLI[b.n].prezzo * b.qta, 0));
+    $('bag-total').textContent = euro(borsa.reduce((s, b) => s + prodotto(b.n).prezzo * b.qta, 0));
     $('bag-empty').hidden = tot > 0;
     $('bag').classList.toggle('has', tot > 0);
   }
@@ -473,6 +483,7 @@
     const im = document.createElement('img');
     im.src = src;
     im.className = 'flyer';
+    im.onerror = () => { im.style.visibility = 'hidden'; };
     const w = 64, h = 84;
     const x0 = partenza.left + partenza.width / 2 - w / 2, y0 = partenza.top + partenza.height / 2 - h / 2;
     const x1 = arrivo.left + arrivo.width / 2 - w / 2, y1 = arrivo.top + arrivo.height / 2 - h / 2;
@@ -494,13 +505,82 @@
     btn.classList.add('added');
     btn.innerHTML = 'Aggiunto <span aria-hidden="true">✓</span>';
     setTimeout(() => { btn.classList.remove('added'); btn.innerHTML = testo; }, 1800);
-    await vola(btn, thumb(n));
+    const p = prodotto(n);
+    await vola(btn, p.img);
     disegnaBorsa();
     const c = $('bag-btn');
     c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
-    avviso(`<img src="${thumb(n)}" alt=""><span><b>${ANELLI[n].semplice}</b> è nel tuo carrello</span><button type="button" id="toast-view">Vedi</button>`);
+    avviso(`<img src="${p.img}" alt="" onerror="this.remove()"><span><b>${p.semplice}</b> è nel tuo carrello</span><button type="button" id="toast-view">Vedi</button>`);
     $('toast-view').addEventListener('click', apriBorsa);
   }
+
+  /* ---------- 10b. LA GRIGLIA LUCCIOLE ----------
+     Passando sopra una scheda, la foto del gioiello sfuma in quella indossata.
+     Sui telefoni (niente mouse) si tocca la foto per passare dall'una all'altra. */
+  const DOVE = { mano: 'sulla mano', orecchio: 'all\'orecchio', collo: 'al collo', polso: 'al polso' };
+  const SEGNO = {   // il disegno che fa da segnaposto finché la foto non c'è
+    anello: '<circle cx="40" cy="47" r="17"/><path d="M33 30l7-9 7 9-7 5z"/>',
+    orecchini: '<path d="M27 22v10"/><path d="M27 32c-6 8-6 16 0 19 6-3 6-11 0-19z"/><path d="M53 22v10"/><path d="M53 32c-6 8-6 16 0 19 6-3 6-11 0-19z"/>',
+    collana: '<path d="M16 18c4 22 14 32 24 32s20-10 24-32"/><path d="M40 50v4"/><path d="M40 54l-4 6 4 6 4-6z"/>',
+    bracciale: '<ellipse cx="40" cy="42" rx="24" ry="11"/><ellipse cx="40" cy="42" rx="24" ry="11" transform="translate(0 -4)" opacity=".45"/><circle cx="40" cy="31" r="3.5"/>',
+  };
+  const lGriglia = $('l-griglia');
+  lGriglia.innerHTML = LUCCIOLE.map((l, k) => `
+    <li class="l-card" data-tipo="${l.tipo}" style="--t:${l.tinta}">
+      <button type="button" class="l-foto" aria-pressed="false" aria-label="${l.nome}: guardalo indossato ${DOVE[l.dove]}">
+        <span class="l-segno" aria-hidden="true">
+          <svg viewBox="0 0 80 80">${SEGNO[l.tipo]}</svg>
+          <small class="l-segno-a">${l.nome}</small><small class="l-segno-b">Indossato ${DOVE[l.dove]}</small>
+        </span>
+        <img class="l-oggetto" src="media/collezione/${l.slug}.webp" alt="${l.nome}, ${l.dettaglio.toLowerCase()}" loading="lazy" decoding="async">
+        <img class="l-indossato" src="media/collezione/${l.slug}-indossato.webp" alt="" loading="lazy" decoding="async">
+        <span class="l-num">${String(k + 1).padStart(2, '0')}</span>
+        <span class="l-ver"><i></i>Indossato ${DOVE[l.dove]}</span>
+      </button>
+      <div class="l-info">
+        <h3>${l.nome}</h3><span class="l-prezzo">${euro(l.prezzo)}</span>
+        <p class="l-dett">${l.dettaglio}</p>
+        <p class="l-desc">${l.desc}</p>
+        <button type="button" class="l-add" data-add="${100 + k}">Aggiungi al carrello <span aria-hidden="true">→</span></button>
+      </div>
+    </li>`).join('');
+  // una foto che manca non lascia l'icona rotta: resta il segnaposto
+  lGriglia.querySelectorAll('img').forEach((im) => {
+    const ok = () => im.classList.add('c');
+    im.addEventListener('load', ok);
+    im.addEventListener('error', () => {   // senza la foto del gioiello la scheda resta nascosta finché la foto non arriva
+      if (im.classList.contains('l-oggetto')) im.closest('.l-card').classList.add('senza-foto');
+      im.remove();
+    });
+    if (im.complete && im.naturalWidth) ok();
+  });
+  // telefono: si tocca la foto per vederlo indossato (e la si ritocca per tornare al gioiello)
+  lGriglia.addEventListener('click', (e) => {
+    const f = e.target.closest('.l-foto');
+    if (!f) return;
+    const su = !f.classList.contains('indossa');
+    lGriglia.querySelectorAll('.l-foto.indossa').forEach((x) => { x.classList.remove('indossa'); x.setAttribute('aria-pressed', 'false'); });
+    f.classList.toggle('indossa', su); f.setAttribute('aria-pressed', String(su));
+  });
+  // le schede entrano mentre scorri, una dopo l'altra
+  const colonne = () => (innerWidth > 1000 ? 3 : 2);
+  const entraScheda = new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    const visibili = [...lGriglia.children].filter((c) => !c.hidden);
+    e.target.style.transitionDelay = (visibili.indexOf(e.target) % colonne()) * 90 + 'ms';
+    e.target.classList.add('vista'); entraScheda.unobserve(e.target);
+  }), { rootMargin: '0px 0px -8% 0px' });
+  [...lGriglia.children].forEach((c) => (ridotto ? c.classList.add('vista') : entraScheda.observe(c)));
+  // i filtri: Tutti, Anelli, Orecchini, Collane, Bracciali
+  document.querySelector('.l-filtri').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-tipo]');
+    if (!b) return;
+    document.querySelectorAll('.l-filtri button').forEach((x) => x.classList.toggle('on', x === b));
+    [...lGriglia.children].forEach((c) => {
+      c.hidden = !!b.dataset.tipo && c.dataset.tipo !== b.dataset.tipo;
+      if (!c.hidden && !ridotto) { c.classList.remove('vista'); c.style.transitionDelay = '0ms'; requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('vista'))); }
+    });
+  });
 
   /* ---------- 11. IMPAGINAZIONE (anche quando si ridimensiona la finestra) ---------- */
   function impagina() {
@@ -515,7 +595,6 @@
     root.style.setProperty('--wall-bottom', (G ? fondoGriglia - 40 : W.y + W.h) + 'px');
     if (aperto >= 0) {
       posiziona(detailPlate, misuraPrimoPiano(aperto));
-      carica3d().then((m) => { if (m && aperto >= 0) m.sposta(scatola3d(aperto)); });
     }
     if (acceso >= 0) puntaLuce(acceso);
   }
@@ -542,7 +621,7 @@
 
   /* scorrendo, il titolo sfuma e sale il footer di vetro */
   const allo_scroll = () => {
-    const k = Math.max(0, 1 - scrollY / Math.max(1, ($('foot').offsetHeight || 300) * .55));
+    const k = Math.max(0, 1 - scrollY / (innerHeight * .45));
     root.style.setProperty('--hero-k', k.toFixed(3));
     // telefono: le nicchie salgono insieme alla pagina, così la card in fondo arriva DOPO gli anelli invece di coprirli
     $('world').style.transform = griglia() && aperto < 0 ? `translate3d(0, ${-scrollY}px, 0)` : '';
@@ -560,7 +639,6 @@
   allo_scroll();
   wallImg.decode().catch(() => {}).then(() => {
     body.classList.add('ready');
-    setTimeout(carica3d, 1200);   // intanto prepara il 3D, così il primo anello si apre subito
     const link = /^#0([1-5])$/.exec(location.hash);        // es. index.html#03 apre direttamente Brace
     if (link) entra(+link[1] - 1, true);
     const vai = () => [0, 1, 2, 3, 4].forEach(precarica);
