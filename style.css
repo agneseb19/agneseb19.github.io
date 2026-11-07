@@ -3761,7 +3761,7 @@ html.has-js .reveal:not(.is-visible) {
 .gh-float.f5 { --w: 220px; --r: -8deg;  --t: 7.5s; bottom: 12%; left: 12%;   --d: -3s; }
 .gh-float.f6 { --w: 140px; --r: 9deg;   --t: 10s;  bottom: 6%;  left: 42%;   filter: blur(4px); opacity: 0.6; }
 .gh-float.f7 { --w: 210px; --r: 4deg;   --t: 8s;   top: 22%;    right: 5%;   --d: -5s; }
-.gh-float.f8 { --w: 230px; --r: -5deg;  --t: 7.8s; top: 47%;    right: 3%;   --d: -2.5s; } /* JoSmash */
+.gh-float.f8 { --w: 230px; --r: -5deg;  --t: 7.8s; top: 47%;    right: 3%;   --d: -2.5s; } /* VOLTA */
 
 /* Piccole sfere colorate */
 
@@ -4234,7 +4234,7 @@ html.has-js .reveal:not(.is-visible) {
 
 }
 
-/* JoSmash: sotto i 1000px coprirebbe il titolo, resta solo nella galleria */
+/* Anteprima f8: sotto i 1000px coprirebbe il titolo, resta solo nella galleria */
 @media (max-width: 1000px) {
     .gh-float.f8 { display: none; }
 }
