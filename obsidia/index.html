@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- Progetto concept nel portfolio: non indicizzare -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#09080a">
+<meta name="description" content="OBSIDIA, Haute Joaillerie. La collezione Nuit: cinque anelli nati dal buio dell'ossidiana. Progetto concept, marchio di fantasia.">
+<title>OBSIDIA · Haute Joaillerie</title>
+
+<!-- Font da Google Fonts: Cormorant Garamond (titoli) + Manrope (testi) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- L'immagine del muro si scarica per prima, è la cosa più importante -->
+<link rel="preload" as="image" href="media/wall.jpg" type="image/jpeg" fetchpriority="high">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#zones">Vai agli anelli</a>
+
+<!-- ============ INTESTAZIONE ============ -->
+<header class="masthead" id="masthead">
+  <a class="wordmark" href="./">OBSIDIA<small>HAUTE JOAILLERIE</small></a>
+  <nav class="capsule" aria-label="Menu principale">
+    <a class="cap-link" href="#top">Collezione</a>
+    <span class="cap-dot" aria-hidden="true"></span>
+    <button type="button" class="cap-link" id="bag-btn" aria-controls="bag">Carrello <span id="bag-count">0</span></button>
+  </nav>
+  <span aria-hidden="true"></span>
+</header>
+
+<!-- ============ IL "MONDO": muro + primo piano, fissi dietro la pagina ============ -->
+<div id="world">
+  <!-- Livello 1: il muro con le 5 nicchie -->
+  <div class="layer" id="wall-layer">
+    <div class="plate" id="wall-plate">
+      <img id="wall" src="media/wall.jpg" alt="Cinque anelli, ognuno nella sua nicchia illuminata in un muro di ossidiana sopra l'acqua nera">
+      <div id="dim" aria-hidden="true"></div>
+      <img id="glow" src="media/wall.jpg" alt="" aria-hidden="true">
+      <!-- l'acqua continua sotto il muro (si vede solo sugli schermi più "quadrati") -->
+      <img id="wall-mirror" src="media/wall.jpg" alt="" aria-hidden="true">
+      <div id="zones" role="group" aria-label="Scegli un anello"></div>
+    </div>
+    <!-- schermi piccoli: le nicchie in più file (le costruisce script.js) -->
+    <div id="tiles" role="group" aria-label="Scegli un anello"></div>
+  </div>
+  <!-- Livello 2: il primo piano dell'anello scelto -->
+  <div class="layer" id="detail-layer" aria-hidden="true">
+    <div class="plate" id="detail-plate"><img id="detail" alt=""></div>
+  </div>
+  <!-- Ombra a sinistra che rende leggibile la scheda -->
+  <div id="shade" aria-hidden="true"></div>
+</div>
+
+<!-- ============ L'ANELLO IN 3D (sopra il primo piano, sotto la scheda) ============ -->
+<div id="viewer" aria-hidden="true">
+  <canvas id="v-canvas" role="img" aria-label="L'anello in 3D: trascina per girarlo, usa la rotella per avvicinarti"></canvas>
+  <div class="v-bar">
+    <p class="v-hint"><span class="v-ico" aria-hidden="true">↻</span> <b>Anello in 3D</b><span class="v-lungo">&nbsp;· trascinalo per vederlo da ogni lato</span><span class="v-corto">&nbsp;· trascinalo</span></p>
+    <button type="button" class="v-reset" id="v-reset">Rimetti dritto</button>
+  </div>
+</div>
+
+<!-- ============ LA PAGINA (sopra il mondo) ============ -->
+<main class="page">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="intro">
+      <p class="eyebrow">Haute Joaillerie · Collezione N°1</p>
+      <h1 id="hero-title">La collezione <em>Nuit</em></h1>
+      <p class="lede">Cinque anelli unici, nati dal buio dell'ossidiana.</p>
+    </div>
+    <p class="hint" aria-hidden="true"><span class="hint-dot"></span><span id="hint-text">Scegli un anello</span></p>
+  </section>
+
+  <footer class="foot" id="foot">
+    <div class="glass">
+      <div class="foot-row">
+        <div>
+          <p class="foot-mark">OBSIDIA<small>HAUTE JOAILLERIE</small></p>
+          <p class="foot-letter">Lettere dalla Maison: nuove creazioni, prima di tutti.</p>
+        </div>
+        <form class="news" id="news">
+          <label class="sr" for="news-mail">Email</label>
+          <input id="news-mail" type="email" placeholder="La tua email" autocomplete="email" required>
+          <button type="submit" aria-label="Iscriviti">→</button>
+          <p class="news-ok" id="news-ok" role="status"></p>
+        </form>
+      </div>
+      <div class="foot-base">
+        <nav class="foot-links" aria-label="Link utili">
+          <a href="#foot">Spedizioni</a><a href="#foot">Resi</a><a href="#foot">Contatti</a><a href="#foot">Instagram</a>
+        </nav>
+        <p>© 2026 OBSIDIA · Progetto concept di Agnese Barnaba. Marchio e prezzi sono di fantasia.</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- ============ SCHEDA PRODOTTO (si riempie da script.js) ============ -->
+<article class="sheet" id="sheet" aria-live="polite" hidden>
+  <p class="eyebrow" id="s-num"></p>
+  <h2 id="s-name"></h2>
+  <p class="s-line" id="s-line"></p>
+  <dl class="specs" id="s-specs"></dl>
+  <p class="s-price"><span id="s-price"></span><span class="s-size">Pezzo unico · Oro certificato</span></p>
+  <button type="button" class="s-add" id="s-add">Aggiungi al carrello <span aria-hidden="true">→</span></button>
+  <div class="s-foot">
+    <button type="button" class="s-back" id="s-back"><span aria-hidden="true">←</span> Torna al muro</button>
+    <span class="s-step">
+      <button type="button" id="s-prev" aria-label="Anello precedente">‹</button>
+      <span id="s-pos"></span>
+      <button type="button" id="s-next" aria-label="Anello successivo">›</button>
+    </span>
+  </div>
+</article>
+
+<!-- ============ CARRELLO ============ -->
+<aside class="bag" id="bag" aria-label="Il tuo carrello" aria-hidden="true">
+  <div class="bag-head"><p class="eyebrow">Il tuo carrello</p><button type="button" class="s-back" id="bag-close">Chiudi <span aria-hidden="true">×</span></button></div>
+  <ul class="bag-list" id="bag-list"></ul>
+  <p class="bag-empty" id="bag-empty">Il tuo carrello è vuoto.</p>
+  <div class="bag-foot">
+    <p class="bag-total"><span>Totale</span><span id="bag-total">€0</span></p>
+    <button type="button" class="bag-checkout" id="bag-checkout">Procedi all'acquisto</button>
+    <p class="bag-note" id="bag-note">Astuccio in ossidiana incluso in ogni ordine.</p>
+  </div>
+</aside>
+<div class="scrim" id="scrim" aria-hidden="true"></div>
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+<!-- Three.js per l'anello in 3D (si scarica solo quando apri un anello) -->
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+<script src="ring3d.js" defer></script>
+<script src="script.js" defer></script>
+</body>
+</html>

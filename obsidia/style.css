@@ -1,0 +1,374 @@
+/* =========================================================
+   OBSIDIA · style.css
+   ========================================================= */
+
+/* 1. Variabili animabili per la luce (servono per farla "scivolare" da una nicchia all'altra) */
+@property --cx { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+@property --cy { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+@property --rx { syntax: '<percentage>'; inherits: true; initial-value: 10%; }
+@property --ry { syntax: '<percentage>'; inherits: true; initial-value: 30%; }
+
+/* 2. Colori, font e misure del marchio */
+:root {
+  --bg: #09080a;
+  --ink: #f1ece4;
+  --muted: rgba(241, 236, 228, .64);
+  --faint: rgba(241, 236, 228, .38);
+  --line: rgba(241, 236, 228, .16);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Manrope', Arial, sans-serif;
+  --edge: clamp(20px, 4.2vw, 80px);          /* margine laterale */
+  --accent: #d9b77e;                          /* cambia con l'anello scelto */
+  --ease: cubic-bezier(.22, .7, .16, 1);
+}
+
+/* 3. Base */
+* { box-sizing: border-box; }
+html { background: var(--bg); scroll-behavior: smooth; overflow-x: clip; }
+body { margin: 0; color: var(--ink); font: 400 14px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body.in-detail { overflow: hidden; }
+button, input { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+h1, h2, p, dl, dd, ul { margin: 0; padding: 0; }
+h1, h2 { font-family: var(--serif); font-weight: 400; }
+em { font-family: var(--serif); font-style: italic; color: var(--accent); transition: color .6s; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 1px solid var(--ink); outline-offset: 6px; }
+.eyebrow { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.skip { position: fixed; top: -80px; left: 20px; z-index: 80; background: var(--ink); color: var(--bg); padding: 12px 16px; }
+.skip:focus { top: 16px; }
+
+/* =========================================================
+   IL MONDO: muro + primo piano. Le "plate" sono posizionate da script.js
+   ========================================================= */
+#world { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--bg); }
+.layer { position: absolute; inset: 0; overflow: hidden; }
+.plate { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.plate > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; user-select: none; -webkit-user-drag: none; image-rendering: high-quality; }
+
+/* il muro appare in dissolvenza quando è caricato */
+#wall, #wall-mirror { opacity: 0; transition: opacity 1.2s var(--ease); }
+.ready #wall { opacity: 1; }
+.ready #wall-mirror { opacity: .8; }
+/* specchio del muro: riempie lo spazio sotto, così il muro occupa sempre tutto lo schermo */
+.plate > #wall-mirror {
+  top: 100%; bottom: auto; transform: scaleY(-1); pointer-events: none;
+  -webkit-mask-image: linear-gradient(0deg, #000 0, #000 22%, transparent 60%);
+          mask-image: linear-gradient(0deg, #000 0, #000 22%, transparent 60%);
+}
+
+/* bordi sfumati in alto e in basso (servono quando il muro non riempie tutto lo schermo) */
+#wall, #glow {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 var(--fade-top, 0%), #000 calc(100% - var(--fade-bot, 0%)), transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 var(--fade-top, 0%), #000 calc(100% - var(--fade-bot, 0%)), transparent 100%);
+}
+
+/* vignetta scura in alto e in basso: rende leggibili logo e titolo */
+#world::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(0deg, rgba(5, 4, 6, .85), rgba(5, 4, 6, 0) 32%),
+    linear-gradient(180deg, rgba(5, 4, 6, .6), rgba(5, 4, 6, 0) 16%);
+  transition: opacity .8s;
+}
+
+#detail-layer { opacity: 0; pointer-events: none; }
+#shade { position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(90deg, rgba(5, 4, 6, .94), rgba(5, 4, 6, .74) 30%, rgba(5, 4, 6, 0) 54%); }
+
+/* ---------- LA LUCE ----------
+   #glow = una seconda copia della stessa foto, più luminosa,
+   visibile solo dentro un'ellisse sfumata attorno alla nicchia.
+   #dim = un velo scuro su tutto il resto. */
+#glow {
+  pointer-events: none; opacity: 0;
+  filter: brightness(1.45) saturate(1.15) contrast(1.04);
+  -webkit-mask-image: radial-gradient(var(--rx) var(--ry) at var(--cx) var(--cy), #000 0, #000 45%, transparent 100%);
+          mask-image: radial-gradient(var(--rx) var(--ry) at var(--cx) var(--cy), #000 0, #000 45%, transparent 100%);
+  transition: opacity .7s var(--ease), --cx .7s var(--ease), --cy .7s var(--ease), --rx .7s var(--ease), --ry .7s var(--ease);
+}
+#dim {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0; background: #040305;
+  -webkit-mask-image: radial-gradient(calc(var(--rx) * 1.35) calc(var(--ry) * 1.2) at var(--cx) var(--cy), transparent 0, transparent 50%, #000 100%);
+          mask-image: radial-gradient(calc(var(--rx) * 1.35) calc(var(--ry) * 1.2) at var(--cx) var(--cy), transparent 0, transparent 50%, #000 100%);
+  transition: opacity .8s var(--ease), --cx .7s var(--ease), --cy .7s var(--ease), --rx .7s var(--ease), --ry .7s var(--ease);
+}
+.lit #glow { opacity: 1; }
+.lit #dim { opacity: .75; }   /* quanto si scuriscono le altre nicchie (0 = niente, 1 = nere) */
+.in-detail #dim { opacity: 0; } /* durante lo zoom il velo si toglie: così non si vede il bordo del primo piano */
+
+/* le 5 zone cliccabili (pulsanti invisibili sopra le nicchie) */
+#zones { position: absolute; inset: 0; }
+.zone { position: absolute; display: block; }
+.zone .tag {
+  position: absolute; left: 50%; top: 100%; transform: translate(-50%, 8px);
+  transform-origin: 0 0; scale: var(--k, 1); /* quando il muro è impaginato k volte più grande, l'etichetta cresce con lui */
+  white-space: nowrap; text-align: center; opacity: 0; pointer-events: none;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, .9);
+  transition: opacity .45s var(--ease), transform .45s var(--ease);
+}
+.zone .tag b { display: block; font: 500 clamp(17px, 1.4vw, 24px)/1.1 var(--serif); letter-spacing: .08em; }
+.zone .tag i { display: block; margin-top: 6px; font: 600 9px/1 var(--sans); font-style: normal; letter-spacing: .24em; color: var(--muted); }
+.zone.on .tag { opacity: 1; transform: translate(-50%, 14px); }
+.zone:focus-visible { outline: 1px solid rgba(241, 236, 228, .5); outline-offset: 4px; }
+
+/* =========================================================
+   INTESTAZIONE
+   ========================================================= */
+.masthead {
+  position: fixed; z-index: 40; top: 0; left: 0; right: 0; height: 96px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 var(--edge); pointer-events: none;
+}
+.masthead::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9, 8, 10, .92), rgba(9, 8, 10, 0)); opacity: 0; transition: opacity .5s; }
+.masthead.solid::before { opacity: 1; }
+.masthead > * { pointer-events: auto; position: relative; }
+.wordmark { justify-self: start; display: flex; flex-direction: column; align-items: center; font: 500 25px/1 var(--serif); letter-spacing: .36em; padding-left: .36em; }
+.wordmark small { font: 600 7.5px/1 var(--sans); letter-spacing: .4em; margin-top: 9px; color: var(--muted); }
+.capsule {
+  display: flex; align-items: center; gap: 16px; padding: 10px 22px; border-radius: 99px;
+  background: rgba(22, 19, 22, .4); border: 1px solid rgba(241, 236, 228, .13);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3);
+  font-size: 11px; letter-spacing: .06em;
+}
+.cap-link { display: inline-flex; align-items: center; padding: 4px 0; white-space: nowrap; color: var(--muted); transition: color .3s; }
+.cap-link:hover { color: var(--ink); }
+.cap-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--faint); }
+#bag-count { display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-left: 5px; padding: 0 5px; border-radius: 9px; font-size: 10px; color: var(--bg); background: var(--accent); transition: background .6s; }
+#bag-btn.bump #bag-count { animation: bump .6s var(--ease); }
+@keyframes bump { 30% { transform: scale(1.55); } 60% { transform: scale(.9); } }
+
+/* =========================================================
+   PAGINA: titolo in basso a sinistra + footer di vetro
+   ========================================================= */
+.page { position: relative; z-index: 10; pointer-events: none; }
+.hero { position: relative; height: 100vh; height: 100svh; opacity: var(--hero-k, 1); }
+.intro { position: absolute; left: var(--edge); bottom: clamp(30px, 7vh, 84px); max-width: 34rem; transition: opacity .6s var(--ease), transform .8s var(--ease); }
+.intro h1 { margin-top: 14px; font-size: clamp(40px, 4.2vw, 74px); line-height: 1; }
+.intro .lede { margin-top: 14px; color: var(--muted); }
+.hint { position: absolute; right: var(--edge); bottom: clamp(34px, 7.4vh, 88px); display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); transition: opacity .6s; }
+.hint-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); transition: background .6s, box-shadow .6s; }
+.in-detail .intro { opacity: 0; transform: translateY(10px); }
+.in-detail .hint { opacity: 0; }
+.in-detail #world::after { opacity: .55; }
+.in-detail .foot { opacity: 0; visibility: hidden; }
+
+.foot { position: relative; padding: 0 var(--edge) calc(var(--edge) * .6 + env(safe-area-inset-bottom)); pointer-events: auto; transition: opacity .6s, visibility .6s; }
+.glass {
+  position: relative; padding: clamp(26px, 3.4vw, 44px) clamp(24px, 3.4vw, 52px) clamp(20px, 2.4vw, 28px);
+  border-radius: 22px; background: linear-gradient(160deg, rgba(40, 35, 40, .42), rgba(16, 14, 17, .5));
+  border: 1px solid rgba(241, 236, 228, .12);
+  -webkit-backdrop-filter: blur(26px) saturate(1.35); backdrop-filter: blur(26px) saturate(1.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), 0 30px 80px -30px rgba(0, 0, 0, .7);
+}
+.foot-row { display: flex; justify-content: space-between; align-items: flex-end; gap: clamp(28px, 5vw, 80px); }
+.foot-mark { display: inline-flex; flex-direction: column; align-items: center; font: 500 21px/1 var(--serif); letter-spacing: .36em; padding-left: .36em; }
+.foot-mark small { font: 600 7px/1 var(--sans); letter-spacing: .4em; margin-top: 8px; color: var(--muted); }
+.foot-letter { margin-top: 20px; color: var(--muted); font-size: 13px; }
+.news { position: relative; flex: 0 1 22rem; display: flex; border-bottom: 1px solid var(--line); transition: border-color .3s; }
+.news:focus-within { border-color: var(--accent); }
+.news input { flex: 1; min-width: 0; background: none; border: 0; padding: 12px 0; font-size: 14px; outline: none; }
+.news input::placeholder { color: var(--faint); }
+.news button { font-size: 18px; padding: 0 4px; color: var(--muted); transition: color .3s, transform .4s var(--ease); }
+.news button:hover { color: var(--ink); transform: translateX(3px); }
+.news-ok { position: absolute; left: 0; top: calc(100% + 8px); font-size: 12px; color: var(--accent); }
+.foot-base { margin-top: clamp(26px, 3.4vw, 40px); padding-top: 18px; border-top: 1px solid rgba(241, 236, 228, .1); display: flex; justify-content: space-between; align-items: baseline; gap: 20px; font-size: 11px; color: var(--faint); }
+.foot-links { display: flex; flex-wrap: wrap; gap: 6px 26px; }
+.foot-links a { color: var(--muted); letter-spacing: .14em; text-transform: uppercase; font-size: 10px; font-weight: 600; transition: color .3s; }
+.foot-links a:hover { color: var(--ink); }
+
+/* =========================================================
+   SCHEDA PRODOTTO: colonna a sinistra, appare "a cascata"
+   ========================================================= */
+.sheet { position: fixed; z-index: 25; left: var(--edge); top: 50%; width: min(27rem, 32vw); transform: translateY(-44%); }
+.sheet[hidden] { display: block; visibility: hidden; }
+.sheet > * { opacity: 0; transform: translateY(10px); transition: opacity .5s var(--ease), transform .7s var(--ease); }
+.sheet.show > * { opacity: 1; transform: none; }
+.sheet.show > :nth-child(2) { transition-delay: .06s; }
+.sheet.show > :nth-child(3) { transition-delay: .12s; }
+.sheet.show > :nth-child(4) { transition-delay: .18s; }
+.sheet.show > :nth-child(5) { transition-delay: .24s; }
+.sheet.show > :nth-child(6) { transition-delay: .30s; }
+.sheet.show > :nth-child(7) { transition-delay: .36s; }
+.sheet h2 { margin-top: 16px; font-size: clamp(48px, 5vw, 86px); line-height: .95; }
+.s-line { margin-top: 18px; color: var(--muted); font-size: 15px; line-height: 1.55; max-width: 24rem; }
+.specs { margin-top: 28px; border-top: 1px solid var(--line); }
+.specs div { display: grid; grid-template-columns: 6rem 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.specs dt { font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--faint); padding-top: 3px; font-weight: 600; }
+.specs dd { margin: 0; font-size: 13.5px; }
+.s-price { margin-top: 26px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.s-price > span:first-child { font: 500 30px/1 var(--serif); }
+.s-size { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.s-add { margin-top: 22px; position: relative; padding: 6px 0; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; transition: color .4s; }
+.s-add::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); transform-origin: left; transition: transform .5s var(--ease); }
+.s-add:hover::after { transform: scaleX(.35); }
+.s-add.added { color: var(--accent); }
+.s-foot { margin-top: 44px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.s-back { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: color .3s; }
+.s-back:hover { color: var(--ink); }
+.s-step { display: flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: .16em; color: var(--muted); }
+.s-step button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); font: 20px/1 var(--serif); color: var(--ink); transition: border-color .3s, background .3s; }
+.s-step button:hover { border-color: var(--accent); background: rgba(241, 236, 228, .05); }
+
+/* =========================================================
+   CARRELLO, ANELLO CHE VOLA, AVVISO
+   ========================================================= */
+.flyer { position: fixed; z-index: 90; object-fit: cover; border-radius: 4px; pointer-events: none; box-shadow: 0 18px 40px rgba(0, 0, 0, .6); }
+.scrim { position: fixed; inset: 0; z-index: 58; background: rgba(4, 3, 5, .55); opacity: 0; pointer-events: none; transition: opacity .5s; }
+.scrim.on { opacity: 1; pointer-events: auto; }
+.bag {
+  position: fixed; z-index: 60; top: 0; right: 0; bottom: 0; width: min(420px, 100vw);
+  display: flex; flex-direction: column; padding: 30px 32px calc(28px + env(safe-area-inset-bottom));
+  background: rgba(16, 14, 17, .9); -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px);
+  border-left: 1px solid rgba(241, 236, 228, .1);
+  transform: translateX(102%); visibility: hidden; transition: transform .7s var(--ease), visibility .7s;
+}
+.bag.open { transform: none; visibility: visible; }
+.bag-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.bag-list { list-style: none; flex: 1; overflow: auto; padding-top: 8px; }
+.bag-list li { display: grid; grid-template-columns: 64px 1fr auto; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--line); animation: rise .5s var(--ease); }
+.bag-list img { width: 64px; height: 84px; object-fit: cover; border-radius: 3px; }
+.bl-name { font: 500 20px/1.1 var(--serif); }
+.bl-size { margin-top: 4px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--faint); }
+.bl-qty { margin-top: 10px; display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.bl-qty button { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--line); font-size: 13px; line-height: 1; color: var(--muted); }
+.bl-price { font: 500 17px/1 var(--serif); }
+.bag-empty { padding: 30px 0; color: var(--muted); }
+.bag-foot { padding-top: 20px; }
+.bag-total { display: flex; justify-content: space-between; font: 500 22px/1 var(--serif); }
+.bag-total span:first-child { font: 600 10px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.bag-checkout { margin-top: 20px; width: 100%; padding: 16px; border-radius: 99px; border: 1px solid var(--accent); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; font-weight: 600; transition: background .4s, color .4s; }
+.bag-checkout:hover { background: var(--accent); color: var(--bg); }
+.bag:not(.has) .bag-checkout { opacity: .35; pointer-events: none; }
+.bag-note { margin-top: 14px; font-size: 11.5px; color: var(--faint); text-align: center; }
+.toast {
+  position: fixed; z-index: 70; left: 50%; top: 92px; display: flex; align-items: center; gap: 14px;
+  padding: 10px 12px 10px 10px; border-radius: 99px; background: rgba(22, 19, 22, .75);
+  border: 1px solid rgba(241, 236, 228, .12); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  font-size: 12.5px; white-space: nowrap; opacity: 0; transform: translate(-50%, -10px); pointer-events: none;
+  transition: opacity .45s var(--ease), transform .6s var(--ease);
+}
+.toast.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.toast img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+.toast b { font-weight: 600; }
+.toast button { padding: 7px 14px; border-radius: 99px; border: 1px solid var(--line); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } }
+
+/* =========================================================
+   TELEFONO (schermo verticale)
+   ========================================================= */
+@media (max-width: 760px), (orientation: portrait) and (max-width: 1024px) {
+  .masthead { height: 76px; grid-template-columns: 1fr auto; }
+  .masthead > span:last-child { display: none; }
+  .wordmark { font-size: 19px; }
+  .capsule { padding: 8px 16px; gap: 12px; }
+  .intro { right: var(--edge); }
+  .intro h1 { font-size: 42px; }
+  .hint { left: var(--edge); right: auto; bottom: auto; top: calc(var(--wall-bottom, 60vh) + 54px); }
+  .zone .tag b { font-size: 13px; }
+  .zone .tag i { display: none; }
+  #shade { background: linear-gradient(0deg, rgba(5, 4, 6, .96) 30%, rgba(5, 4, 6, .5) 52%, rgba(5, 4, 6, 0) 66%); }
+  .sheet { left: var(--edge); right: var(--edge); top: auto; bottom: calc(18px + env(safe-area-inset-bottom)); width: auto; transform: none; }
+  .sheet h2 { margin-top: 10px; font-size: 44px; }
+  .s-line { margin-top: 10px; font-size: 13.5px; }
+  .specs { margin-top: 14px; }
+  .specs div { padding: 7px 0; }
+  .s-price { margin-top: 14px; }
+  .s-add { margin-top: 12px; }
+  .s-foot { margin-top: 18px; }
+  .foot-row, .foot-base { flex-direction: column; align-items: stretch; }
+  .news { flex-basis: auto; }
+}
+
+/* chi ha chiesto meno animazioni al sistema operativo le ottiene */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* =========================================================
+   L'ANELLO IN 3D (ring3d.js)
+   #viewer.on   = scheda aperta: si può trascinare, si vede la scritta
+   #viewer.live = il cliente lo sta muovendo: al posto della foto c'è il modello 3D
+   ========================================================= */
+#viewer {
+  position: fixed; inset: 0; z-index: 20; visibility: hidden; cursor: grab; touch-action: none;
+}
+#viewer.on { visibility: visible; }
+#viewer:active { cursor: grabbing; }
+/* mentre lo muovi, SOLO l'anello della foto viene sfocato (così non si vede doppio):
+   la luce, la nicchia e il piedistallo restano esattamente come a riposo */
+#viewer::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  -webkit-backdrop-filter: blur(60px); backdrop-filter: blur(60px);
+  -webkit-mask-image: radial-gradient(calc(var(--vs, 600px) * .4) calc(var(--vs, 600px) * .3) at var(--vx, 50%) calc(var(--vy, 50%) + var(--vs, 600px) * .02), #000 0, #000 72%, transparent 100%);
+          mask-image: radial-gradient(calc(var(--vs, 600px) * .4) calc(var(--vs, 600px) * .3) at var(--vx, 50%) calc(var(--vy, 50%) + var(--vs, 600px) * .02), #000 0, #000 72%, transparent 100%);
+  transition: opacity .65s cubic-bezier(.45, 0, .25, 1);
+}
+#v-canvas { position: absolute; display: block; opacity: 0; transition: opacity .65s cubic-bezier(.45, 0, .25, 1); pointer-events: none; }
+#viewer.live::before, #viewer.live #v-canvas { opacity: 1; }
+#viewer.rapido::before, #viewer.rapido #v-canvas { transition-duration: .28s; }   /* tornando al muro: più svelto */
+.v-corto { display: none; }
+
+.v-bar {
+  position: absolute; left: var(--vx, 50%); top: calc(var(--vy, 50%) + var(--vs, 600px) * .38); transform: translate(-50%, 8px);
+  display: flex; align-items: center; gap: 14px; opacity: 0; transition: opacity .6s var(--ease) .5s, transform .6s var(--ease) .5s;
+}
+#viewer.on .v-bar { opacity: 1; transform: translate(-50%, 0); }
+.v-hint {
+  display: flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 99px;
+  background: rgba(16, 14, 17, .62); border: 1px solid rgba(241, 236, 228, .14);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; color: var(--muted); white-space: nowrap; pointer-events: none;
+}
+.v-hint b { color: var(--ink); font-weight: 600; }
+.v-ico { font-size: 14px; color: var(--accent); display: inline-block; animation: giro 3.2s var(--ease) infinite; }
+@keyframes giro { 0%, 55% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
+.v-reset {
+  padding: 9px 16px; border-radius: 99px; border: 1px solid var(--accent); color: var(--ink);
+  background: rgba(16, 14, 17, .62); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity .4s var(--ease), background .3s;
+}
+.v-reset:hover { background: rgba(241, 236, 228, .1); }
+#viewer.live .v-reset { opacity: 1; pointer-events: auto; }
+@media (max-width: 760px), (orientation: portrait) and (max-width: 1024px) {
+  /* schermi piccoli: la striscia del 3D va in alto a destra, sotto il menu, così non copre la scheda */
+  .v-bar { left: auto; right: var(--edge); top: calc(84px + env(safe-area-inset-top)); transform: none; flex-direction: column; align-items: flex-end; gap: 8px; }
+  #viewer.on .v-bar { transform: none; }
+  .v-hint, .v-reset { padding: 8px 13px; font-size: 9px; letter-spacing: .16em; }
+  .v-lungo { display: none; }
+  .v-corto { display: inline; }
+}
+@media (prefers-reduced-motion: reduce) { .v-ico { animation: none; } }
+
+/* =========================================================
+   SCHERMI PICCOLI: le nicchie in griglia (2 sopra, 3 sotto, o come stanno meglio)
+   La classe "griglia" sull'<html> la mette script.js; le posizioni le calcola lui.
+   ========================================================= */
+#tiles {
+  position: absolute; inset: 0; display: none;
+  /* la roccia del muro dietro le nicchie: a risoluzione piena (2 pixel dell'immagine per punto), sempre nitida */
+  background: linear-gradient(rgba(6, 5, 7, .3), rgba(6, 5, 7, .3)), #09080a url(media/roccia.jpg) center top / 1600px 470px repeat;
+}
+.griglia #tiles { display: block; }
+.griglia #wall-plate { display: none; }
+.tile {
+  position: absolute; display: block; padding: 0; border: 0; border-radius: 2px;
+  background: #0b0a0c; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .55);
+  transition: filter .55s var(--ease), transform .55s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.tile > img { position: absolute; max-width: none; display: block; pointer-events: none; user-select: none; }
+.tile:active { transform: scale(.985); }
+.tile:focus-visible { outline: 1px solid rgba(241, 236, 228, .5); outline-offset: 4px; }
+@media (hover: hover) {
+  #tiles:hover .tile:not(:hover) { filter: brightness(.5); }  /* col mouse: le altre si abbassano */
+}
+
+/* grana finissima sopra le foto, come in una vera fotografia: le superfici lisce sembrano più nitide */
+#world::before {
+  content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
