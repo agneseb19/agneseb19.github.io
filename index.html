@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Agnese Barnaba — Portfolio</title>
 <meta name="description" content="Agnese Barnaba, web designer e front-end developer: siti web statici e dinamici, esperienze 3D e interfacce interattive.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +35,9 @@
 
     * { box-sizing: border-box; }
     html, body { margin: 0; }
+    html, body { overflow-x: hidden; }
+    @supports (overflow: clip) { html, body { overflow-x: clip; } }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     body { background: var(--bg); color: var(--fg); font-family: var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; transition: background .6s, color .6s; }
     html.lenis, html.lenis body { height: auto; }
     .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -233,6 +236,8 @@
     /* ---------- TEMA + DEMO ---------- */
     .theme-toggle { position: fixed; right: 16px; bottom: 16px; z-index: 70; padding: 11px 16px; border-radius: 999px; border: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 85%, transparent); color: var(--fg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); font: 600 13px/1 var(--font); cursor: pointer; transition: background .3s, color .3s; }
     .theme-toggle:hover { background: var(--fg); color: var(--bg); }
+    :focus:not(:focus-visible) { outline: none; }
+    :focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
     .demo-chip { position: fixed; left: 16px; bottom: 16px; z-index: 40; padding: 9px 14px; border-radius: 999px; background: rgba(36,33,38,.72); color: #fff; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
 
     @media (max-width: 900px) {
@@ -249,7 +254,25 @@
         .projects-head { padding: 0 20px; }
         .progress { margin: 4vh 20px 0; }
         .skills-grid, .facts, .langs { grid-template-columns: 1fr; }
-        .track { --gap: 16px; }
+        .track { --gap: 14px; }
+        .projects-head { margin-bottom: 3vh; }
+        .projects-head .title { font-size: 46px; }
+        .card-info { padding-top: 16px; }
+        .card-info h3 { font-size: 30px; }
+        .card-info p { font-size: 16px; }
+        .card-media { border-radius: 16px; }
+        .card-media .open { opacity: 1; transform: none; font-size: 14px; padding: 11px 15px; }
+        .title { font-size: 48px; }
+        .about-text p { font-size: 21px; }
+        .hero .what { font-size: 18px; }
+        .contact h2 { font-size: 64px; }
+        .contact a.mail { font-size: 22px; word-break: break-all; }
+        .pv-title { font-size: 56px; }
+        .pv-text p { font-size: 19px; }
+        .projects-head .count { display: none; }
+        .theme-toggle { width: 46px; height: 46px; padding: 0; font-size: 0; display: grid; place-items: center; }
+        .theme-toggle::before { content: "◐"; font-size: 18px; }
+        :root[data-theme="dark"] .theme-toggle::before { content: "◑"; }
         .pv-inner { padding: 0 20px 60px; }
         .pv-media { grid-template-columns: 1fr; }
         .pv-phone { width: 62%; margin: 0 auto; justify-self: center; }
@@ -387,7 +410,7 @@
     </div>
 </div>
 
-<button class="theme-toggle" id="themeToggle" type="button">◐ Versione scura</button>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambia tema">◐ Versione scura</button>
 
 <script src="assets/data.js"></script>
 <script src="josmash-redesign/assets/vendor/gsap.min.js"></script>
@@ -462,8 +485,8 @@
     /* ---------- PROGETTI: la card al centro è quella attiva, si parte da OBSIDIA ---------- */
     let cw = 0, step = 0, prog = 0, skew = 0, active = -1;
     function layout() {
-        cw = Math.min(innerWidth * (innerWidth < 640 ? .8 : .42), 680);
-        step = cw + (innerWidth < 640 ? 16 : 40);
+        cw = Math.min(innerWidth * (innerWidth < 640 ? .86 : .42), 680);
+        step = cw + (innerWidth < 640 ? 14 : 40);
         track.style.setProperty("--cw", cw + "px");
         track.style.paddingLeft = track.style.paddingRight = ((innerWidth - cw) / 2) + "px";
     }
@@ -654,7 +677,7 @@ const surface = new THREE.Mesh(sGeo, new THREE.ShaderMaterial({
         uniform float uT, uTime; uniform vec2 uView; uniform mat4 uModel;
         varying vec2 vScreen; varying float vInside; varying vec3 vColT; varying vec3 vWorld; varying float vT;
         mat2 rot(float a){ float c = cos(a), s = sin(a); return mat2(c, -s, s, c); }
-        float ease(float x){ return x < .5 ? 4.*x*x*x : 1. - pow(-2.*x + 2., 3.) / 2.; }
+        float ease(float x){ return x * x * x * (x * (x * 6. - 15.) + 10.); }
         void main(){
             vScreen = uv; vInside = aInside; vColT = aColT;
             // ogni punto parte con un piccolo ritardo diverso: la superficie si piega, non si sposta in blocco
@@ -925,6 +948,7 @@ const endFrom = new THREE.Vector3();
 let endFromScale = 0, endLatched = false;
 /* battito fluido: un oscillatore continuo, accelerato dalla velocità dello scroll */
 let flapPhase = 0, lastSy = 0, scrollSpeed = 0, flapSm = 0, lagSm = 0;
+let Psm = 0, Csm = 0;
 const heroPose = new THREE.Matrix4();
 
 /* ---------- LOOP ---------- */
@@ -945,10 +969,15 @@ function frame() {
     lastSy = sy;
     scrollSpeed += (instSpeed - scrollSpeed) * Math.min(1, dt * 4);
     const range = intro.offsetHeight - H;
-    const P = clamp01(sy / range);
+    /* scroll "ammorbidito": anche se il telefono manda lo scroll a scatti,
+       la trasformazione e i movimenti scorrono in modo continuo */
+    const follow = 1 - Math.exp(-dt * (mobile ? 5 : 7));
+    Psm += (clamp01(sy / range) - Psm) * follow;
+    const P = Psm;
     const leave = clamp01((sy - range) / (H * .9));
     const cRect = contact.getBoundingClientRect();
-    const C = clamp01(-cRect.top / (contact.offsetHeight - H));
+    Csm += (clamp01(-cRect.top / (contact.offsetHeight - H)) - Csm) * follow;
+    const C = Csm;
     const inContact = cRect.top < H * .15;
 
     hero.style.opacity = 1 - smooth(0, .14, P);
@@ -965,7 +994,7 @@ function frame() {
 
     if (sy < range + H * 1.1 && leave < .5) {
         /* ===== HERO: la superficie liquida prende la forma della farfalla ===== */
-        T = ready ? smooth(.03, .42, P) : 0;
+        T = ready ? smooth(.03, .46, P) : 0;
         const flapAmt = smooth(.46, .58, P);
         const flyIn = smooth(.74, .95, P);
         const freq = 1.6 + Math.min(scrollSpeed, 2.5) * 2.4 + flyIn * 3;
