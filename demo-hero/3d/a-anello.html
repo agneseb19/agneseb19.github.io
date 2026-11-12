@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D · A — Anello di progetti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../demo.css">
+<link rel="stylesheet" href="project.css">
+<style>
+    html, body { height: 100%; overflow: hidden; background: #0e0d10; color: #f8f7f5; }
+
+    canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+    canvas.dragging { cursor: grabbing; }
+    canvas.hovering { cursor: pointer; }
+
+    .glow {
+        position: fixed; inset: 0; pointer-events: none;
+        background: radial-gradient(70% 40% at 50% 100%, rgba(219,7,80,.22), transparent 70%);
+    }
+
+    /* Il titolo sta SOPRA il 3D e inverte i colori dove passa un progetto */
+    .headline {
+        position: fixed;
+        inset: 0;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        pointer-events: none;
+        mix-blend-mode: difference;
+        color: #fff;
+        padding: 0 16px;
+    }
+
+    .headline small {
+        font: 500 12px/1 var(--mono);
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        margin-bottom: 22px;
+    }
+
+    .headline h1 {
+        margin: 0;
+        font-size: clamp(52px, 10.5vw, 180px);
+        line-height: .86;
+        letter-spacing: -.055em;
+        font-weight: 780;
+    }
+
+    .headline h1 span { display: block; }
+    .headline h1 .thin { font-weight: 330; font-variation-settings: "wdth" 82; }
+
+    .hud {
+        position: fixed;
+        left: 20px; right: 20px; bottom: 22px;
+        z-index: 6;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        font: 500 12px/1.5 var(--mono);
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        pointer-events: none;
+    }
+
+    .hud .now strong { display: block; font: 700 26px/1 var(--font); letter-spacing: -.02em; text-transform: none; margin-top: 6px; }
+    .hud .now b { color: #ff3d7f; font-weight: 500; }
+    .hud .help { opacity: .55; text-align: right; }
+
+    .cursor-label {
+        position: fixed;
+        z-index: 7;
+        left: 0; top: 0;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: #db0750;
+        color: #fff;
+        font: 500 12px/1 var(--mono);
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        pointer-events: none;
+        opacity: 0;
+        transform: translate(-50%, -150%) scale(.6);
+        transition: opacity .25s, transform .35s cubic-bezier(.2,.9,.3,1.4);
+    }
+
+    .cursor-label.on { opacity: 1; transform: translate(-50%, -150%) scale(1); }
+
+    .demo-back, .demo-tag { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+    <a class="demo-back" href="index.html">← Demo 3D</a>
+    <span class="demo-tag"><b>A</b> · Anello di progetti</span>
+</div>
+
+<div class="glow"></div>
+
+<div class="headline">
+    <small>Agnese Barnaba · Portfolio 2026</small>
+    <h1><span>Costruisco siti</span><span class="thin">che si muovono.</span></h1>
+</div>
+
+<div class="hud">
+    <div class="now"><b id="nowIdx">01 / 08</b><strong id="nowName">JoSmash</strong></div>
+    <div class="help">Trascina · rotella · clicca un progetto</div>
+</div>
+
+<span class="cursor-label" id="label">Apri ↗</span>
+
+<script src="data.js"></script>
+<script src="project.js"></script>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from "three";
+
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(innerWidth < 700 ? 62 : 36, innerWidth / innerHeight, .1, 100);
+
+/* ---------- ANELLO ---------- */
+const COPIES = 2;                         // ogni progetto compare 2 volte sull'anello
+const N = PROJECTS.length * COPIES;
+const W = 2.3, H = 1.55, GAP = .38;
+const R = (N * (W + GAP)) / (Math.PI * 2);
+const ring = new THREE.Group();
+ring.rotation.z = .045;
+scene.add(ring);
+
+const loader = new THREE.TextureLoader();
+const textures = PROJECTS.map(p => {
+    const t = loader.load(p.img, tex => { tex.userData.aspect = tex.image.width / tex.image.height; });
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.anisotropy = 4;
+    return t;
+});
+
+const vert = /* glsl */`
+uniform float uVel;
+uniform float uR;
+uniform float uHover;
+varying vec2 vUv;
+void main(){
+    vUv = uv;
+    vec3 p = position;
+    // curvatura dell'anello: i bordi si avvicinano al centro
+    p.z += uR - sqrt(uR * uR - p.x * p.x);
+    // con la velocità la card si piega come una bandiera
+    p.z += sin(uv.x * 3.14159) * uVel * 1.4;
+    p.y *= 1.0 - abs(uVel) * .25;
+    // hover: la card esce un po' verso di te
+    p.z += uHover * .25 * sin(uv.x * 3.14159) * sin(uv.y * 3.14159);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+}`;
+
+const frag = /* glsl */`
+uniform sampler2D uTex;
+uniform float uVel;
+uniform float uHover;
+uniform float uImgAspect;
+uniform float uPlaneAspect;
+varying vec2 vUv;
+vec2 cover(vec2 uv){
+    // come object-fit: cover, allineato in alto
+    float r = uPlaneAspect / uImgAspect;
+    if (r < 1.0) { uv.x = (uv.x - .5) * r + .5; }
+    else { uv.y = 1.0 - (1.0 - uv.y) / r; }
+    return uv;
+}
+void main(){
+    vec2 uv = cover(vUv);
+    uv = (uv - .5) * (1.0 - uHover * .06) + .5;      // zoom in all'hover
+    float s = uVel * .05;                             // separazione RGB con la velocità
+    vec3 col = vec3(texture2D(uTex, uv + vec2(s, 0.)).r, texture2D(uTex, uv).g, texture2D(uTex, uv - vec2(s, 0.)).b);
+    float g = dot(col, vec3(.299, .587, .114));
+    col = mix(vec3(g) * .55, col, .35 + uHover * .65);  // spente finché non ci passi sopra
+    // angoli arrotondati
+    vec2 q = abs(vUv - .5) * vec2(uPlaneAspect, 1.) - vec2(uPlaneAspect * .5 - .06, .44);
+    float d = length(max(q, 0.)) - .06;
+    if (d > 0.) discard;
+    gl_FragColor = vec4(col, 1.);
+}`;
+
+const cards = [];
+for (let i = 0; i < N; i++) {
+    const pi = i % PROJECTS.length;
+    const mat = new THREE.ShaderMaterial({
+        vertexShader: vert, fragmentShader: frag, side: THREE.DoubleSide,
+        uniforms: {
+            uTex: { value: textures[pi] }, uVel: { value: 0 }, uR: { value: R }, uHover: { value: 0 },
+            uImgAspect: { value: 16 / 10 }, uPlaneAspect: { value: W / H }
+        }
+    });
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(W, H, 40, 12), mat);
+    const a = (i / N) * Math.PI * 2;
+    mesh.position.set(Math.sin(a) * R, Math.sin(i * 1.7) * .18, -Math.cos(a) * R);
+    mesh.lookAt(0, mesh.position.y, 0);
+    mesh.userData = { project: pi, angle: a, hover: 0 };
+    ring.add(mesh);
+    cards.push(mesh);
+}
+
+/* ---------- INTERAZIONE ---------- */
+let rot = 0, target = 0, vel = 0, dragging = false, lastX = 0, downX = 0, downY = 0, moved = 0;
+const mouse = new THREE.Vector2(9, 9);
+const ray = new THREE.Raycaster();
+const label = document.getElementById("label");
+const canvas = renderer.domElement;
+let hovered = null, paused = false, downHit = null;
+
+canvas.addEventListener("pointerdown", e => {
+    downHit = hovered;
+    dragging = true; lastX = downX = e.clientX; downY = e.clientY; moved = 0;
+    canvas.setPointerCapture(e.pointerId);
+    canvas.classList.add("dragging");
+});
+canvas.addEventListener("pointermove", e => {
+    mouse.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    label.style.left = e.clientX + "px"; label.style.top = e.clientY + "px";
+    if (!dragging) return;
+    const dx = e.clientX - lastX; lastX = e.clientX;
+    moved += Math.abs(dx);
+    target -= dx * .0042;
+});
+const up = e => {
+    if (!dragging) return;
+    dragging = false;
+    canvas.classList.remove("dragging");
+    if (Math.hypot(e.clientX - downX, e.clientY - downY) < 6 && downHit) openCard(downHit);
+};
+canvas.addEventListener("pointerup", up);
+canvas.addEventListener("pointercancel", () => { dragging = false; canvas.classList.remove("dragging"); });
+addEventListener("wheel", e => { if (!paused) target += (e.deltaY + e.deltaX) * .0012; }, { passive: true });
+addEventListener("keydown", e => {
+    if (paused) return;
+    if (e.key === "ArrowRight") target += (Math.PI * 2) / N;
+    if (e.key === "ArrowLeft") target -= (Math.PI * 2) / N;
+});
+
+/* rettangolo a schermo della card, per far partire da lì l'apertura */
+function screenRect(mesh) {
+    const box = new THREE.Box3().setFromObject(mesh);
+    const pts = [];
+    for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
+        const v = new THREE.Vector3(x, y, z).project(camera);
+        pts.push([(v.x + 1) / 2 * innerWidth, (1 - v.y) / 2 * innerHeight]);
+    }
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+    const left = Math.max(0, Math.min(...xs)), top = Math.max(0, Math.min(...ys));
+    return { left, top, width: Math.min(innerWidth, Math.max(...xs)) - left, height: Math.min(innerHeight, Math.max(...ys)) - top };
+}
+
+function openCard(mesh) {
+    paused = true;
+    label.classList.remove("on");
+    ProjectView.open(mesh.userData.project, { rect: screenRect(mesh), onClose: () => { paused = false; } });
+}
+
+/* ---------- LOOP ---------- */
+const nowIdx = document.getElementById("nowIdx"), nowName = document.getElementById("nowName");
+let lastFront = -1, autoplay = reduced ? 0 : .0009;
+
+function frame() {
+    requestAnimationFrame(frame);
+    if (paused) return;
+
+    if (!dragging) target += autoplay;
+    const prev = rot;
+    rot += (target - rot) * .075;
+    vel += ((rot - prev) * 6 - vel) * .2;
+    vel = Math.max(-.6, Math.min(.6, vel));
+    ring.rotation.y = -rot;
+
+    /* leggero movimento della camera col mouse */
+    camera.rotation.x += ((mouse.y > 5 ? 0 : mouse.y * .06) - camera.rotation.x) * .05;
+    camera.position.x += ((mouse.x > 5 ? 0 : mouse.x * .25) - camera.position.x) * .05;
+
+    ray.setFromCamera(mouse, camera);
+    const hit = dragging ? null : ray.intersectObjects(cards)[0];
+    hovered = hit ? hit.object : null;
+    canvas.classList.toggle("hovering", !!hovered && !dragging);
+    label.classList.toggle("on", !!hovered && !dragging);
+
+    cards.forEach(c => {
+        const t = textures[c.userData.project];
+        if (t.userData.aspect) c.material.uniforms.uImgAspect.value = t.userData.aspect;
+        c.userData.hover += ((c === hovered ? 1 : 0) - c.userData.hover) * .1;
+        c.material.uniforms.uHover.value = c.userData.hover;
+        c.material.uniforms.uVel.value = vel;
+    });
+
+    /* progetto più vicino al centro → nel testo in basso */
+    const step = (Math.PI * 2) / N;
+    const front = (((Math.round(rot / step) % N) + N) % N) % PROJECTS.length;
+    if (front !== lastFront) {
+        lastFront = front;
+        nowIdx.textContent = String(front + 1).padStart(2, "0") + " / " + String(PROJECTS.length).padStart(2, "0");
+        nowName.textContent = PROJECTS[front].name;
+    }
+
+    renderer.render(scene, camera);
+}
+frame();
+
+addEventListener("resize", () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.fov = innerWidth < 700 ? 62 : 36;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

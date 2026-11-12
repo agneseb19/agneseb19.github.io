@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D · B — Particelle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../demo.css">
+<link rel="stylesheet" href="project.css">
+<style>
+    html, body { height: 100%; overflow: hidden; background: #0d0c0f; color: #f8f7f5; }
+
+    canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+    canvas.clickable { cursor: pointer; }
+
+    .copy {
+        position: fixed;
+        left: 24px;
+        top: 90px;
+        z-index: 5;
+        max-width: 360px;
+        pointer-events: none;
+    }
+
+    .copy h1 {
+        margin: 0 0 12px;
+        font-size: clamp(26px, 2.6vw, 38px);
+        line-height: 1.05;
+        letter-spacing: -.03em;
+        font-weight: 600;
+    }
+
+    .copy h1 em { font-style: normal; color: #ff3d7f; }
+    .copy p { margin: 0; opacity: .6; line-height: 1.5; font-size: 16px; }
+
+    .list {
+        position: fixed;
+        left: 0; right: 0; bottom: 18px;
+        z-index: 6;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 0 16px;
+    }
+
+    .list button {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(248,247,245,.16);
+        background: rgba(248,247,245,.04);
+        color: #f8f7f5;
+        font: 600 14px/1 var(--font);
+        cursor: pointer;
+        transition: background .3s, border-color .3s, color .3s, transform .3s;
+    }
+
+    .list button b { font: 500 11px/1 var(--mono); color: #ff3d7f; }
+    .list button:hover, .list button.on { background: #f8f7f5; color: #0d0c0f; transform: translateY(-3px); }
+
+    .tip {
+        position: fixed;
+        right: 24px;
+        top: 96px;
+        z-index: 5;
+        font: 500 11px/1.6 var(--mono);
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        opacity: .5;
+        text-align: right;
+        pointer-events: none;
+    }
+
+    .demo-back, .demo-tag { color: var(--ink); }
+
+    @media (max-width: 700px) {
+        .tip { display: none; }
+        .copy { top: 76px; left: 16px; right: 16px; }
+        .list button { padding: 8px 10px; font-size: 12px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+    <a class="demo-back" href="index.html">← Demo 3D</a>
+    <span class="demo-tag"><b>B</b> · Particelle</span>
+</div>
+
+<div class="copy">
+    <h1>Ciao, sono Agnese.<br><em>Faccio siti che non stanno fermi.</em></h1>
+    <p>Web designer e front-end developer. Passa sopra un progetto qui sotto.</p>
+</div>
+
+<p class="tip">Muovi il mouse tra le particelle<br>Clic sull'immagine per aprire</p>
+
+<nav class="list" id="list"></nav>
+
+<script src="data.js"></script>
+<script src="project.js"></script>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from "three";
+
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobile = innerWidth < 700;
+const COUNT = mobile ? 9000 : 18000;
+
+const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.setClearColor(0x0d0c0f);
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, .1, 100);
+camera.position.z = 10;
+
+/* Larghezza visibile a z=0, per dimensionare testo e immagini */
+const viewH = 2 * Math.tan(THREE.MathUtils.degToRad(20)) * 10;
+const viewW = () => viewH * camera.aspect;
+
+/* ---------- SAMPLING ---------- */
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+/* Punti presi dal nome scritto su un canvas */
+function sampleText() {
+    const c = document.createElement("canvas");
+    const w = 1400, h = mobile ? 700 : 420;
+    c.width = w; c.height = h;
+    const g = c.getContext("2d");
+    g.fillStyle = "#fff";
+    g.textAlign = "center"; g.textBaseline = "middle";
+    if (mobile) {
+        g.font = "800 290px 'Bricolage Grotesque'";
+        g.fillText("AGNESE", w / 2, h * .3);
+        g.fillText("BARNABA", w / 2, h * .72);
+    } else {
+        g.font = "800 300px 'Bricolage Grotesque'";
+        g.fillText("AGNESE", w / 2, h / 2);
+    }
+    const data = g.getImageData(0, 0, w, h).data;
+    const pts = [];
+    for (let y = 0; y < h; y += 3) for (let x = 0; x < w; x += 3) {
+        if (data[(y * w + x) * 4 + 3] > 128) pts.push([x / w - .5, .5 - y / h]);
+    }
+    shuffle(pts);
+    const scaleW = viewW() * (mobile ? .92 : .82), scaleH = scaleW * h / w;
+    const pos = new Float32Array(COUNT * 3), col = new Float32Array(COUNT * 3);
+    for (let i = 0; i < COUNT; i++) {
+        const p = pts[i % pts.length];
+        pos[i * 3] = p[0] * scaleW + (Math.random() - .5) * .02;
+        pos[i * 3 + 1] = p[1] * scaleH + (mobile ? 0 : .3);
+        pos[i * 3 + 2] = (Math.random() - .5) * .3;
+        /* sfumatura dal bianco al rosa */
+        const k = Math.max(0, Math.min(1, p[0] + .5));
+        col[i * 3] = 1 - k * .14; col[i * 3 + 1] = .97 - k * .9; col[i * 3 + 2] = .96 - k * .65;
+    }
+    return { pos, col };
+}
+
+/* Punti presi dai pixel di uno screenshot (posizione + colore) */
+const imgCache = {};
+function sampleImage(src) {
+    if (imgCache[src]) return Promise.resolve(imgCache[src]);
+    return new Promise(res => {
+        const im = new Image();
+        im.onload = () => {
+            const gw = mobile ? 90 : 170;
+            const gh = Math.round(gw * Math.min(im.height / im.width, .62));
+            const c = document.createElement("canvas");
+            c.width = gw; c.height = gh;
+            const g = c.getContext("2d");
+            /* ritaglio centrale: salta la navbar e prende il contenuto */
+            const sh = Math.min(im.width * gh / gw, im.height);
+            g.drawImage(im, 0, (im.height - sh) * .45, im.width, sh, 0, 0, gw, gh);
+            const d = g.getImageData(0, 0, gw, gh).data;
+            const pos = new Float32Array(COUNT * 3), col = new Float32Array(COUNT * 3);
+            const scaleW = viewW() * (mobile ? .9 : .5), scaleH = scaleW * gh / gw;
+            const total = gw * gh;
+            for (let i = 0; i < COUNT; i++) {
+                const j = i % total;
+                const x = j % gw, y = (j / gw) | 0;
+                pos[i * 3] = (x / gw - .5) * scaleW + (Math.random() - .5) * scaleW / gw;
+                pos[i * 3 + 1] = (.5 - y / gh) * scaleH + (Math.random() - .5) * scaleH / gh + (mobile ? .4 : -.12);
+                pos[i * 3 + 2] = (Math.random() - .5) * .05;
+                col[i * 3] = d[j * 4] / 255; col[i * 3 + 1] = d[j * 4 + 1] / 255; col[i * 3 + 2] = d[j * 4 + 2] / 255;
+            }
+            imgCache[src] = { pos, col, w: scaleW, h: scaleH, y: mobile ? .4 : -.12 };
+            res(imgCache[src]);
+        };
+        im.src = src;
+    });
+}
+
+/* ---------- PARTICELLE ---------- */
+const geo = new THREE.BufferGeometry();
+const rnd = new Float32Array(COUNT);
+for (let i = 0; i < COUNT; i++) rnd[i] = Math.random();
+geo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(COUNT * 3), 3));
+geo.setAttribute("aFrom", new THREE.BufferAttribute(new Float32Array(COUNT * 3), 3));
+geo.setAttribute("aTo", new THREE.BufferAttribute(new Float32Array(COUNT * 3), 3));
+geo.setAttribute("cFrom", new THREE.BufferAttribute(new Float32Array(COUNT * 3), 3));
+geo.setAttribute("cTo", new THREE.BufferAttribute(new Float32Array(COUNT * 3), 3));
+geo.setAttribute("aRnd", new THREE.BufferAttribute(rnd, 1));
+
+const mat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    uniforms: {
+        uT: { value: 0 }, uTime: { value: 0 }, uMouse: { value: new THREE.Vector2(99, 99) },
+        uForce: { value: 0 }, uSize: { value: (mobile ? 3.2 : 3.6) * Math.min(devicePixelRatio, 2) }, uIntro: { value: 0 }
+    },
+    vertexShader: /* glsl */`
+        attribute vec3 aFrom; attribute vec3 aTo; attribute vec3 cFrom; attribute vec3 cTo; attribute float aRnd;
+        uniform float uT; uniform float uTime; uniform vec2 uMouse; uniform float uForce; uniform float uSize; uniform float uIntro;
+        varying vec3 vCol; varying float vA;
+        void main(){
+            // ogni particella parte con un ritardo diverso → effetto "sciame"
+            float t = clamp((uT - aRnd * .35) / .65, 0., 1.);
+            t = t * t * (3. - 2. * t);
+            vec3 p = mix(aFrom, aTo, t);
+            // durante il viaggio si alzano in un arco 3D
+            float arc = sin(t * 3.14159);
+            p.z += arc * (aRnd - .3) * 6.;
+            p.x += arc * sin(aRnd * 40. + uTime) * .6;
+            p.y += arc * cos(aRnd * 30. + uTime) * .6;
+            // respiro leggero
+            p.z += sin(uTime * 1.3 + aRnd * 20.) * .04;
+            // intro: arrivano da lontano
+            p = mix(vec3((aRnd - .5) * 30., (fract(aRnd * 7.3) - .5) * 20., -20. + aRnd * 30.), p, uIntro);
+            // il mouse spinge via le particelle
+            vec2 d = p.xy - uMouse;
+            float dist = length(d);
+            float f = smoothstep(1.4, 0., dist) * uForce;
+            p.xy += normalize(d + 1e-4) * f * .9;
+            p.z += f * 1.6 * (aRnd - .5) * 2.;
+            vCol = mix(cFrom, cTo, t) + f * vec3(.6, -.2, .1);
+            vA = .55 + .45 * (1. - arc);
+            vec4 mv = modelViewMatrix * vec4(p, 1.);
+            gl_PointSize = uSize * (10. / -mv.z) * (1. + f * .8);
+            gl_Position = projectionMatrix * mv;
+        }`,
+    fragmentShader: /* glsl */`
+        varying vec3 vCol; varying float vA;
+        void main(){
+            vec2 c = gl_PointCoord - .5;
+            float d = length(c);
+            if (d > .5) discard;
+            gl_FragColor = vec4(vCol, vA * smoothstep(.5, .2, d));
+        }`
+});
+const points = new THREE.Points(geo, mat);
+points.frustumCulled = false;
+scene.add(points);
+
+/* ---------- MORPH ---------- */
+let state = null, morphStart = 0, morphing = false, currentShape = "text", currentImage = null;
+const MORPH = reduced ? 1 : 1500;
+
+function setTarget(shape) {
+    const A = geo.attributes;
+    /* la forma attuale (a metà morph o finita) diventa il punto di partenza */
+    const t = Math.min(1, mat.uniforms.uT.value);
+    for (let i = 0; i < COUNT * 3; i++) {
+        A.aFrom.array[i] = A.aFrom.array[i] + (A.aTo.array[i] - A.aFrom.array[i]) * t;
+        A.cFrom.array[i] = A.cFrom.array[i] + (A.cTo.array[i] - A.cFrom.array[i]) * t;
+    }
+    A.aTo.array.set(shape.pos);
+    A.cTo.array.set(shape.col);
+    ["aFrom", "aTo", "cFrom", "cTo"].forEach(k => A[k].needsUpdate = true);
+    mat.uniforms.uT.value = 0;
+    morphStart = performance.now();
+    morphing = true;
+}
+
+let textShape;
+document.fonts.load("800 100px 'Bricolage Grotesque'").then(() => {
+    textShape = sampleText();
+    geo.attributes.aFrom.array.set(textShape.pos);
+    geo.attributes.cFrom.array.set(textShape.col);
+    geo.attributes.aTo.array.set(textShape.pos);
+    geo.attributes.cTo.array.set(textShape.col);
+    ["aFrom", "aTo", "cFrom", "cTo"].forEach(k => geo.attributes[k].needsUpdate = true);
+    mat.uniforms.uT.value = 1;
+    introStart = performance.now();
+    PROJECTS.forEach(p => sampleImage(p.img));   // precarica
+});
+
+/* ---------- LISTA PROGETTI ---------- */
+const list = document.getElementById("list");
+let backTimer = 0, request = 0;
+PROJECTS.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = "<b>" + String(i + 1).padStart(2, "0") + "</b>" + p.name.replace(" Redesign", "").replace("AI & Luxury Digital Design", "AUREA");
+    b.addEventListener("pointerenter", () => showProject(i));
+    b.addEventListener("focus", () => showProject(i));
+    b.addEventListener("click", () => openProject(i));
+    list.appendChild(b);
+});
+list.addEventListener("pointerleave", () => { backTimer = setTimeout(showText, 2600); });
+
+function showProject(i) {
+    clearTimeout(backTimer);
+    const my = ++request;
+    sampleImage(PROJECTS[i].img).then(shape => {
+        if (my !== request || currentImage === i) return;
+        currentShape = "image"; currentImage = i;
+        list.querySelectorAll("button").forEach((b, k) => b.classList.toggle("on", k === i));
+        setTarget(shape);
+    });
+}
+
+function showText() {
+    if (!textShape || currentShape === "text") return;
+    currentShape = "text"; currentImage = null; request++;
+    list.querySelectorAll("button").forEach(b => b.classList.remove("on"));
+    setTarget(textShape);
+}
+
+let paused = false;
+function openProject(i) {
+    const shape = imgCache[PROJECTS[i].img];
+    let rect = null;
+    if (shape) {
+        const toScreen = (x, y) => { const v = new THREE.Vector3(x, y, 0).project(camera); return [(v.x + 1) / 2 * innerWidth, (1 - v.y) / 2 * innerHeight]; };
+        const a = toScreen(-shape.w / 2, shape.y + shape.h / 2), b = toScreen(shape.w / 2, shape.y - shape.h / 2);
+        rect = { left: a[0], top: a[1], width: b[0] - a[0], height: b[1] - a[1] };
+    }
+    paused = true;
+    ProjectView.open(i, { rect, onClose: () => { paused = false; } });
+}
+
+/* ---------- MOUSE ---------- */
+const mouseNDC = new THREE.Vector2(9, 9);
+const mouseWorld = new THREE.Vector2(99, 99);
+let force = 0, lastMove = 0;
+const canvas = renderer.domElement;
+
+addEventListener("pointermove", e => {
+    mouseNDC.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    lastMove = performance.now();
+});
+canvas.addEventListener("click", e => {
+    if (currentShape === "image" && overImage()) openProject(currentImage);
+});
+
+function overImage() {
+    if (currentImage === null) return false;
+    const s = imgCache[PROJECTS[currentImage].img];
+    return Math.abs(mouseWorld.x) < s.w / 2 && Math.abs(mouseWorld.y - s.y) < s.h / 2;
+}
+
+/* ---------- LOOP ---------- */
+let introStart = 0;
+const clock = new THREE.Clock();
+function frame(now) {
+    requestAnimationFrame(frame);
+    if (paused) return;
+    mat.uniforms.uTime.value = clock.getElapsedTime();
+
+    if (introStart) {
+        const k = Math.min(1, (now - introStart) / (reduced ? 1 : 2200));
+        mat.uniforms.uIntro.value = 1 - Math.pow(1 - k, 4);
+    }
+
+    if (morphing) {
+        const k = Math.min(1, (now - morphStart) / MORPH);
+        mat.uniforms.uT.value = k;
+        if (k >= 1) morphing = false;
+    }
+
+    /* mouse → coordinate del mondo a z=0 */
+    const v = new THREE.Vector3(mouseNDC.x, mouseNDC.y, .5).unproject(camera).sub(camera.position).normalize();
+    const dist = -camera.position.z / v.z;
+    const w = camera.position.clone().add(v.multiplyScalar(dist));
+    mouseWorld.lerp(new THREE.Vector2(w.x, w.y), .25);
+    mat.uniforms.uMouse.value.copy(mouseWorld);
+    force += (((now - lastMove) < 1200 && mouseNDC.x < 5 ? 1 : 0) - force) * .06;
+    mat.uniforms.uForce.value = force;
+    canvas.classList.toggle("clickable", currentShape === "image" && overImage());
+
+    /* leggera rotazione 3D col mouse */
+    const tx = mouseNDC.x < 5 ? mouseNDC.x : 0, ty = mouseNDC.y < 5 ? mouseNDC.y : 0;
+    points.rotation.y += (tx * .18 - points.rotation.y) * .04;
+    points.rotation.x += (-ty * .1 - points.rotation.x) * .04;
+
+    renderer.render(scene, camera);
+}
+requestAnimationFrame(frame);
+
+addEventListener("resize", () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

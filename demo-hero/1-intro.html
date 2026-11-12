@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 01 — Intro col nome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="demo.css">
+<style>
+    body.loading { overflow: hidden; }
+
+    /* ---------- INTRO ---------- */
+    .loader {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: var(--ink);
+        color: var(--paper);
+        cursor: pointer;
+    }
+
+    .loader-count {
+        position: absolute;
+        right: 20px;
+        bottom: 6px;
+        font-size: clamp(90px, 22vw, 320px);
+        font-weight: 200;
+        line-height: 1;
+        letter-spacing: -.06em;
+        font-variant-numeric: tabular-nums;
+        color: var(--pink);
+    }
+
+    .loader-meta {
+        position: absolute;
+        left: 20px;
+        bottom: 26px;
+        font: 500 12px/1.6 var(--mono);
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        opacity: .55;
+    }
+
+    .loader-bar {
+        position: absolute;
+        left: 0; top: 0;
+        height: 3px;
+        width: 100%;
+        background: var(--pink);
+        transform-origin: left;
+        transform: scaleX(0);
+    }
+
+    /* Nome che si compone e poi vola nella navbar */
+    .intro-name {
+        position: fixed;
+        z-index: 210;
+        left: 50%;
+        top: 46%;
+        margin: 0;
+        font-size: clamp(34px, 8.4vw, 150px);
+        font-weight: 700;
+        letter-spacing: -.02em;
+        line-height: 1;
+        white-space: nowrap;
+        color: var(--paper);
+        transform-origin: 0 0;
+        pointer-events: none;
+    }
+
+    .intro-name .ch {
+        display: inline-block;
+        transform: translateY(105%);
+        opacity: 0;
+    }
+
+    .intro-name .mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .06em; }
+
+    /* ---------- PAGINA ---------- */
+    .nav {
+        position: fixed;
+        top: 64px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        padding: 12px 14px 12px 22px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 10px 30px -18px rgba(36,33,38,.35);
+        opacity: 0;
+    }
+
+    .brand {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: -.02em;
+        white-space: nowrap;
+    }
+
+    .brand.hidden { visibility: hidden; }
+
+    .nav-links { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+    .nav .btn { padding: 10px 16px; font-size: 13px; }
+
+    .hero {
+        position: relative;
+        height: 100vh;
+        height: 100svh;
+        overflow: hidden;
+    }
+
+    .hero-text {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 16px;
+        pointer-events: none;
+    }
+
+    .combo .hero-text { z-index: 0; }
+
+    .hero h1 {
+        margin: 0 0 22px;
+        font-size: clamp(46px, 9vw, 150px);
+        line-height: .9;
+        letter-spacing: -.05em;
+        font-weight: 750;
+    }
+
+    .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; }
+    .hero h1 .w > span { display: inline-block; transform: translateY(110%); }
+    .hero h1 em { font-style: normal; font-weight: 300; color: var(--pink); }
+
+    .hero p {
+        max-width: 460px;
+        margin: 0 0 30px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.5;
+        opacity: 0;
+    }
+
+    .hero .btn { pointer-events: auto; opacity: 0; }
+
+    /* Anteprime che volano al loro posto */
+    .float {
+        position: absolute;
+        z-index: 1;
+        margin: 0;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 30px 60px -25px rgba(36,33,38,.5);
+        opacity: 0;
+        will-change: transform;
+    }
+
+    .float img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .float .inner { width: 100%; height: 100%; animation: bob 6s ease-in-out infinite alternate; }
+
+    @keyframes bob { to { transform: translateY(-14px) rotate(1deg); } }
+
+    .f1 { left: 4%;  top: 14%; width: 17vw; aspect-ratio: 4/3; }
+    .f2 { right: 5%; top: 12%; width: 14vw; aspect-ratio: 3/4; }
+    .f3 { left: 9%;  bottom: 9%; width: 13vw; aspect-ratio: 3/4; }
+    .f4 { right: 8%; bottom: 10%; width: 19vw; aspect-ratio: 4/3; }
+    .f5 { left: 26%; top: 15%; width: 8vw; aspect-ratio: 1; }
+    .f6 { right: 30%; bottom: 5%; width: 10vw; aspect-ratio: 1; }
+
+    .replay {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 60;
+        padding: 10px 16px;
+        font-size: 13px;
+        background: var(--paper);
+        color: var(--ink);
+        border: 1px solid rgba(36,33,38,.15);
+    }
+
+    @media (max-width: 760px) {
+        .nav { top: 62px; gap: 14px; }
+        .nav-links { display: none; }
+        .f5, .f6 { display: none; }
+        .f1, .f4 { width: 34vw; }
+        .f2, .f3 { width: 24vw; }
+        .f1 { top: 16%; } .f2 { top: 15%; }
+    }
+</style>
+</head>
+<body class="loading">
+
+<div class="demo-bar">
+    <a class="demo-back" href="index.html">← Tutte le demo</a>
+    <span class="demo-tag" id="tag"><b>01</b> · Intro col nome</span>
+</div>
+
+<!-- INTRO -->
+<div class="loader" id="loader" title="Clic per saltare">
+    <span class="loader-bar" id="bar"></span>
+    <span class="loader-meta">Portfolio 2026<br>Web design · Front-end</span>
+    <span class="loader-count" id="count">0</span>
+</div>
+<p class="intro-name" id="introName" aria-hidden="true">AGNESE BARNABA</p>
+
+<!-- PAGINA -->
+<nav class="nav" id="nav">
+    <span class="brand hidden" id="brand">AGNESE BARNABA</span>
+    <span class="nav-links"><span>Progetti</span><span>Profilo</span><span>Percorso</span></span>
+    <a class="btn" href="#">Contatti ↗</a>
+</nav>
+
+<section class="hero" id="hero">
+    <div class="hero-text">
+        <h1 id="title"><span class="w"><span>Designing</span></span> <span class="w"><span><em>digital</em></span></span><br><span class="w"><span>experiences.</span></span></h1>
+        <p id="sub">Trasformo idee e progetti grafici in siti web funzionali, interattivi e curati nei dettagli.</p>
+        <a class="btn" id="cta" href="#">Scopri i progetti <span>→</span></a>
+    </div>
+</section>
+
+<button class="btn replay" type="button" onclick="location.reload()">↻ Rivedi intro</button>
+
+<script src="shared.js"></script>
+<script>
+(function () {
+    const combo = new URLSearchParams(location.search).has("combo");
+    const hero = document.getElementById("hero");
+    const loader = document.getElementById("loader");
+    const count = document.getElementById("count");
+    const bar = document.getElementById("bar");
+    const name = document.getElementById("introName");
+    const brand = document.getElementById("brand");
+    const nav = document.getElementById("nav");
+    const ease = "cubic-bezier(.7,0,.2,1)";
+    const easeOut = "cubic-bezier(.16,1,.3,1)";
+
+    if (combo) {
+        document.body.classList.add("combo");
+        document.getElementById("tag").innerHTML = "<b>01 + 02</b> · Intro + scia";
+        document.title = "Demo — Intro + scia";
+    } else {
+        /* Anteprime fluttuanti */
+        PROJECTS.slice(0, 6).forEach(function (p, i) {
+            const f = document.createElement("figure");
+            f.className = "float f" + (i + 1);
+            f.dataset.depth = [22, 12, 30, 16, 36, 26][i];
+            f.innerHTML = '<div class="inner" style="animation-delay:-' + i + 's"><img src="' + p.src + '" alt=""></div>';
+            hero.appendChild(f);
+        });
+    }
+
+    /* Spezza il nome in lettere dentro una maschera */
+    name.innerHTML = name.textContent.split("").map(function (c) {
+        return c === " " ? " " : '<span class="mask"><span class="ch">' + c + "</span></span>";
+    }).join("");
+    const letters = name.querySelectorAll(".ch");
+
+    /* Centra il nome orizzontalmente (lo trasformiamo da top-left) */
+    function centerName() {
+        name.style.transform = "translate(" + (-name.offsetWidth / 2) + "px, -50%)";
+    }
+    document.fonts.ready.then(centerName);
+    centerName();
+
+    let done = false;
+    const DURATION = REDUCED_MOTION ? 0 : 1900;
+
+    /* 1. Lettere che salgono */
+    letters.forEach(function (ch, i) {
+        ch.animate(
+            [{ transform: "translateY(105%)", opacity: 0 }, { transform: "translateY(0)", opacity: 1 }],
+            { duration: 800, delay: 150 + i * 45, easing: easeOut, fill: "forwards" }
+        );
+    });
+
+    /* 2. Contatore 0 → 100 */
+    const start = performance.now();
+    (function tick(now) {
+        if (done) return;
+        const t = Math.min(1, (now - start) / Math.max(1, DURATION));
+        const eased = 1 - Math.pow(1 - t, 3);
+        count.textContent = Math.round(eased * 100);
+        bar.style.transform = "scaleX(" + eased + ")";
+        if (t < 1) requestAnimationFrame(tick);
+        else setTimeout(finish, 250);
+    })(start);
+
+    loader.addEventListener("click", finish);
+
+    /* 3. Il nome vola nella navbar, il sipario si alza */
+    function finish() {
+        if (done) return;
+        done = true;
+        letters.forEach(function (ch) {
+            ch.getAnimations().forEach(function (a) { a.finish(); });
+        });
+
+        nav.style.opacity = 1;
+        const from = name.getBoundingClientRect();
+        const to = brand.getBoundingClientRect();
+        const scale = to.width / from.width;
+
+        name.animate([
+            { transform: name.style.transform, color: "#f8f7f5" },
+            { transform: "translate(" + (to.left - name.offsetLeft) + "px," + (to.top - name.offsetTop) + "px) scale(" + scale + ")", color: "#242126" }
+        ], { duration: 1100, easing: ease, fill: "forwards" }).onfinish = function () {
+            brand.classList.remove("hidden");
+            name.remove();
+        };
+
+        nav.animate([{ opacity: 0, transform: "translateX(-50%) translateY(-12px)" }, { opacity: 1, transform: "translateX(-50%)" }],
+            { duration: 700, delay: 500, easing: easeOut, fill: "backwards" });
+
+        count.animate([{ opacity: 1 }, { opacity: 0, transform: "translateY(40px)" }], { duration: 400, fill: "forwards" });
+
+        loader.animate([{ clipPath: "inset(0 0 0 0)" }, { clipPath: "inset(0 0 100% 0)" }],
+            { duration: 1100, easing: ease, fill: "forwards" }).onfinish = function () {
+            loader.remove();
+            document.body.classList.remove("loading");
+        };
+
+        revealHero(450);
+    }
+
+    /* 4. La hero entra */
+    function revealHero(delay) {
+        document.querySelectorAll("#title .w > span").forEach(function (w, i) {
+            w.animate([{ transform: "translateY(110%)" }, { transform: "translateY(0)" }],
+                { duration: 1000, delay: delay + 150 + i * 90, easing: easeOut, fill: "forwards" });
+        });
+        ["sub", "cta"].forEach(function (id, i) {
+            document.getElementById(id).animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }],
+                { duration: 800, delay: delay + 600 + i * 120, easing: easeOut, fill: "forwards" });
+        });
+
+        if (combo) {
+            setTimeout(function () { initTrail(hero, { autoplay: true }); }, delay + 700);
+            return;
+        }
+
+        /* Gli screenshot partono dal centro e volano al loro posto */
+        const cx = innerWidth / 2, cy = innerHeight / 2;
+        hero.querySelectorAll(".float").forEach(function (f, i) {
+            const r = f.getBoundingClientRect();
+            const dx = cx - (r.left + r.width / 2), dy = cy - (r.top + r.height / 2);
+            f.animate([
+                { opacity: 0, transform: "translate(" + dx + "px," + dy + "px) scale(.2) rotate(" + (i % 2 ? 12 : -12) + "deg)" },
+                { opacity: 1, transform: "none" }
+            ], { duration: 1300, delay: delay + 200 + i * 80, easing: easeOut, fill: "forwards" }).onfinish = function () {
+                this.commitStyles && this.commitStyles();
+                this.cancel();
+                f.style.opacity = 1;
+                f.style.transform = "";
+            };
+        });
+        enableParallax();
+    }
+
+    /* Parallasse col mouse sulle anteprime */
+    function enableParallax() {
+        if (REDUCED_MOTION) return;
+        const floats = hero.querySelectorAll(".float");
+        let mx = 0, my = 0, x = 0, y = 0;
+        addEventListener("pointermove", function (e) {
+            mx = e.clientX / innerWidth - .5;
+            my = e.clientY / innerHeight - .5;
+        });
+        (function loop() {
+            x += (mx - x) * .06; y += (my - y) * .06;
+            floats.forEach(function (f) {
+                if (f.getAnimations().length) return;
+                const d = f.dataset.depth;
+                f.style.translate = (-x * d * 2) + "px " + (-y * d * 2) + "px";
+            });
+            requestAnimationFrame(loop);
+        })();
+    }
+})();
+</script>
+</body>
+</html>

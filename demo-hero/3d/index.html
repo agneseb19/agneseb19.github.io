@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 3D — Agnese Barnaba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../demo.css">
+<link rel="stylesheet" href="project.css">
+<style>
+    body { background: #0e0d10; color: var(--paper); }
+    main { max-width: 1240px; margin: 0 auto; padding: 100px 20px 90px; }
+    h1 { font-size: clamp(48px, 9vw, 130px); line-height: .88; letter-spacing: -.05em; margin: 0 0 22px; font-weight: 780; }
+    h1 em { font-style: normal; font-weight: 220; color: #ff3d7f; }
+    .lead { max-width: 620px; opacity: .65; font-size: 18px; line-height: 1.5; margin: 0 0 60px; }
+    main > h2 { font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; opacity: .55; margin: 80px 0 20px; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .card {
+        position: relative; display: flex; flex-direction: column; justify-content: space-between;
+        min-height: 300px; padding: 28px; border-radius: 24px; background: #1b191e; color: inherit; text-decoration: none; overflow: hidden;
+        border: 1px solid rgba(248,247,245,.08);
+        transition: transform .5s cubic-bezier(.2,.8,.2,1), border-color .4s;
+    }
+    .card:hover { transform: translateY(-6px); border-color: #db0750; }
+    .card::before {
+        content: ""; position: absolute; inset: auto -20% -60% -20%; height: 100%;
+        background: radial-gradient(closest-side, rgba(219,7,80,.35), transparent); opacity: 0; transition: opacity .5s;
+    }
+    .card:hover::before { opacity: 1; }
+    .card > * { position: relative; }
+    .card .n { font: 500 13px/1 var(--mono); color: #ff3d7f; }
+    .card h3 { font-size: clamp(30px, 3.4vw, 48px); letter-spacing: -.035em; line-height: .95; margin: 50px 0 14px; }
+    .card p { margin: 0 0 18px; opacity: .65; line-height: 1.5; }
+    .card q { display: block; font-size: 15px; padding-top: 16px; border-top: 1px solid rgba(248,247,245,.12); quotes: "«" "»"; }
+    .card q::before, .card q::after { color: #ff3d7f; }
+    .card .go { position: absolute; top: 24px; right: 26px; font-size: 24px; transition: transform .4s; }
+    .card:hover .go { transform: rotate(45deg); }
+
+    .project-demo { display: grid; grid-template-columns: 1.1fr 1fr; gap: 30px; align-items: center; padding: 30px; border-radius: 24px; background: var(--paper); color: var(--ink); }
+    .project-demo ol { margin: 0; padding-left: 20px; line-height: 1.75; }
+    .project-demo h3 { font-size: clamp(30px, 3.6vw, 52px); letter-spacing: -.04em; margin: 0 0 14px; line-height: .95; }
+    .project-demo p { margin: 0 0 20px; color: var(--muted); }
+
+    .copies { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
+    .copy {
+        padding: 22px 24px; border-radius: 18px; background: #1b191e; border: 1px solid rgba(248,247,245,.08);
+    }
+    .copy strong { display: block; font-size: 27px; line-height: 1.05; letter-spacing: -.03em; margin-bottom: 10px; }
+    .copy strong em { font-style: normal; font-weight: 250; color: #ff3d7f; }
+    .copy span { font-size: 14px; opacity: .6; line-height: 1.45; display: block; }
+    .copy small { display: block; margin-top: 12px; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #ff3d7f; }
+
+    .note { margin-top: 60px; font: 500 12px/1.7 var(--mono); opacity: .5; text-transform: uppercase; letter-spacing: .05em; }
+    .demo-back, .demo-tag { color: var(--ink); }
+
+    @media (max-width: 800px) {
+        .grid, .project-demo { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+    <a class="demo-back" href="../index.html">← Demo precedenti</a>
+    <span class="demo-tag"><b>Round 2</b> · 3D &amp; interattivo</span>
+</div>
+
+<main>
+    <h1>Round 2:<br><em>più 3D, più gioco.</em></h1>
+    <p class="lead">Quattro home completamente diverse, ognuna con un testo diverso. In tutte puoi aprire i progetti: si apre la nuova pagina progetto interattiva, la stessa per tutte.</p>
+
+    <div class="grid">
+        <a class="card" href="a-anello.html">
+            <span class="go">↗</span>
+            <div><span class="n">A · Three.js</span><h3>Anello di progetti</h3>
+            <p>Sei al centro di un anello 3D di progetti. Trascini e lo giri; se lo giri veloce le card si piegano e i colori si separano. Clic su un progetto e lo vedi espandersi.</p></div>
+            <q>Costruisco siti che si muovono.</q>
+        </a>
+        <a class="card" href="b-particelle.html">
+            <span class="go">↗</span>
+            <div><span class="n">B · Three.js · 18.000 particelle</span><h3>Particelle</h3>
+            <p>Il tuo nome è fatto di particelle che il mouse disperde. Passando su un progetto lo sciame vola in 3D e ricompone lo screenshot, coi colori veri.</p></div>
+            <q>Ciao, sono Agnese. Faccio siti che non stanno fermi.</q>
+        </a>
+        <a class="card" href="c-vetro.html">
+            <span class="go">↗</span>
+            <div><span class="n">C · Three.js · vetro + shader</span><h3>Vetro olografico</h3>
+            <p>Lo shader che ti piaceva, con sopra una goccia di vetro iridescente che deforma il tuo nome. La afferri, la lanci e rimbalza. Passando sui progetti, lo sfondo si "allaga" col progetto.</p></div>
+            <q>Interfacce che si possono quasi toccare.</q>
+        </a>
+        <a class="card" href="d-gioca.html">
+            <span class="go">↗</span>
+            <div><span class="n">D · Fisica 2D (Matter.js)</span><h3>Giocaci</h3>
+            <p>Le parole del titolo, i progetti e le competenze cadono e si ammucchiano. Li afferri e li lanci; c'è anche la gravità zero. Doppio clic su un progetto per aprirlo.</p></div>
+            <q>Non leggere il mio portfolio. Giocaci.</q>
+        </a>
+    </div>
+
+    <h2>La nuova pagina progetto</h2>
+    <div class="project-demo">
+        <div>
+            <h3>Aprire un progetto diventa un'esperienza.</h3>
+            <p>È la stessa in tutte e quattro le demo. Provala anche da qui:</p>
+            <button class="btn" type="button" id="tryProject" style="background:var(--pink)">Apri JoSmash →</button>
+        </div>
+        <ol>
+            <li>L'immagine si <b>espande</b> dalla card fino a riempire lo schermo</li>
+            <li>Le lettere del titolo <b>reagiscono al mouse</b></li>
+            <li>Una luce segue il cursore sull'immagine</li>
+            <li>Scorrendo, il testo si <b>accende parola per parola</b></li>
+            <li>I tag dello stack si trascinano e <b>tornano indietro con un elastico</b></li>
+            <li>Interruttore <b>Desktop / Mobile</b>: il dispositivo cambia forma e lo screenshot scorre col mouse</li>
+            <li><b>Tieni premuto</b> per passare al progetto successivo (oppure usa le frecce ← →)</li>
+        </ol>
+    </div>
+
+    <h2>Testi alternativi per la home</h2>
+    <div class="copies">
+        <div class="copy"><strong>Agnese<br><em>Barnaba</em></strong><span>Solo il nome, enorme, senza altro. Il "wow" lo fa l'animazione. È la scelta più sicura e più da designer.</span><small>Solo nome</small></div>
+        <div class="copy"><strong>Costruisco siti<br><em>che si muovono.</em></strong><span>Diretto, dice subito cosa ti distingue: l'animazione e il motion.</span><small>Usato nella A</small></div>
+        <div class="copy"><strong>Ciao, sono Agnese.<br><em>Faccio siti che non stanno fermi.</em></strong><span>Tono caldo, in prima persona, ironico. Ti fa sembrare una persona, non un'agenzia.</span><small>Usato nella B</small></div>
+        <div class="copy"><strong>Interfacce che si possono <em>quasi toccare.</em></strong><span>Più poetico, gioca sulla tattilità del 3D.</span><small>Usato nella C</small></div>
+        <div class="copy"><strong>Non leggere il mio portfolio. <em>Giocaci.</em></strong><span>Provocatorio, funziona solo se la home è davvero interattiva.</span><small>Usato nella D</small></div>
+        <div class="copy"><strong>Design che si sente.<br><em>Codice che si vede.</em></strong><span>Mette insieme le due anime: web designer + front-end developer.</span><small>Doppio ruolo</small></div>
+        <div class="copy"><strong>Pixel, codice<br><em>e un po' di fisica.</em></strong><span>Leggero e simpatico, perfetto con le demo 3D o con la fisica.</span><small>Ironico</small></div>
+        <div class="copy"><strong>Dall'idea<br><em>al primo scroll.</em></strong><span>Racconta il processo: progetto la grafica e la sviluppo io.</span><small>Processo</small></div>
+        <div class="copy"><strong>Siti che si ricordano<br><em>il giorno dopo.</em></strong><span>Parla del risultato per il cliente, non della tecnica.</span><small>Orientato al cliente</small></div>
+        <div class="copy"><strong>Web designer <em>&amp;</em><br>creative developer.</strong><span>Classico, chiarissimo per recruiter e agenzie. "Creative developer" è il termine usato nei portfolio premiati.</span><small>Per recruiter</small></div>
+    </div>
+
+    <p class="note">Le demo 3D caricano le immagini in WebGL: vanno aperte da un server locale (localhost), non con doppio clic sul file.<br>Cartella demo-hero/3d/ · non collegata al sito</p>
+</main>
+
+<script src="data.js"></script>
+<script src="project.js"></script>
+<script>
+    document.getElementById("tryProject").addEventListener("click", function () {
+        ProjectView.open(0, { rect: this.getBoundingClientRect() });
+    });
+</script>
+</body>
+</html>

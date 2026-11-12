@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 · B — Schermo di cubi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+    body { background: radial-gradient(80% 70% at 60% 50%, #1a1520 0%, var(--bg) 70%) fixed; }
+
+    canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+    canvas.pointer { cursor: pointer; }
+
+    .scroller { pointer-events: none; }
+
+    .nav {
+        position: fixed; inset: 0 0 auto; z-index: 20;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 22px 28px;
+        font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+    }
+    .nav a { color: inherit; text-decoration: none; }
+    .nav a:hover { color: var(--accent); }
+    .nav .links { display: flex; gap: 26px; }
+    .brand { font: 700 15px/1 var(--font); letter-spacing: -.01em; text-transform: none; }
+
+    /* ---------- HERO (al centro, dentro l'anello di cubi) ---------- */
+    .hero {
+        position: fixed; inset: 0; z-index: 10;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        text-align: center; padding: 0 16px;
+        pointer-events: none;
+        text-shadow: 0 2px 24px rgba(13,12,15,.9);
+    }
+    .hero .kicker { margin-bottom: 24px; font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .hero h1 { margin: 0 0 20px; font-size: clamp(54px, 8.6vw, 148px); line-height: .86; letter-spacing: -.055em; font-weight: 760; }
+    .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .06em; }
+    .hero h1 .w > span { display: inline-block; transform: translateY(110%); }
+    .hero .role { margin: 0 0 10px; font-size: clamp(19px, 1.9vw, 26px); font-weight: 600; letter-spacing: -.02em; }
+    .hero .what { margin: 0; max-width: 520px; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.5; color: var(--muted); }
+    .hero .what b { color: var(--fg); font-weight: 500; }
+
+    .cue {
+        position: fixed; left: 50%; bottom: 28px; z-index: 10; transform: translateX(-50%);
+        font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+        pointer-events: none;
+    }
+
+    /* ---------- PANNELLO PROGETTO ---------- */
+    .panel {
+        position: fixed; left: 28px; top: 50%; z-index: 12;
+        width: min(340px, 26vw);
+        transform: translateY(-40%);
+        opacity: 0;
+        transition: opacity .6s, transform .8s cubic-bezier(.2,.8,.2,1);
+        pointer-events: none;
+    }
+    .panel.on { opacity: 1; transform: translateY(-50%); pointer-events: auto; }
+
+    .panel .count { display: flex; align-items: baseline; gap: 6px; margin-bottom: 26px; font: 500 12px/1 var(--mono); color: var(--muted); }
+    .panel .count b { font: 300 64px/1 var(--font); color: var(--fg); letter-spacing: -.04em; }
+    .panel h2 { margin: 0 0 12px; font-size: clamp(34px, 3.4vw, 54px); line-height: .92; letter-spacing: -.045em; font-weight: 740; }
+    .panel p { margin: 0 0 8px; color: var(--muted); line-height: 1.45; }
+    .panel .status { display: inline-block; margin: 10px 0 26px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line-strong); font: 500 11px/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+    .panel a {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 14px 22px; border-radius: 999px;
+        background: var(--fg); color: var(--bg); text-decoration: none;
+        font: 600 15px/1 var(--font);
+        transition: background .3s, color .3s;
+    }
+    .panel a:hover { background: var(--accent); color: #fff; }
+    .swap { transition: opacity .3s, transform .4s; }
+    .swap.out { opacity: 0; transform: translateY(8px); }
+
+    .bar { display: flex; gap: 4px; margin-top: 34px; }
+    .bar i { flex: 1; height: 2px; background: var(--line-strong); transition: background .4s; }
+    .bar i.on { background: var(--accent); }
+
+    .outro {
+        position: fixed; left: 28px; top: 50%; z-index: 12; transform: translateY(-50%);
+        opacity: 0; pointer-events: none; transition: opacity .6s;
+    }
+    .outro.on { opacity: 1; pointer-events: auto; }
+    .outro small { display: block; margin-bottom: 16px; font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .outro a { display: block; color: var(--fg); text-decoration: none; }
+    .outro a.mail { font-size: clamp(26px, 2.6vw, 40px); letter-spacing: -.03em; font-weight: 700; margin-bottom: 18px; }
+    .outro a.mail:hover { color: var(--accent); }
+    .outro .s { display: inline-block; margin-right: 18px; font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
+    .hover-label {
+        position: fixed; z-index: 30; left: 0; top: 0;
+        padding: 10px 15px; border-radius: 999px; background: var(--accent); color: #fff;
+        font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+        pointer-events: none; opacity: 0; transform: translate(-50%, -150%) scale(.7);
+        transition: opacity .2s, transform .3s cubic-bezier(.2,.9,.3,1.4);
+    }
+    .hover-label.on { opacity: 1; transform: translate(-50%, -150%) scale(1); }
+
+    @media (max-width: 760px) {
+        .nav { padding: 16px; }
+        .nav .links { display: none; }
+        .panel, .outro { left: 16px; right: 16px; top: auto; bottom: 22px; width: auto; transform: translateY(20px); }
+        .panel.on, .outro.on { transform: none; }
+        .panel .count { margin-bottom: 10px; }
+        .panel .count b { font-size: 40px; }
+        .panel .status { margin-bottom: 16px; }
+        .bar { margin-top: 18px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="curtain" id="curtain"></div>
+
+<nav class="nav">
+    <a class="brand" href="#" data-goto="0">Agnese Barnaba</a>
+    <div class="links"><a href="#" data-goto="proj">Progetti</a><a href="#" data-goto="end">Contatti</a></div>
+</nav>
+
+<section class="hero" id="hero">
+    <p class="kicker">Portfolio</p>
+    <h1><span class="w"><span>Agnese</span></span> <span class="w"><span>Barnaba</span></span></h1>
+    <p class="role">Web designer &amp; front-end developer</p>
+    <p class="what">Progetto e sviluppo <b>siti web statici e dinamici</b>, <b>esperienze 3D</b> e <b>interfacce interattive</b>.</p>
+</section>
+
+<p class="cue" id="cue">Scorri ↓</p>
+
+<aside class="panel" id="panel">
+    <div class="swap" id="swap">
+        <div class="count"><b id="pNum">01</b>/ <span id="pTot"></span></div>
+        <h2 id="pName"></h2>
+        <p id="pShort"></p>
+        <span class="status" id="pStatus"></span>
+    </div>
+    <a href="#" id="pOpen">Apri progetto <span>→</span></a>
+    <div class="bar" id="bar"></div>
+</aside>
+
+<section class="outro" id="outro">
+    <small>Contatti</small>
+    <a class="mail" href="mailto:agnese.barnaba19@gmail.com">agnese.barnaba19<br>@gmail.com</a>
+    <a class="s" href="https://www.linkedin.com/in/agnese-barnaba-4b5944252/" target="_blank" rel="noopener" style="display:inline-block">LinkedIn ↗</a>
+    <a class="s" href="https://github.com/agneseb19" target="_blank" rel="noopener" style="display:inline-block">GitHub ↗</a>
+</section>
+
+<span class="hover-label" id="hoverLabel">Apri progetto</span>
+<a class="demo-chip" href="index.html">← Demo v3</a>
+
+<div class="scroller" id="scroller"></div>
+
+<script src="data.js"></script>
+<script src="../../josmash-redesign/assets/vendor/lenis.min.js"></script>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from "three";
+
+const P = window.PROJECTS;
+const mobile = innerWidth < 760;
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const pad = n => String(n).padStart(2, "0");
+const $ = id => document.getElementById(id);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 2));
+renderer.setSize(innerWidth, innerHeight);
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(mobile ? 55 : 38, innerWidth / innerHeight, .1, 100);
+camera.position.set(0, 0, 16);
+
+/* ---------- GRIGLIA ---------- */
+const COLS = mobile ? 28 : 40, ROWS = Math.round(COLS / 1.6);
+const N = COLS * ROWS;
+const SW = mobile ? 6.6 : 8.4, SH = SW / 1.6;
+const CELL = SW / COLS;
+const CENTER = new THREE.Vector3(mobile ? 0 : 2.6, mobile ? 1.1 : 0, 0);
+
+const geo = new THREE.InstancedBufferGeometry().copy(new THREE.BoxGeometry(1, 1, 1));
+geo.instanceCount = N;
+const aCell = new Float32Array(N * 2), aRnd = new Float32Array(N), aCloud = new Float32Array(N * 3), aRot = new Float32Array(N * 3);
+for (let i = 0; i < N; i++) {
+    aCell[i * 2] = i % COLS; aCell[i * 2 + 1] = Math.floor(i / COLS);
+    aRnd[i] = Math.random();
+    /* nella hero i cubi formano un anello inclinato intorno al nome */
+    const a = Math.random() * Math.PI * 2;
+    const r = (mobile ? 3.4 : 6.2) + (Math.random() - .5) * (mobile ? 1.6 : 2.6);
+    aCloud[i * 3] = Math.cos(a) * r;
+    aCloud[i * 3 + 1] = Math.sin(a) * r * .56 + (Math.random() - .5) * .8;
+    aCloud[i * 3 + 2] = Math.sin(a) * r * .5 + (Math.random() - .5) * 1.2;
+    aRot[i * 3] = Math.random() * 6.28; aRot[i * 3 + 1] = Math.random() * 6.28; aRot[i * 3 + 2] = Math.random() * 6.28;
+}
+geo.setAttribute("aCell", new THREE.InstancedBufferAttribute(aCell, 2));
+geo.setAttribute("aRnd", new THREE.InstancedBufferAttribute(aRnd, 1));
+geo.setAttribute("aCloud", new THREE.InstancedBufferAttribute(aCloud, 3));
+geo.setAttribute("aRot", new THREE.InstancedBufferAttribute(aRot, 3));
+
+const blank = new THREE.DataTexture(new Uint8Array([20, 18, 22, 255]), 1, 1); blank.needsUpdate = true;
+
+const mat = new THREE.ShaderMaterial({
+    uniforms: {
+        uAssemble: { value: 0 }, uFlip: { value: 0 }, uTime: { value: 0 },
+        uTexA: { value: blank }, uTexB: { value: blank }, uAspA: { value: 1.6 }, uAspB: { value: 1.6 },
+        uMouse: { value: new THREE.Vector3(99, 99, 0) }, uMouseK: { value: 0 }, uWave: { value: 0 },
+        uGrid: { value: new THREE.Vector2(COLS, ROWS) }, uCell: { value: CELL },
+        uCenter: { value: CENTER }, uSize: { value: new THREE.Vector2(SW, SH) }, uIntro: { value: 0 }
+    },
+    vertexShader: /* glsl */`
+        attribute vec2 aCell; attribute float aRnd; attribute vec3 aCloud; attribute vec3 aRot;
+        uniform float uAssemble, uFlip, uTime, uMouseK, uWave, uCell, uIntro;
+        uniform vec2 uGrid, uSize; uniform vec3 uCenter, uMouse;
+        varying vec2 vUvA; varying vec2 vUvB; varying float vFace; varying vec3 vN; varying float vA; varying float vPop; varying float vRnd;
+
+        mat3 rx(float a){ float c = cos(a), s = sin(a); return mat3(1,0,0, 0,c,s, 0,-s,c); }
+        mat3 ry(float a){ float c = cos(a), s = sin(a); return mat3(c,0,-s, 0,1,0, s,0,c); }
+        mat3 rz(float a){ float c = cos(a), s = sin(a); return mat3(c,s,0, -s,c,0, 0,0,1); }
+        float ease(float t){ return t < .5 ? 4.*t*t*t : 1. - pow(-2.*t + 2., 3.) / 2.; }
+
+        void main(){
+            vec2 g = aCell / uGrid;
+            vec3 cellPos = uCenter + vec3((aCell + .5) / uGrid - .5, 0.) * vec3(uSize, 1.);
+
+            // assemblaggio: ogni cubo parte con un piccolo ritardo diverso
+            float delay = aRnd * .3 + (1. - g.y) * .2;
+            float a = ease(clamp((uAssemble - delay) / .5, 0., 1.));
+            vA = a; vRnd = aRnd;
+
+            // nella nuvola: l'anello gira lentamente
+            float ang = uTime * .12;
+            vec3 cloud = aCloud;
+            cloud.xz = mat2(cos(ang), -sin(ang), sin(ang), cos(ang)) * cloud.xz;
+            cloud.y += sin(uTime * .8 + aRnd * 12.) * .12;
+            cloud = mix(cloud * 2.5 + vec3(0., 0., -6.), cloud, uIntro);   // entrata
+
+            // il mouse spinge via i cubi della nuvola
+            vec2 dm = cloud.xy - uMouse.xy;
+            float fm = smoothstep(2.4, 0., length(dm)) * uMouseK * (1. - a);
+            cloud.xy += normalize(dm + 1e-4) * fm * 1.2;
+            cloud.z += fm * 1.5;
+
+            vec3 pos = mix(cloud, cellPos, a);
+
+            // sullo schermo: i cubi sotto il mouse escono in rilievo
+            float dist = length(cellPos.xy - uMouse.xy);
+            float pop = smoothstep(1.5, 0., dist) * uMouseK * a;
+            vPop = pop;
+            pos.z += pop * 1.1 + sin(g.x * 9. + uTime * 3.) * uWave * a;
+
+            // rotazione: casuale nella nuvola, giro di 180° (onda) al cambio progetto
+            float fl = ease(clamp(uFlip * 1.7 - g.x * .55 - aRnd * .15, 0., 1.));
+            vec3 r = aRot + uTime * vec3(.3, .2, .1);
+            vec3 rr = r * (1. - a);
+            mat3 R = rx(fl * 3.14159) * rz(rr.z) * ry(rr.y) * rx(rr.x);
+            R = R * rx(-pop * .5 * sign(cellPos.y - uMouse.y)) * ry(pop * .5 * sign(cellPos.x - uMouse.x));
+
+            vec3 size = mix(vec3(uCell * 1.35), vec3(uCell * .94, uCell * .94, uCell * 1.4), a);
+            vec3 p = R * (position * size) + pos;
+
+            vN = normalize(R * normal);
+            vFace = normal.z > .5 ? 1. : (normal.z < -.5 ? -1. : 0.);
+            vUvA = (aCell + uv) / uGrid;
+            vUvB = (aCell + vec2(1. - uv.x, 1. - uv.y)) / uGrid;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.);
+        }`,
+    fragmentShader: /* glsl */`
+        uniform sampler2D uTexA, uTexB; uniform float uAspA, uAspB;
+        varying vec2 vUvA; varying vec2 vUvB; varying float vFace; varying vec3 vN; varying float vA; varying float vPop; varying float vRnd;
+        vec2 cover(vec2 uv, float asp){ float r = 1.6 / asp; if (r > 1.) uv.y = 1. - (1. - uv.y) / r; else uv.x = (uv.x - .5) * r + .5; return uv; }
+        void main(){
+            vec3 col;
+            if (vFace > .5) col = texture2D(uTexA, cover(vUvA, uAspA)).rgb;
+            else if (vFace < -.5) col = texture2D(uTexB, cover(vUvB, uAspB)).rgb;
+            else col = vec3(.11, .1, .13);
+            // nella nuvola i frammenti sono più scuri, con riflessi rosa
+            // nella nuvola: cubi rosa, lavanda e bianchi
+            vec3 cloudCol = vRnd < .45 ? vec3(1., .18, .43) : (vRnd < .75 ? vec3(.62, .55, .95) : vec3(.94, .93, .96));
+            col = mix(cloudCol, col, vA);
+            vec3 L = normalize(vec3(.4, .6, 1.));
+            float diff = max(dot(vN, L), 0.);
+            float side = 1. - abs(vFace);
+            col *= mix(.55, 1., diff);
+            col += side * vec3(1., .18, .43) * (.06 + vPop * .5) * (1. - diff * .5);
+            col += pow(max(dot(reflect(-L, vN), vec3(0., 0., 1.)), 0.), 24.) * .25;
+            gl_FragColor = vec4(col, 1.);
+        }`
+});
+const cubes = new THREE.Mesh(geo, mat);
+cubes.frustumCulled = false;
+scene.add(cubes);
+
+/* ---------- TEXTURE: video veri ---------- */
+const loader = new THREE.TextureLoader();
+const media = P.map(p => {
+    const m = { poster: loader.load(p.poster), video: null, tex: null, asp: 1.6 };
+    m.poster.colorSpace = THREE.NoColorSpace;
+    m.poster.minFilter = THREE.LinearFilter;
+    return m;
+});
+function texFor(k) {
+    const m = media[k], p = P[k];
+    if (p.video && !m.video) {
+        const v = document.createElement("video");
+        v.src = p.video; v.muted = true; v.loop = true; v.playsInline = true; v.preload = "auto";
+        m.video = v;
+        m.tex = new THREE.VideoTexture(v);
+        m.tex.colorSpace = THREE.NoColorSpace;
+    }
+    if (m.video) { m.video.play().catch(() => {}); if (m.video.readyState >= 2) return m.tex; }
+    return m.poster;
+}
+function aspectFor(k) {
+    const m = media[k];
+    if (m.video && m.video.videoWidth) return m.video.videoWidth / m.video.videoHeight;
+    if (m.poster.image) return m.poster.image.width / m.poster.image.height;
+    return 1.6;
+}
+
+/* ---------- SCROLL ---------- */
+const SECTIONS = 2 + P.length + 1;          // hero, assemblaggio, progetti, contatti
+$("scroller").style.height = (SECTIONS * 100) + "vh";
+const lenis = new Lenis({ lerp: .085 });
+let scrollP = 0, lastP = 0, vel = 0;
+lenis.on("scroll", l => { scrollP = l.limit ? Math.min(1, Math.max(0, l.scroll / l.limit)) : 0; });
+(function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+
+function goTo(i) {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    lenis.scrollTo(i === "end" ? max : (i / (SECTIONS - 1)) * max, { duration: 2 });
+}
+document.querySelectorAll("[data-goto]").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    const g = a.dataset.goto;
+    goTo(g === "end" ? "end" : g === "proj" ? 2 : 0);
+}));
+
+/* ---------- PANNELLO ---------- */
+$("pTot").textContent = pad(P.length);
+$("bar").innerHTML = P.map(() => "<i></i>").join("");
+let current = -1, shown = -1;
+let flipping = false, flipStart = 0, flipTo = -1;
+const FLIP_MS = reduced ? 1 : 1300;
+
+function updatePanel(k) {
+    const swap = $("swap");
+    swap.classList.add("out");
+    setTimeout(() => {
+        $("pNum").textContent = pad(k + 1);
+        $("pName").textContent = P[k].name;
+        $("pShort").textContent = P[k].short + ".";
+        $("pStatus").textContent = P[k].status;
+        swap.classList.remove("out");
+    }, 260);
+    $("bar").querySelectorAll("i").forEach((b, j) => b.classList.toggle("on", j <= k));
+}
+
+function showProject(k) {
+    if (k === shown && !flipping) return;
+    if (shown < 0) {
+        /* primo progetto: appare direttamente mentre i cubi si assemblano */
+        shown = k;
+        mat.uniforms.uTexA.value = texFor(k);
+        mat.uniforms.uAspA.value = aspectFor(k);
+        updatePanel(k);
+        return;
+    }
+    if (flipping) {
+        /* se si scorre veloce chiudiamo subito il giro precedente */
+        mat.uniforms.uTexA.value = mat.uniforms.uTexB.value;
+        mat.uniforms.uAspA.value = mat.uniforms.uAspB.value;
+        mat.uniforms.uFlip.value = 0;
+        shown = flipTo;
+        if (k === shown) { flipping = false; return; }
+    }
+    flipTo = k;
+    mat.uniforms.uTexB.value = texFor(k);
+    mat.uniforms.uAspB.value = aspectFor(k);
+    flipStart = performance.now();
+    flipping = true;
+    updatePanel(k);
+}
+
+function openProject(k) {
+    const c = $("curtain");
+    c.style.transition = "transform .7s cubic-bezier(.7,0,.2,1)";
+    c.style.transform = "translateY(0)";
+    setTimeout(() => { location.href = "progetto.html?p=" + P[k].id + "&from=b-cubi.html"; }, 720);
+}
+$("pOpen").addEventListener("click", e => { e.preventDefault(); if (current >= 0) openProject(current); });
+
+/* ---------- MOUSE ---------- */
+const ndc = new THREE.Vector2(9, 9);
+const ray = new THREE.Raycaster();
+const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+const hitP = new THREE.Vector3();
+let mouseK = 0, overScreen = false, lastMove = 0;
+addEventListener("pointermove", e => {
+    ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    lastMove = performance.now();
+    const l = $("hoverLabel"); l.style.left = e.clientX + "px"; l.style.top = e.clientY + "px";
+});
+renderer.domElement.addEventListener("click", () => { if (overScreen && current >= 0) openProject(current); });
+
+/* ---------- INTRO ---------- */
+const curtain = $("curtain");
+curtain.style.transform = "translateY(0)";
+requestAnimationFrame(() => { curtain.style.transition = "transform 1.1s cubic-bezier(.7,0,.2,1)"; curtain.style.transform = "translateY(-100%)"; });
+document.querySelectorAll(".hero h1 .w > span").forEach((s, i) => s.animate([{ transform: "translateY(110%)" }, { transform: "none" }],
+    { duration: 1300, delay: 650 + i * 110, easing: "cubic-bezier(.16,1,.3,1)", fill: "forwards" }));
+document.querySelectorAll(".hero .kicker, .hero .role, .hero .what, .cue").forEach((el, i) => el.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }],
+    { duration: 1000, delay: 1000 + i * 90, easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" }));
+addEventListener("pageshow", e => { if (e.persisted) { curtain.style.transition = "none"; curtain.style.transform = "translateY(-100%)"; } });
+
+/* ---------- LOOP ---------- */
+const clock = new THREE.Clock();
+let intro = 0, camX = 0, camY = 0;
+function frame(now) {
+    requestAnimationFrame(frame);
+    const dt = Math.min(clock.getDelta(), .05);
+    const U = mat.uniforms;
+    U.uTime.value = reduced ? 0 : clock.elapsedTime;
+    intro = Math.min(1, intro + dt / 2.6);
+    U.uIntro.value = 1 - Math.pow(1 - intro, 4);
+
+    const idx = scrollP * (SECTIONS - 1);
+    vel += ((scrollP - lastP) * 60 - vel) * .12; lastP = scrollP;
+
+    /* 0→1: dalla nuvola allo schermo */
+    const assemble = THREE.MathUtils.clamp((idx - .2) / 1.4, 0, 1);
+    U.uAssemble.value = assemble;
+    U.uWave.value = THREE.MathUtils.clamp(vel * 4, -.5, .5);
+
+    /* progetto corrente */
+    const k = THREE.MathUtils.clamp(Math.floor(idx - 1.5), 0, P.length - 1);
+    current = assemble > .6 && idx < SECTIONS - 1.4 ? k : -1;
+    if (current >= 0) showProject(current);
+
+    /* giro dei cubi */
+    if (flipping) {
+        const f = Math.min(1, (now - flipStart) / FLIP_MS);
+        U.uFlip.value = f;
+        if (f >= 1) {
+            U.uTexA.value = U.uTexB.value; U.uAspA.value = U.uAspB.value;
+            U.uFlip.value = 0; flipping = false; shown = flipTo;
+        }
+    }
+    /* il video potrebbe essere pronto solo dopo: aggiorniamo la texture */
+    if (!flipping && shown >= 0) {
+        const t = texFor(shown);
+        if (U.uTexA.value !== t) U.uTexA.value = t;
+        U.uAspA.value = aspectFor(shown);
+    }
+    media.forEach((m, j) => { if (m.video && j !== shown && j !== flipTo && !m.video.paused) m.video.pause(); });
+
+    /* mouse sul piano dello schermo */
+    ray.setFromCamera(ndc, camera);
+    ray.ray.intersectPlane(plane, hitP);
+    if (hitP) U.uMouse.value.lerp(hitP, .2);
+    const moving = now - lastMove < 1500 && ndc.x < 5;
+    mouseK += ((moving ? 1 : 0) - mouseK) * .06;
+    U.uMouseK.value = mouseK;
+    overScreen = assemble > .95 && hitP && Math.abs(hitP.x - CENTER.x) < SW / 2 && Math.abs(hitP.y - CENTER.y) < SH / 2;
+    renderer.domElement.classList.toggle("pointer", !!overScreen);
+    $("hoverLabel").classList.toggle("on", !!overScreen);
+
+    /* camera: si avvicina mentre lo schermo si forma e segue il mouse */
+    const tx = (ndc.x < 5 ? ndc.x : 0), ty = (ndc.y < 5 ? ndc.y : 0);
+    camX += (tx * (1.4 - assemble * .9) - camX) * .05;
+    camY += (ty * (.9 - assemble * .5) - camY) * .05;
+    camera.position.set(camX + CENTER.x * assemble * .5, camY + (1 - assemble) * .6, 16 - assemble * (mobile ? 1.5 : 2.2));
+    camera.lookAt(CENTER.x * assemble, CENTER.y * assemble, 0);
+
+    /* testi */
+    const heroOut = Math.min(1, idx * 2.2);
+    $("hero").style.opacity = 1 - heroOut;
+    $("hero").style.transform = "scale(" + (1 - heroOut * .08) + ")";
+    $("cue").style.opacity = 1 - Math.min(1, idx * 5);
+    $("panel").classList.toggle("on", current >= 0);
+    $("outro").classList.toggle("on", idx > SECTIONS - 1.4);
+
+    renderer.render(scene, camera);
+}
+requestAnimationFrame(frame);
+
+addEventListener("resize", () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

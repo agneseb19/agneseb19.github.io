@@ -1,0 +1,138 @@
+/* Stile comune delle demo — NON fa parte del sito */
+:root {
+    --ink: #242126;
+    --paper: #f8f7f5;
+    --lavender: #eeebf1;
+    --pink: #db0750;
+    --muted: #85818a;
+    --font: "Bricolage Grotesque", "DM Sans", sans-serif;
+    --mono: "DM Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+}
+
+body { overflow-x: hidden; }
+
+img { display: block; }
+
+a { color: inherit; }
+
+/* Barra in alto, uguale in tutte le demo */
+.demo-bar {
+    position: fixed;
+    inset: 16px 16px auto;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+.demo-bar > * { pointer-events: auto; }
+
+.demo-back,
+.demo-tag {
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: rgba(248, 247, 245, .82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(36, 33, 38, .1);
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.demo-tag b { color: var(--pink); font-weight: 500; }
+
+.demo-back:hover { background: var(--ink); color: var(--paper); }
+
+.demo-hint {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 100;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    font: 600 15px/1 var(--font);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .25s, transform .25s;
+}
+
+.btn:hover { background: var(--pink); transform: translateY(-2px); }
+
+@media (max-width: 600px) {
+    .demo-tag { display: none; }
+}
+
+/* Scia di progetti (demo 2 e combinazione) */
+.trail-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.trail-item {
+    position: absolute;
+    margin: 0;
+    width: clamp(170px, 19vw, 300px);
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--lavender);
+    box-shadow: 0 24px 60px -20px rgba(36, 33, 38, .45);
+    will-change: transform, opacity;
+}
+
+.trail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.trail-item figcaption {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: var(--paper);
+    font: 500 11px/1 var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}

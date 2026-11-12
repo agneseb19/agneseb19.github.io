@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D · D — Giocaci</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../demo.css">
+<link rel="stylesheet" href="project.css">
+<style>
+    html, body { height: 100%; overflow: hidden; background: var(--paper); }
+
+    .world {
+        position: fixed;
+        inset: 0;
+        touch-action: none;
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .world.grabbing { cursor: grabbing; }
+    .world.over-card { cursor: pointer; }
+
+    .ghost {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        font-size: 30vw;
+        font-weight: 800;
+        letter-spacing: -.07em;
+        color: rgba(36,33,38,.04);
+        line-height: 1;
+    }
+
+    .body {
+        position: absolute;
+        left: 0; top: 0;
+        pointer-events: none;
+        will-change: transform;
+        visibility: hidden;
+    }
+
+    /* parole del titolo */
+    .word {
+        padding: .02em .22em .08em;
+        border-radius: .28em;
+        font-size: clamp(44px, 7.4vw, 124px);
+        line-height: 1;
+        font-weight: 780;
+        letter-spacing: -.045em;
+        background: var(--ink);
+        color: var(--paper);
+        white-space: nowrap;
+    }
+
+    .word.light { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 3px var(--ink); }
+    .word.pink { background: var(--pink); color: #fff; font-weight: 300; font-variation-settings: "wdth" 80; }
+
+    /* card dei progetti */
+    .card {
+        width: clamp(150px, 15vw, 240px);
+        aspect-ratio: 4 / 3;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #ddd;
+        box-shadow: 0 20px 40px -20px rgba(36,33,38,.55);
+    }
+
+    .card img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+    .card span {
+        position: absolute;
+        left: 8px; bottom: 8px;
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: var(--paper);
+        font: 500 11px/1 var(--mono);
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        color: var(--ink);
+    }
+
+    /* competenze */
+    .pill {
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: var(--lavender);
+        font: 600 clamp(14px, 1.3vw, 19px)/1 var(--font);
+        color: var(--ink);
+        white-space: nowrap;
+    }
+
+    .pill.round {
+        width: 92px; height: 92px; padding: 0;
+        display: grid; place-items: center;
+        border-radius: 50%;
+        background: #ffd400;
+        font-size: 14px;
+        text-align: center;
+        line-height: 1.1;
+    }
+
+    .controls {
+        position: fixed;
+        left: 50%;
+        bottom: 18px;
+        transform: translateX(-50%);
+        z-index: 50;
+        display: flex;
+        gap: 6px;
+        padding: 6px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px -15px rgba(36,33,38,.4);
+    }
+
+    .controls button {
+        padding: 11px 16px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        font: 600 14px/1 var(--font);
+        color: var(--ink);
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background .25s, color .25s;
+    }
+
+    .controls button:hover, .controls button.on { background: var(--ink); color: var(--paper); }
+
+    .signature {
+        position: fixed;
+        left: 50%;
+        top: 22px;
+        transform: translateX(-50%);
+        z-index: 40;
+        font: 500 12px/1 var(--mono);
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    .open-label {
+        position: fixed;
+        z-index: 60;
+        left: 0; top: 0;
+        padding: 9px 13px;
+        border-radius: 999px;
+        background: var(--pink);
+        color: #fff;
+        font: 500 11px/1 var(--mono);
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        pointer-events: none;
+        opacity: 0;
+        transform: translate(-50%, -160%);
+        transition: opacity .2s;
+        white-space: nowrap;
+    }
+
+    .open-label.on { opacity: 1; }
+
+    @media (max-width: 700px) {
+        .signature { display: none; }
+        .controls button { padding: 10px 12px; font-size: 13px; }
+        .pill.round { width: 70px; height: 70px; font-size: 12px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+    <a class="demo-back" href="index.html">← Demo 3D</a>
+    <span class="demo-tag"><b>D</b> · Giocaci</span>
+</div>
+
+<p class="signature">Agnese Barnaba · Web designer &amp; front-end developer</p>
+
+<div class="ghost" aria-hidden="true">AB</div>
+
+<div class="world" id="world"></div>
+
+<div class="controls">
+    <button type="button" id="zeroG">Gravità zero</button>
+    <button type="button" id="shake">Scuoti</button>
+    <button type="button" id="reset">Riordina</button>
+</div>
+
+<span class="open-label" id="openLabel">Doppio clic per aprire</span>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script src="data.js"></script>
+<script src="project.js"></script>
+<script>
+(function () {
+    const { Engine, Runner, Bodies, Body, Composite, Mouse, MouseConstraint, Query, Events } = Matter;
+    const world = document.getElementById("world");
+    const mobile = innerWidth < 700;
+    const engine = Engine.create();
+    engine.gravity.y = 1;
+
+    /* ---------- OGGETTI ---------- */
+    const items = [];
+
+    function add(el, opts) {
+        el.classList.add("body");
+        world.appendChild(el);
+        items.push({ el: el, opts: opts || {} });
+    }
+
+    function word(text, cls) {
+        const el = document.createElement("div");
+        el.className = "word " + (cls || "");
+        el.textContent = text;
+        add(el, { restitution: .3, density: .004 });
+    }
+
+    /* Il titolo: ogni parola è un oggetto */
+    word("Non");
+    word("leggere", "light");
+    word("il mio");
+    word("portfolio.", "light");
+    word("Giocaci.", "pink");
+
+    /* I progetti */
+    PROJECTS.forEach(function (p, i) {
+        if (mobile && i > 5) return;
+        const el = document.createElement("div");
+        el.className = "card";
+        el.innerHTML = '<img src="' + p.img + '" alt="" draggable="false"><span>' + p.name.replace("AI & Luxury Digital Design", "AUREA") + "</span>";
+        el.dataset.project = i;
+        add(el, { restitution: .25, density: .002 });
+    });
+
+    /* Le competenze */
+    ["Three.js", "GSAP", "Figma", "UI/UX", "JavaScript", "CSS"].forEach(function (s) {
+        if (mobile && (s === "CSS" || s === "UI/UX")) return;
+        const el = document.createElement("div");
+        el.className = "pill";
+        el.textContent = s;
+        add(el, { restitution: .6, density: .001 });
+    });
+    ["Aperta a<br>lavoro", "Roma"].forEach(function (s) {
+        const el = document.createElement("div");
+        el.className = "pill round";
+        el.innerHTML = s;
+        add(el, { restitution: .8, density: .001, circle: true });
+    });
+
+    /* ---------- PARETI ---------- */
+    let walls = [];
+    function makeWalls() {
+        walls.forEach(function (w) { Composite.remove(engine.world, w); });
+        const W = innerWidth, H = innerHeight, T = 400;
+        walls = [
+            Bodies.rectangle(W / 2, H + T / 2 - (mobile ? 70 : 76), W * 3, T, { isStatic: true }),
+            Bodies.rectangle(-T / 2, H / 2, T, H * 6, { isStatic: true }),
+            Bodies.rectangle(W + T / 2, H / 2, T, H * 6, { isStatic: true }),
+            Bodies.rectangle(W / 2, -H * 2.5 - T / 2, W * 3, T, { isStatic: true })
+        ];
+        Composite.add(engine.world, walls);
+    }
+
+    /* ---------- CORPI (misurati dagli elementi HTML) ---------- */
+    function spawn() {
+        items.forEach(function (it) { if (it.body) Composite.remove(engine.world, it.body); });
+        /* le parole del titolo cadono dritte e in fila, così la frase si legge */
+        let cx = 16, row = 0;
+        items.forEach(function (it, i) {
+            const w = it.el.offsetWidth, h = it.el.offsetHeight;
+            it.w = w; it.h = h;
+            let x, y;
+            if (i < 5) {
+                if (cx + w > innerWidth - 16) { cx = 16; row++; }
+                x = cx + w / 2; cx += w + 10;
+                y = -h - row * (h + 30) - 40;
+            } else {
+                x = innerWidth * (.15 + Math.random() * .7);
+                y = -900 - Math.random() * 1200;
+            }
+            it.body = it.opts.circle
+                ? Bodies.circle(x, y, w / 2, { restitution: it.opts.restitution, density: it.opts.density, friction: .2 })
+                : Bodies.rectangle(x, y, w, h, {
+                    chamfer: { radius: Math.min(h / 2 - 1, it.el.classList.contains("card") ? 16 : h * .28) },
+                    restitution: it.opts.restitution, density: it.opts.density, friction: .25, frictionAir: .012
+                });
+            Body.setAngle(it.body, i < 5 ? 0 : (Math.random() - .5) * .6);
+            it.body.plugin.item = it;
+            Composite.add(engine.world, it.body);
+            it.el.style.visibility = "visible";
+        });
+    }
+
+    /* ---------- MOUSE ---------- */
+    const mouse = Mouse.create(world);
+    mouse.pixelRatio = 1;
+    const mc = MouseConstraint.create(engine, { mouse: mouse, constraint: { stiffness: .2, damping: .1, render: { visible: false } } });
+    Composite.add(engine.world, mc);
+    /* Matter blocca la rotella: la ripristiniamo */
+    mouse.element.removeEventListener("wheel", mouse.mousewheel);
+    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+
+    Events.on(mc, "startdrag", function () { world.classList.add("grabbing"); });
+    Events.on(mc, "enddrag", function () { world.classList.remove("grabbing"); });
+
+    const label = document.getElementById("openLabel");
+    function cardAt(x, y) {
+        const hit = Query.point(items.map(function (i) { return i.body; }), { x: x, y: y })[0];
+        const it = hit && hit.plugin.item;
+        return it && it.el.dataset.project !== undefined ? it : null;
+    }
+
+    world.addEventListener("pointermove", function (e) {
+        const it = cardAt(e.clientX, e.clientY);
+        world.classList.toggle("over-card", !!it && !mc.body);
+        label.classList.toggle("on", !!it && !mc.body);
+        label.style.left = e.clientX + "px";
+        label.style.top = e.clientY + "px";
+    });
+
+    function openAt(x, y) {
+        const it = cardAt(x, y);
+        if (!it) return;
+        label.classList.remove("on");
+        runner.enabled = false;
+        ProjectView.open(+it.el.dataset.project, { rect: it.el.getBoundingClientRect(), onClose: function () { runner.enabled = true; } });
+    }
+    world.addEventListener("dblclick", function (e) { openAt(e.clientX, e.clientY); });
+
+    /* su touch: doppio tap */
+    let lastTap = 0;
+    world.addEventListener("touchend", function (e) {
+        const now = Date.now(), t = e.changedTouches[0];
+        if (now - lastTap < 320) openAt(t.clientX, t.clientY);
+        lastTap = now;
+    });
+
+    /* ---------- CONTROLLI ---------- */
+    const zeroG = document.getElementById("zeroG");
+    zeroG.addEventListener("click", function () {
+        const off = engine.gravity.y !== 0;
+        engine.gravity.y = off ? 0 : 1;
+        zeroG.classList.toggle("on", off);
+        zeroG.textContent = off ? "Gravità on" : "Gravità zero";
+        if (off) items.forEach(function (it) {
+            Body.setVelocity(it.body, { x: (Math.random() - .5) * 4, y: -2 - Math.random() * 6 });
+            Body.setAngularVelocity(it.body, (Math.random() - .5) * .06);
+        });
+    });
+
+    document.getElementById("shake").addEventListener("click", function () {
+        items.forEach(function (it) {
+            Body.setVelocity(it.body, { x: (Math.random() - .5) * 30, y: -10 - Math.random() * 18 });
+            Body.setAngularVelocity(it.body, (Math.random() - .5) * .3);
+        });
+    });
+
+    document.getElementById("reset").addEventListener("click", function () {
+        engine.gravity.y = 1;
+        zeroG.classList.remove("on");
+        zeroG.textContent = "Gravità zero";
+        spawn();
+    });
+
+    /* Su telefono: inclinare il telefono sposta la gravità (Android; su iOS serve un permesso) */
+    addEventListener("deviceorientation", function (e) {
+        if (e.gamma === null || engine.gravity.y === 0) return;
+        engine.gravity.x = Math.max(-1, Math.min(1, e.gamma / 45));
+        engine.gravity.y = Math.max(.2, Math.min(1, (e.beta || 45) / 45));
+    });
+
+    /* ---------- LOOP ---------- */
+    const runner = Runner.create();
+    Events.on(engine, "afterUpdate", function () {
+        items.forEach(function (it) {
+            const b = it.body;
+            /* se un oggetto esce dallo schermo (lancio troppo forte), lo rimettiamo dentro */
+            if (b.position.y > innerHeight + 300 || b.position.x < -300 || b.position.x > innerWidth + 300) {
+                Body.setPosition(b, { x: innerWidth / 2, y: -200 });
+                Body.setVelocity(b, { x: 0, y: 0 });
+            }
+            it.el.style.transform = "translate(" + (b.position.x - it.w / 2) + "px," + (b.position.y - it.h / 2) + "px) rotate(" + b.angle + "rad)";
+        });
+    });
+
+    document.fonts.ready.then(function () {
+        makeWalls();
+        spawn();
+        Runner.run(runner, engine);
+    });
+
+    addEventListener("resize", makeWalls);
+})();
+</script>
+</body>
+</html>

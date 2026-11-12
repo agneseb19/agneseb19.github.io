@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 03 — Titolo gigante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="demo.css">
+<style>
+    body { background: #fff; }
+
+    .hero {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 90px 0 120px;
+        overflow: hidden;
+    }
+
+    /* Le immagini stanno SOTTO il testo.
+       Il testo nero con mix-blend-mode: screen su fondo bianco
+       diventa una "finestra": il bianco resta bianco, il nero mostra l'immagine. */
+    .knockout {
+        position: relative;
+        isolation: isolate;
+    }
+
+    .knockout-imgs {
+        position: absolute;
+        inset: 3px 0;
+        overflow: hidden;
+    }
+
+    .knockout-imgs img {
+        position: absolute;
+        inset: -6%;
+        width: 112%;
+        height: 112%;
+        object-fit: cover;
+        object-position: center 30%;
+        opacity: 0;
+        transition: opacity .9s ease;
+    }
+
+    .knockout-imgs img.on { opacity: 1; animation: zoom 3.2s linear forwards; }
+
+    @keyframes zoom { from { transform: scale(1.5); } to { transform: scale(1.3); } }
+
+    .knockout-text {
+        position: relative;
+        margin: 0;
+        background: #fff;
+        color: #000;
+        mix-blend-mode: screen;
+        text-align: center;
+        font-size: 19vw;
+        line-height: .8;
+        letter-spacing: -.03em;
+        user-select: none;
+        padding: .04em 0 .1em;
+    }
+
+    .knockout-text .line { display: block; white-space: nowrap; }
+
+    .knockout-text .ch {
+        display: inline-block;
+        font-variation-settings: "wght" 300, "wdth" 75, "opsz" 96;
+    }
+
+    .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 20px;
+        padding: 26px 24px 0;
+        font: 500 12px/1.6 var(--mono);
+        text-transform: uppercase;
+        letter-spacing: .06em;
+        color: var(--muted);
+    }
+
+    .meta strong { display: block; color: var(--ink); font: 700 22px/1.1 var(--font); letter-spacing: -.01em; text-transform: none; }
+    .meta .idx { color: var(--pink); }
+
+    @media (max-width: 700px) {
+        .knockout-text { font-size: 21vw; }
+        .meta { flex-direction: column; align-items: flex-start; }
+    }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+    <a class="demo-back" href="index.html">← Tutte le demo</a>
+    <span class="demo-tag"><b>03</b> · Titolo gigante</span>
+</div>
+
+<section class="hero" id="hero">
+    <div class="knockout">
+        <div class="knockout-imgs" id="imgs"></div>
+        <h1 class="knockout-text" id="title" aria-label="Agnese Barnaba">
+            <span class="line">AGNESE</span>
+            <span class="line">BARNABA</span>
+        </h1>
+    </div>
+
+    <div class="meta">
+        <div>Web designer<br>Front-end developer</div>
+        <div><span class="idx" id="idx">01 / 08</span><strong id="pname">JoSmash</strong></div>
+        <a class="btn" href="#">Scopri i progetti →</a>
+    </div>
+</section>
+
+<p class="demo-hint">Muovi il mouse sopra il nome</p>
+
+<script src="shared.js"></script>
+<script>
+(function () {
+    const imgs = document.getElementById("imgs");
+    const title = document.getElementById("title");
+    const idx = document.getElementById("idx");
+    const pname = document.getElementById("pname");
+
+    /* Immagini dei progetti che si alternano dentro le lettere */
+    PROJECTS.forEach(function (p) {
+        const im = document.createElement("img");
+        im.src = p.src; im.alt = "";
+        imgs.appendChild(im);
+    });
+    const all = imgs.querySelectorAll("img");
+    let cur = 0;
+    function show(i) {
+        all.forEach(function (im) { im.classList.remove("on"); });
+        void all[i].offsetWidth;
+        all[i].classList.add("on");
+        idx.textContent = String(i + 1).padStart(2, "0") + " / " + String(all.length).padStart(2, "0");
+        pname.textContent = PROJECTS[i].name;
+    }
+    show(0);
+    if (!REDUCED_MOTION) setInterval(function () { cur = (cur + 1) % all.length; show(cur); }, 2600);
+
+    /* Lettere a font variabile: più spesse e larghe vicino al cursore */
+    title.querySelectorAll(".line").forEach(function (line) {
+        line.innerHTML = line.textContent.split("").map(function (c) {
+            return '<span class="ch" aria-hidden="true">' + c + "</span>";
+        }).join("");
+    });
+    const chars = Array.from(title.querySelectorAll(".ch"));
+    const state = chars.map(function () { return 0; });
+
+    let mx = -9999, my = -9999, hasMouse = false, t0 = performance.now();
+    addEventListener("pointermove", function (e) { mx = e.clientX; my = e.clientY; hasMouse = true; });
+    document.addEventListener("pointerleave", function () { hasMouse = false; });
+
+    function frame(now) {
+        const radius = Math.max(260, innerWidth * .28);
+
+        /* Senza mouse: un'onda che attraversa il nome da sola */
+        let px = mx, py = my;
+        if (!hasMouse) {
+            const tr = title.getBoundingClientRect();
+            const k = ((now - t0) / 2600) % 1;
+            px = tr.left - radius + k * (tr.width + radius * 2);
+            py = tr.top + tr.height * (k < .5 ? .3 : .7);
+        }
+
+        const rects = chars.map(function (c) { return c.getBoundingClientRect(); });
+        rects.forEach(function (r, i) {
+            const d = Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2));
+            const target = Math.max(0, 1 - d / radius);
+            state[i] += (target - state[i]) * .14;
+        });
+        chars.forEach(function (c, i) {
+            const s = state[i] * state[i] * (3 - 2 * state[i]);
+            c.style.fontVariationSettings = '"wght" ' + (300 + s * 500).toFixed(0) + ', "wdth" ' + (75 + s * 25).toFixed(1) + ', "opsz" 96';
+        });
+        requestAnimationFrame(frame);
+    }
+    if (!REDUCED_MOTION) requestAnimationFrame(frame);
+
+    /* Le immagini si spostano un po' col mouse */
+    addEventListener("pointermove", function (e) {
+        const x = (e.clientX / innerWidth - .5) * -24;
+        const y = (e.clientY / innerHeight - .5) * -24;
+        imgs.style.transform = "translate(" + x + "px," + y + "px)";
+    });
+    imgs.style.transition = "transform .6s cubic-bezier(.2,.8,.2,1)";
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo v3 — Agnese Barnaba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+    main { max-width: 1240px; margin: 0 auto; padding: 90px 28px 80px; }
+    .eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 22px; }
+    h1 { font-size: clamp(44px, 7vw, 104px); line-height: .9; letter-spacing: -.05em; margin: 0 0 22px; font-weight: 750; }
+    .lead { max-width: 640px; color: var(--muted); font-size: 18px; line-height: 1.5; margin: 0 0 64px; }
+
+    .row {
+        display: grid;
+        grid-template-columns: 70px 1.1fr 1.4fr 160px;
+        gap: 24px;
+        align-items: center;
+        padding: 26px 0;
+        border-top: 1px solid var(--line);
+        color: inherit;
+        text-decoration: none;
+        transition: background .3s, padding .4s cubic-bezier(.2,.8,.2,1);
+    }
+    .row:last-of-type { border-bottom: 1px solid var(--line); }
+    .row:hover { padding-left: 14px; padding-right: 14px; background: rgba(255,255,255,.03); }
+    .row .n { font: 500 13px/1 var(--mono); color: var(--accent); }
+    .row h2 { margin: 0; font-size: clamp(28px, 3.2vw, 46px); letter-spacing: -.04em; line-height: 1; font-weight: 700; }
+    .row p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .row .go { justify-self: end; font: 600 14px/1 var(--font); padding: 12px 18px; border-radius: 999px; border: 1px solid var(--line-strong); white-space: nowrap; transition: background .3s, color .3s; }
+    .row:hover .go { background: var(--fg); color: var(--bg); }
+
+    h3 { margin: 80px 0 18px; font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .copy { padding: 28px; border-radius: 20px; background: #151317; border: 1px solid var(--line); }
+    .copy .name { font-size: clamp(30px, 3.4vw, 48px); font-weight: 750; letter-spacing: -.045em; line-height: 1; margin: 0 0 8px; }
+    .copy .role { font-size: 20px; font-weight: 600; margin: 0 0 8px; }
+    .copy .what { color: var(--muted); margin: 0; line-height: 1.5; }
+
+    .projects { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .projects a { color: inherit; text-decoration: none; font-size: 14px; }
+    .projects video, .projects img { width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; border-radius: 10px; display: block; margin-bottom: 8px; background: #000; }
+
+    .note { margin-top: 60px; font: 500 12px/1.7 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+
+    @media (max-width: 800px) {
+        main { padding: 70px 16px; }
+        .row { grid-template-columns: 40px 1fr; }
+        .row p, .row .go { grid-column: 2; justify-self: start; }
+        .projects { grid-template-columns: 1fr 1fr; }
+    }
+</style>
+</head>
+<body>
+<main>
+    <p class="eyebrow">Demo v3 · Agnese Barnaba</p>
+    <h1>Il 3D che porta<br>ai progetti.</h1>
+    <p class="lead">Tre home in cui il 3D accompagna il visitatore verso i lavori: scorrendo ti muovi nello spazio, gli oggetti reagiscono al mouse e i progetti sono video veri dei siti. Tutte aprono la nuova pagina progetto.</p>
+
+    <a class="row" href="a-volo.html">
+        <span class="n">A</span><h2>Volo nello spazio</h2>
+        <p>Scorrendo la camera vola tra forme 3D che si spostano col mouse e si ferma davanti a ogni progetto, che parte in video.</p>
+        <span class="go">Apri demo →</span>
+    </a>
+    <a class="row" href="b-cubi.html">
+        <span class="n">B</span><h2>Schermo di cubi</h2>
+        <p>Mille cubi girano intorno al nome, poi si assemblano in uno schermo che riproduce il progetto. Col mouse escono in rilievo; tra un progetto e l'altro girano a onda.</p>
+        <span class="go">Apri demo →</span>
+    </a>
+    <a class="row" href="c-orbita.html">
+        <span class="n">C</span><h2>Orbita di vetro</h2>
+        <p>La goccia di vetro della demo precedente al centro. Scorrendo un anello di schermi le gira intorno e il progetto attivo passa dietro il vetro, deformato come da una lente.</p>
+        <span class="go">Apri demo →</span>
+    </a>
+    <a class="row" href="progetto.html?p=josmash&from=index.html">
+        <span class="n">→</span><h2>Pagina progetto</h2>
+        <p>Ordinata: titolo, video reale del sito, dati in colonne, testo, desktop e mobile, prossimo progetto. Animazioni allo scroll.</p>
+        <span class="go">Apri pagina →</span>
+    </a>
+
+    <h3>Il testo, in tutte le demo</h3>
+    <div class="copy">
+        <p class="name">Agnese Barnaba</p>
+        <p class="role">Web designer &amp; front-end developer</p>
+        <p class="what">Progetto e sviluppo siti web statici e dinamici, esperienze 3D e interfacce interattive.</p>
+    </div>
+
+    <h3>Le anteprime video (registrate dai siti veri)</h3>
+    <div class="projects" id="projects"></div>
+
+    <p class="note">I video sono registrazioni dei siti online, fatte scorrere in automatico.<br>New Connection, Poste Italiane e AUREA non hanno un sito online: usano lo screenshot.</p>
+</main>
+
+<script src="data.js"></script>
+<script>
+    document.getElementById("projects").innerHTML = PROJECTS.map(function (p) {
+        const m = p.video ? '<video muted loop playsinline autoplay preload="metadata" src="' + p.video + '" poster="' + p.poster + '"></video>' : '<img src="' + p.img + '" alt="">';
+        return '<a href="progetto.html?p=' + p.id + '&from=index.html">' + m + p.name + "</a>";
+    }).join("");
+</script>
+</body>
+</html>

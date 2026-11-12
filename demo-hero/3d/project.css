@@ -1,0 +1,420 @@
+/* ===========================================
+   DETTAGLIO PROGETTO (condiviso da tutte le demo 3D)
+=========================================== */
+
+.pv {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #141216;
+    color: #f8f7f5;
+    font-family: "Bricolage Grotesque", sans-serif;
+    visibility: hidden;
+    overscroll-behavior: contain;
+}
+
+.pv.open { visibility: visible; }
+
+.pv-close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 520;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid rgba(248,247,245,.25);
+    background: rgba(20,18,22,.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #f8f7f5;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform .4s cubic-bezier(.2,.9,.3,1.4), background .3s;
+}
+
+.pv-close:hover { transform: rotate(90deg) scale(1.08); background: #db0750; border-color: #db0750; }
+
+.pv-counter {
+    position: fixed;
+    top: 30px;
+    left: 20px;
+    z-index: 520;
+    font: 500 12px/1 "DM Mono", monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    mix-blend-mode: difference;
+}
+
+/* ---------- HERO ---------- */
+.pv-hero {
+    position: relative;
+    height: 100vh;
+    height: 100svh;
+    perspective: 1400px;
+}
+
+.pv-hero-media {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    transform-origin: 50% 50%;
+    will-change: transform, border-radius;
+}
+
+.pv-hero-media img {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center 30%;
+    will-change: transform;
+}
+
+.pv-hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(20,18,22,.85) 0%, rgba(20,18,22,.1) 45%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Luce che segue il mouse sull'immagine */
+.pv-spot {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.18), transparent 60%);
+    mix-blend-mode: overlay;
+}
+
+.pv-title-wrap {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    padding: 0 20px 26px;
+    pointer-events: none;
+}
+
+.pv-type {
+    display: block;
+    margin-bottom: 10px;
+    font: 500 12px/1 "DM Mono", monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .75;
+}
+
+.pv-title {
+    margin: 0;
+    font-family: "Bricolage Grotesque", sans-serif;
+    text-transform: none;
+    opacity: 1;
+    color: #f8f7f5;
+    font-size: clamp(54px, 11vw, 190px);
+    line-height: .86;
+    letter-spacing: -.05em;
+    font-weight: 750;
+    pointer-events: auto;
+    cursor: default;
+}
+
+.pv-title .w { display: inline-block; white-space: nowrap; margin-right: .2em; }
+.pv-title .m { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .02em .08em; margin: 0 -.02em; }
+.pv-title .c {
+    display: inline-block;
+    transform: translateY(105%);
+    font-variation-settings: "wght" 750, "wdth" 100;
+    transition: font-variation-settings .5s cubic-bezier(.2,.8,.2,1), color .4s;
+}
+
+.pv-scrollcue {
+    position: absolute;
+    right: 20px;
+    bottom: 32px;
+    z-index: 2;
+    font: 500 11px/1 "DM Mono", monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .7;
+}
+
+/* ---------- CONTENUTO ---------- */
+.pv-body {
+    position: relative;
+    z-index: 3;
+    background: #141216;
+    padding: 110px 20px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.pv-intro {
+    font-size: clamp(26px, 3.6vw, 52px);
+    line-height: 1.12;
+    letter-spacing: -.025em;
+    font-weight: 500;
+    max-width: 1100px;
+    margin: 0 0 80px;
+}
+
+.pv-intro .word { opacity: .14; transition: opacity .3s, color .3s; }
+.pv-intro .word.lit { opacity: 1; }
+.pv-intro .word.pink { color: #ff3d7f; }
+
+.pv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    border-top: 1px solid rgba(248,247,245,.15);
+    padding-top: 24px;
+    margin-bottom: 110px;
+}
+
+.pv-grid h4 {
+    margin: 0 0 12px;
+    font: 500 11px/1 "DM Mono", monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(248,247,245,.5);
+}
+
+.pv-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.pv-tags span {
+    padding: 8px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(248,247,245,.25);
+    font: 500 12px/1 "DM Mono", monospace;
+    letter-spacing: .04em;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    display: inline-block;
+    transition: background .25s, color .25s, border-color .25s;
+}
+
+.pv-tags span:hover { background: #f8f7f5; color: #141216; }
+.pv-tags span.dragging { cursor: grabbing; background: #db0750; border-color: #db0750; color: #fff; z-index: 2; position: relative; }
+
+.pv-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+
+.pv-links a {
+    color: inherit;
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+    transition: background-size .4s cubic-bezier(.2,.8,.2,1), color .3s;
+}
+
+.pv-links a:hover { background-size: 100% 2px; color: #ff3d7f; }
+.pv-links em { font-style: normal; opacity: .55; font-size: 15px; }
+
+/* ---------- DEVICE SWITCH ---------- */
+.pv-devices { margin-bottom: 130px; }
+
+.pv-devices-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.pv-devices-head h3 { margin: 0; font-size: clamp(34px, 5vw, 72px); letter-spacing: -.04em; line-height: .9; }
+
+.pv-switch {
+    position: relative;
+    display: inline-flex;
+    padding: 5px;
+    border-radius: 999px;
+    background: rgba(248,247,245,.08);
+    border: 1px solid rgba(248,247,245,.15);
+}
+
+.pv-switch button {
+    position: relative;
+    z-index: 1;
+    padding: 11px 20px;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: 600 14px/1 "Bricolage Grotesque", sans-serif;
+    cursor: pointer;
+    transition: color .3s;
+}
+
+.pv-switch button.on { color: #141216; }
+
+.pv-switch .pill {
+    position: absolute;
+    top: 5px; bottom: 5px;
+    border-radius: 999px;
+    background: #f8f7f5;
+    transition: left .55s cubic-bezier(.3,1.4,.4,1), width .55s cubic-bezier(.3,1.4,.4,1);
+}
+
+.pv-stage {
+    display: grid;
+    place-items: center;
+    min-height: 74vh;
+    border-radius: 28px;
+    background: radial-gradient(circle at 50% 120%, rgba(219,7,80,.35), transparent 60%), rgba(248,247,245,.04);
+    perspective: 1600px;
+    overflow: hidden;
+    padding: 50px 20px;
+}
+
+.pv-device {
+    position: relative;
+    width: min(1000px, 92%);
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+    background: #2a272c;
+    padding: 30px 8px 8px;
+    box-shadow: 0 60px 120px -40px rgba(0,0,0,.8);
+    transform-style: preserve-3d;
+    transition: width .8s cubic-bezier(.65,0,.2,1), aspect-ratio .8s cubic-bezier(.65,0,.2,1),
+                border-radius .8s cubic-bezier(.65,0,.2,1), padding .8s cubic-bezier(.65,0,.2,1),
+                transform .6s cubic-bezier(.2,.8,.2,1);
+}
+
+.pv-device::before {
+    content: "";
+    position: absolute;
+    top: 12px; left: 14px;
+    width: 40px; height: 8px;
+    background: radial-gradient(circle, #ff5f57 3.5px, transparent 4px) 0 0 / 14px 8px repeat-x;
+    transition: opacity .3s;
+}
+
+.pv-device.mobile {
+    width: min(330px, 70%);
+    aspect-ratio: 9 / 19;
+    border-radius: 44px;
+    padding: 12px;
+}
+
+.pv-device.mobile::before { opacity: 0; }
+
+.pv-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+    transition: border-radius .8s;
+}
+
+.pv-device.mobile .pv-screen { border-radius: 33px; }
+
+.pv-screen img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: opacity .5s;
+}
+
+.pv-screen img.hide { opacity: 0; }
+
+.pv-stage-hint {
+    margin-top: 14px;
+    text-align: center;
+    font: 500 11px/1 "DM Mono", monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .5;
+}
+
+/* ---------- PROSSIMO PROGETTO ---------- */
+.pv-next {
+    position: relative;
+    height: 90vh;
+    margin: 0 -20px -40px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.pv-next-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: .28;
+    filter: grayscale(1);
+    transform: scale(1.15);
+    transition: opacity .6s, filter .6s;
+}
+
+.pv-next.holding .pv-next-bg { filter: grayscale(0); opacity: .6; }
+
+.pv-next-inner { position: relative; z-index: 1; }
+
+.pv-next small {
+    display: block;
+    margin-bottom: 18px;
+    font: 500 12px/1 "DM Mono", monospace;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .7;
+}
+
+.pv-next h3 {
+    margin: 0 0 34px;
+    font-size: clamp(54px, 10vw, 170px);
+    line-height: .86;
+    letter-spacing: -.05em;
+}
+
+.pv-hold {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    display: grid;
+    place-items: center;
+    font: 500 11px/1.3 "DM Mono", monospace;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.pv-hold svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.pv-hold circle { fill: none; stroke-width: 2; }
+.pv-hold .track { stroke: rgba(248,247,245,.25); }
+.pv-hold .fill { stroke: #db0750; stroke-dasharray: 358; stroke-dashoffset: 358; stroke-width: 4; }
+
+/* Tendina per il passaggio al progetto successivo */
+.pv-wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 530;
+    background: #db0750;
+    transform: translateY(100%);
+    pointer-events: none;
+}
+
+@media (max-width: 760px) {
+    .pv-grid { grid-template-columns: 1fr; gap: 34px; }
+    .pv-devices-head { flex-direction: column; align-items: flex-start; }
+    .pv-stage { min-height: 64vh; }
+}

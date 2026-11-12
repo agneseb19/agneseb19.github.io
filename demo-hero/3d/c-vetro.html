@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D · C — Vetro olografico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../demo.css">
+<link rel="stylesheet" href="project.css">
+<style>
+    html, body { height: 100%; overflow: hidden; background: #f3eff3; }
+
+    canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+    canvas.grab { cursor: grab; }
+    canvas.grabbing { cursor: grabbing; }
+
+    .copy {
+        position: fixed;
+        left: 24px;
+        bottom: 26px;
+        z-index: 5;
+        max-width: 420px;
+        pointer-events: none;
+        transition: color .6s;
+    }
+
+    .copy h1 { margin: 0 0 10px; font-size: clamp(24px, 2.5vw, 36px); line-height: 1.05; letter-spacing: -.03em; font-weight: 600; }
+    .copy p { margin: 0; opacity: .65; line-height: 1.5; }
+
+    .list {
+        position: fixed;
+        right: 24px;
+        bottom: 22px;
+        z-index: 6;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2px;
+        margin: 0; padding: 0; list-style: none;
+    }
+
+    .list button {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        padding: 4px 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: 600 clamp(16px, 1.5vw, 21px)/1.1 var(--font);
+        letter-spacing: -.01em;
+        cursor: pointer;
+        opacity: .5;
+        transition: opacity .3s, transform .4s cubic-bezier(.2,.9,.3,1.3), color .3s;
+    }
+
+    .list button b { font: 500 11px/1 var(--mono); color: var(--pink); }
+    .list button:hover, .list button.on { opacity: 1; transform: translateX(-10px); }
+
+    body.on-project .copy, body.on-project .list { color: #fff; }
+    .shade { position: fixed; inset: 45% 0 0; z-index: 4; pointer-events: none; background: linear-gradient(transparent, rgba(10,9,12,.7)); opacity: 0; transition: opacity .8s; }
+    body.on-project .shade { opacity: 1; }
+    body.on-project .list button b { color: #ff7aa6; }
+
+    .tip {
+        position: fixed;
+        left: 50%;
+        top: 22px;
+        transform: translateX(-50%);
+        z-index: 5;
+        font: 500 11px/1 var(--mono);
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        opacity: .55;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 700px) {
+        .tip { display: none; }
+        .copy { bottom: auto; top: 76px; left: 16px; right: 16px; }
+        .list { left: 16px; right: 16px; bottom: 16px; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 4px 14px; }
+        .list button { font-size: 14px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+    <a class="demo-back" href="index.html">← Demo 3D</a>
+    <span class="demo-tag"><b>C</b> · Vetro olografico</span>
+</div>
+
+<p class="tip">Afferra e lancia la goccia · passa sui progetti</p>
+
+<div class="copy">
+    <h1>Interfacce che si possono quasi toccare.</h1>
+    <p>Agnese Barnaba, web designer e front-end developer. Design, codice e un po' di fisica.</p>
+</div>
+
+<div class="shade"></div>
+<nav class="list" id="list"></nav>
+
+<script src="data.js"></script>
+<script src="project.js"></script>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobile = innerWidth < 700;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, .1, 100);
+camera.position.z = 8;
+
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
+
+/* ---------- SFONDO: shader liquido + nome + progetto ---------- */
+const BG_Z = -3;
+function bgSize() {
+    const h = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * (camera.position.z - BG_Z);
+    return [h * camera.aspect, h];
+}
+
+/* il nome disegnato su un canvas, usato come texture */
+function makeText() {
+    const c = document.createElement("canvas");
+    const w = 2048, h = Math.round(w / Math.max(camera.aspect, .5));
+    c.width = w; c.height = h;
+    const g = c.getContext("2d");
+    g.fillStyle = "#fff";
+    g.textAlign = "center"; g.textBaseline = "middle";
+    const size = mobile ? w * .26 : w * .175;
+    g.font = "800 " + size + "px 'Bricolage Grotesque'";
+    g.letterSpacing = (-size * .05) + "px";
+    g.fillText("AGNESE", w / 2, h / 2 - size * .43);
+    g.font = "250 " + size + "px 'Bricolage Grotesque'";
+    g.fillText("BARNABA", w / 2, h / 2 + size * .43);
+    const t = new THREE.CanvasTexture(c);
+    t.colorSpace = THREE.NoColorSpace;
+    return t;
+}
+
+const bgMat = new THREE.ShaderMaterial({
+    uniforms: {
+        uTime: { value: 0 }, uText: { value: null }, uProj: { value: null }, uProjB: { value: null },
+        uMix: { value: 0 }, uSwap: { value: 0 }, uAspect: { value: 1 }, uImgAspect: { value: 1.6 }, uImgAspectB: { value: 1.6 },
+        uMouse: { value: new THREE.Vector2(.5, .5) }
+    },
+    vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }",
+    fragmentShader: /* glsl */`
+        uniform float uTime, uMix, uSwap, uAspect, uImgAspect, uImgAspectB;
+        uniform sampler2D uText, uProj, uProjB;
+        uniform vec2 uMouse;
+        varying vec2 vUv;
+        float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+        float noise(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f*f*(3.-2.*f);
+            return mix(mix(h(i), h(i+vec2(1,0)), u.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), u.x), u.y); }
+        float fbm(vec2 p){ float v = 0., a = .5; for (int i = 0; i < 5; i++){ v += a*noise(p); p = p*2.03 + 1.7; a *= .5; } return v; }
+        vec2 cover(vec2 uv, float ia){ float r = uAspect / ia; if (r < 1.) uv.x = (uv.x-.5)*r+.5; else uv.y = 1. - (1.-uv.y)/r; return uv; }
+        void main(){
+            vec2 p = vUv * vec2(uAspect, 1.);
+            float t = uTime * .05;
+            vec2 q = vec2(fbm(p*1.3 + t), fbm(p*1.3 + vec2(5.2,1.3) - t));
+            vec2 r = vec2(fbm(p*1.3 + 3.5*q + vec2(1.7,9.2) + t*1.4), fbm(p*1.3 + 3.5*q + vec2(8.3,2.8) - t));
+            float f = fbm(p*1.3 + 3.5*r);
+            vec3 col = mix(vec3(.965,.95,.96), vec3(.89,.86,.94), smoothstep(.25,.7,f));
+            col = mix(col, vec3(1.,.74,.82), smoothstep(.45,.85,length(q)*f*1.3)*.8);
+            col = mix(col, vec3(.86,.03,.31), smoothstep(.6,.98,f*length(r)*1.25)*.8);
+
+            // progetto a tutto schermo (con dissolvenza liquida guidata dal noise)
+            vec2 wob = (q - .5) * .03;
+            vec3 a = texture2D(uProj, cover(vUv, uImgAspect) + wob).rgb;
+            vec3 b = texture2D(uProjB, cover(vUv, uImgAspectB) + wob).rgb;
+            vec3 proj = mix(a, b, 1. - smoothstep(uSwap - .15, uSwap + .15, f + (1. - vUv.y) * .3 - .15));
+            // il progetto "allaga" lo sfondo seguendo il noise, non con una dissolvenza piatta
+            float reveal = smoothstep(0., 1., uMix * 1.6 - (1. - f) * .6);
+            col = mix(col, proj * .66, reveal);
+
+            // il nome: scuro sullo sfondo chiaro, chiaro sopra il progetto
+            float txt = texture2D(uText, vUv + (q - .5) * .012).r;
+            col = mix(col, mix(vec3(.14,.13,.15), vec3(.98), reveal), txt * (1. - reveal * .35));
+
+            col += (h(gl_FragCoord.xy + fract(uTime) * 100.) - .5) * .03;
+            gl_FragColor = vec4(col, 1.);
+        }`
+});
+const bg = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), bgMat);
+bg.position.z = BG_Z;
+scene.add(bg);
+
+function layoutBg() {
+    const [w, h] = bgSize();
+    bg.scale.set(w, h, 1);
+    bgMat.uniforms.uAspect.value = w / h;
+}
+
+/* ---------- GOCCIA DI VETRO ---------- */
+const NOISE = /* glsl */`
+vec3 mod289(vec3 x){return x - floor(x*(1./289.))*289.;}
+vec4 mod289(vec4 x){return x - floor(x*(1./289.))*289.;}
+vec4 permute(vec4 x){return mod289(((x*34.)+1.)*x);}
+vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - .85373472095314*r;}
+float snoise(vec3 v){
+    const vec2 C = vec2(1./6., 1./3.); const vec4 D = vec4(0., .5, 1., 2.);
+    vec3 i = floor(v + dot(v, C.yyy)); vec3 x0 = v - i + dot(i, C.xxx);
+    vec3 g = step(x0.yzx, x0.xyz); vec3 l = 1. - g;
+    vec3 i1 = min(g.xyz, l.zxy); vec3 i2 = max(g.xyz, l.zxy);
+    vec3 x1 = x0 - i1 + C.xxx; vec3 x2 = x0 - i2 + C.yyy; vec3 x3 = x0 - D.yyy;
+    i = mod289(i);
+    vec4 p = permute(permute(permute(i.z + vec4(0., i1.z, i2.z, 1.)) + i.y + vec4(0., i1.y, i2.y, 1.)) + i.x + vec4(0., i1.x, i2.x, 1.));
+    float n_ = .142857142857; vec3 ns = n_ * D.wyz - D.xzx;
+    vec4 j = p - 49. * floor(p * ns.z * ns.z);
+    vec4 x_ = floor(j * ns.z); vec4 y_ = floor(j - 7. * x_);
+    vec4 x = x_ * ns.x + ns.yyyy; vec4 y = y_ * ns.x + ns.yyyy; vec4 h = 1. - abs(x) - abs(y);
+    vec4 b0 = vec4(x.xy, y.xy); vec4 b1 = vec4(x.zw, y.zw);
+    vec4 s0 = floor(b0)*2.+1.; vec4 s1 = floor(b1)*2.+1.; vec4 sh = -step(h, vec4(0.));
+    vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy; vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+    vec3 p0 = vec3(a0.xy,h.x); vec3 p1 = vec3(a0.zw,h.y); vec3 p2 = vec3(a1.xy,h.z); vec3 p3 = vec3(a1.zw,h.w);
+    vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+    p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+    vec4 m = max(.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.); m = m*m;
+    return 42. * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+}
+uniform float uTime; uniform float uAmp; uniform vec3 uPoke; uniform float uPokeAmt;
+vec3 displace(vec3 p){
+    vec3 n = normalize(p);
+    float d = snoise(n * 1.05 + uTime * .3) * uAmp + snoise(n * 2.1 - uTime * .2) * uAmp * .22;
+    // "ammaccatura" nel punto in cui premi
+    d -= uPokeAmt * smoothstep(.9, 0., distance(n, uPoke)) * .55;
+    return n * (length(p) + d);
+}`;
+
+const glassMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff, metalness: 0, roughness: .04,
+    transmission: 1, thickness: .9, ior: 1.4, dispersion: 5,
+    iridescence: 1, iridescenceIOR: 1.35, iridescenceThicknessRange: [180, 800],
+    clearcoat: 1, clearcoatRoughness: .05, envMapIntensity: 1.2,
+    attenuationColor: new THREE.Color("#fff0f5"), attenuationDistance: 8
+});
+const blobUniforms = { uTime: { value: 0 }, uAmp: { value: .22 }, uPoke: { value: new THREE.Vector3(0, 0, 1) }, uPokeAmt: { value: 0 } };
+glassMat.onBeforeCompile = shader => {
+    Object.assign(shader.uniforms, blobUniforms);
+    shader.vertexShader = shader.vertexShader
+        .replace("#include <common>", "#include <common>\n" + NOISE + "\n")
+        .replace("#include <beginnormal_vertex>", `
+            vec3 tA = abs(normal.y) < .99 ? normalize(cross(normal, vec3(0.,1.,0.))) : normalize(cross(normal, vec3(1.,0.,0.)));
+            vec3 tB = normalize(cross(normal, tA));
+            vec3 dp0 = displace(position);
+            vec3 dp1 = displace(position + tA * .01);
+            vec3 dp2 = displace(position + tB * .01);
+            vec3 objectNormal = normalize(cross(dp1 - dp0, dp2 - dp0));
+            if (dot(objectNormal, normal) < 0.) objectNormal = -objectNormal;
+            #ifdef USE_TANGENT
+            vec3 objectTangent = vec3(tangent.xyz);
+            #endif`)
+        .replace("#include <begin_vertex>", "vec3 transformed = dp0;");
+};
+
+const blob = new THREE.Mesh(new THREE.IcosahedronGeometry(1, mobile ? 40 : 64), glassMat);
+const BASE_SCALE = mobile ? .72 : 1.45;
+blob.scale.setScalar(BASE_SCALE);
+scene.add(blob);
+
+/* ---------- PROGETTI ---------- */
+const loader = new THREE.TextureLoader();
+const tex = PROJECTS.map(p => {
+    const t = loader.load(p.img, t => { t.userData.aspect = t.image.width / t.image.height; });
+    t.colorSpace = THREE.NoColorSpace;
+    return t;
+});
+let active = -1, mixTarget = 0, swap = 1, swapTarget = 1, slotA = null, slotB = null, leaveTimer = 0;
+
+const list = document.getElementById("list");
+PROJECTS.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = "<b>" + String(i + 1).padStart(2, "0") + "</b>" + p.name.replace("AI & Luxury Digital Design", "AUREA");
+    b.addEventListener("pointerenter", () => show(i));
+    b.addEventListener("focus", () => show(i));
+    b.addEventListener("click", () => openProject(i));
+    list.appendChild(b);
+});
+list.addEventListener("pointerleave", () => { leaveTimer = setTimeout(hide, 1800); });
+
+function show(i) {
+    clearTimeout(leaveTimer);
+    if (i === active) return;
+    active = i;
+    list.querySelectorAll("button").forEach((b, k) => b.classList.toggle("on", k === i));
+    document.body.classList.add("on-project");
+    const u = bgMat.uniforms;
+    /* passaggio liquido da un progetto all'altro: A = vecchio, B = nuovo */
+    if (mixTarget === 0 || !slotB) {
+        slotA = slotB = tex[i];
+        u.uProj.value = u.uProjB.value = tex[i];
+        swap = 1; swapTarget = 1;
+    } else {
+        u.uProj.value = slotB; slotA = slotB;
+        u.uImgAspect.value = u.uImgAspectB.value;
+        u.uProjB.value = slotB = tex[i];
+        swap = -.4; swapTarget = 1.4;
+    }
+    mixTarget = 1;
+    blobUniforms.uPokeAmt.value = .9;     // la goccia "trema" al cambio
+}
+
+function hide() {
+    active = -1; mixTarget = 0;
+    document.body.classList.remove("on-project");
+    list.querySelectorAll("button").forEach(b => b.classList.remove("on"));
+}
+
+let paused = false;
+function openProject(i) {
+    paused = true;
+    ProjectView.open(i, { rect: { left: 0, top: 0, width: innerWidth, height: innerHeight }, onClose: () => { paused = false; } });
+}
+
+/* ---------- INTERAZIONE CON LA GOCCIA ---------- */
+const canvas = renderer.domElement;
+const ray = new THREE.Raycaster();
+const ndc = new THREE.Vector2(9, 9);
+const home = new THREE.Vector3(mobile ? 0 : .2, mobile ? -.2 : 0, 0);
+const pos = home.clone(), vel = new THREE.Vector3();
+let grabbing = false, grabOffset = new THREE.Vector3(), lastPointer = new THREE.Vector3(), pointerVel = new THREE.Vector3();
+const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+const hitPoint = new THREE.Vector3();
+let mouseSpeed = 0, lastMX = 0, lastMY = 0;
+
+function pointerToPlane(e) {
+    ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    ray.ray.intersectPlane(plane, hitPoint);
+    return hitPoint.clone();
+}
+
+canvas.addEventListener("pointerdown", e => {
+    const p = pointerToPlane(e);
+    const hit = ray.intersectObject(blob)[0];
+    if (!hit) return;
+    grabbing = true;
+    canvas.setPointerCapture(e.pointerId);
+    canvas.classList.add("grabbing");
+    grabOffset.copy(pos).sub(p);
+    lastPointer.copy(p);
+    /* ammaccatura nel punto premuto */
+    blobUniforms.uPoke.value.copy(blob.worldToLocal(hit.point.clone()).normalize());
+    blobUniforms.uPokeAmt.value = 1;
+});
+canvas.addEventListener("pointermove", e => {
+    const p = pointerToPlane(e);
+    mouseSpeed = Math.min(1, mouseSpeed + Math.hypot(e.clientX - lastMX, e.clientY - lastMY) / 500);
+    lastMX = e.clientX; lastMY = e.clientY;
+    bgMat.uniforms.uMouse.value.set(e.clientX / innerWidth, 1 - e.clientY / innerHeight);
+    if (grabbing) {
+        pointerVel.copy(p).sub(lastPointer);
+        lastPointer.copy(p);
+        pos.copy(p).add(grabOffset);
+        return;
+    }
+    canvas.classList.toggle("grab", !!ray.intersectObject(blob)[0]);
+});
+const release = () => {
+    if (!grabbing) return;
+    grabbing = false;
+    canvas.classList.remove("grabbing");
+    vel.copy(pointerVel).multiplyScalar(1.4);   // lancio!
+};
+canvas.addEventListener("pointerup", release);
+canvas.addEventListener("pointercancel", release);
+
+/* ---------- LOOP ---------- */
+const clock = new THREE.Clock();
+let mixV = 0;
+function frame() {
+    requestAnimationFrame(frame);
+    if (paused) return;
+    const dt = Math.min(clock.getDelta(), .05);
+    const t = clock.elapsedTime;
+    bgMat.uniforms.uTime.value = reduced ? 10 : t;
+    blobUniforms.uTime.value = reduced ? 0 : t;
+
+    /* fisica a molla: la goccia torna al centro dopo il lancio, rimbalzando */
+    if (!grabbing) {
+        const [w, h] = bgSize().map(v => v * (camera.position.z) / (camera.position.z - BG_Z));
+        const spring = home.clone().sub(pos).multiplyScalar(2.2 * dt);
+        vel.add(spring).multiplyScalar(.965);
+        pos.add(vel);
+        /* rimbalzo sui bordi dello schermo */
+        const lx = w / 2 - BASE_SCALE * .8, ly = h / 2 - BASE_SCALE * .8;
+        if (Math.abs(pos.x) > lx) { pos.x = Math.sign(pos.x) * lx; vel.x *= -.7; blobUniforms.uPokeAmt.value = .8; }
+        if (Math.abs(pos.y) > ly) { pos.y = Math.sign(pos.y) * ly; vel.y *= -.7; blobUniforms.uPokeAmt.value = .8; }
+    }
+    blob.position.lerp(pos, grabbing ? .35 : 1);
+
+    /* squash & stretch in base alla velocità */
+    const sp = Math.min(.35, vel.length() * 2 + (grabbing ? pointerVel.length() * 2 : 0));
+    blob.scale.set(BASE_SCALE * (1 + sp * .5), BASE_SCALE * (1 - sp * .3), BASE_SCALE * (1 - sp * .2));
+    blob.rotation.z = Math.atan2(vel.y, vel.x || 1e-4) * Math.min(1, sp * 4);
+
+    blob.rotation.y += dt * .15;
+    blob.rotation.x = Math.sin(t * .3) * .25;
+
+    mouseSpeed *= .95;
+    blobUniforms.uAmp.value = .17 + mouseSpeed * .22 + sp * .35;
+    blobUniforms.uPokeAmt.value *= .93;
+
+    /* transizioni dello sfondo */
+    const u = bgMat.uniforms;
+    mixV += (mixTarget - mixV) * .05;
+    u.uMix.value = mixV;
+    swap += (swapTarget - swap) * .045;
+    u.uSwap.value = swap;
+    if (slotB && slotB.userData.aspect) u.uImgAspectB.value = slotB.userData.aspect;
+    if (slotA && slotA.userData.aspect && u.uProj.value === slotA) u.uImgAspect.value = slotA.userData.aspect;
+
+    renderer.render(scene, camera);
+}
+
+document.fonts.load("800 100px 'Bricolage Grotesque'").then(() => document.fonts.load("250 100px 'Bricolage Grotesque'")).then(() => {
+    bgMat.uniforms.uText.value = makeText();
+});
+const empty = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1); empty.needsUpdate = true;
+bgMat.uniforms.uText.value = empty; bgMat.uniforms.uProj.value = empty; bgMat.uniforms.uProjB.value = empty;
+layoutBg();
+frame();
+
+addEventListener("resize", () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+    layoutBg();
+    bgMat.uniforms.uText.value = makeText();
+});
+</script>
+</body>
+</html>

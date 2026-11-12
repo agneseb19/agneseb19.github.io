@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo hero — Agnese Barnaba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="demo.css">
+<style>
+    main { max-width: 1180px; margin: 0 auto; padding: 96px 20px 80px; }
+    h1 { font-size: clamp(44px, 8vw, 104px); line-height: .92; letter-spacing: -.04em; margin: 0 0 18px; font-weight: 700; }
+    h1 em { font-style: normal; color: var(--pink); }
+    .lead { max-width: 560px; color: var(--muted); font-size: 18px; line-height: 1.5; margin: 0 0 56px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+    .card {
+        position: relative; display: flex; flex-direction: column; justify-content: space-between;
+        min-height: 260px; padding: 26px; border-radius: 22px; background: var(--lavender);
+        text-decoration: none; overflow: hidden; transition: transform .35s cubic-bezier(.2,.8,.2,1), background .35s, color .35s;
+    }
+    .card:hover { transform: translateY(-6px); background: var(--ink); color: var(--paper); }
+    .card .n { font-family: var(--mono); font-size: 13px; color: var(--pink); }
+    .card h2 { font-size: 30px; letter-spacing: -.02em; margin: 40px 0 10px; line-height: 1; }
+    .card p { margin: 0; opacity: .7; line-height: 1.45; }
+    .card .go { position: absolute; top: 22px; right: 24px; font-size: 22px; transition: transform .35s; }
+    .card:hover .go { transform: rotate(45deg); }
+    .card.star { background: var(--pink); color: #fff; }
+    .card.star .n { color: #fff; }
+    .note { margin-top: 48px; font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+<main>
+    <h1>5 idee per la <em>hero</em>.</h1>
+    <p class="lead">Prototipi veloci con i tuoi screenshot veri e il font Bricolage Grotesque. Aprili uno alla volta: ognuno mostra un solo effetto principale.</p>
+
+    <div class="grid">
+        <a class="card" href="1-intro.html">
+            <span class="go">↗</span>
+            <div><span class="n">01</span><h2>Intro col nome</h2></div>
+            <p>Contatore 0→100, il nome si compone e diventa il logo. Poi i progetti volano al loro posto.</p>
+        </a>
+        <a class="card star" href="2-scia.html">
+            <span class="go">↗</span>
+            <div><span class="n">02 · consigliata</span><h2>Scia di progetti</h2></div>
+            <p>Muovendo il mouse lasci una scia di screenshot dei tuoi lavori.</p>
+        </a>
+        <a class="card" href="3-titolo.html">
+            <span class="go">↗</span>
+            <div><span class="n">03</span><h2>Titolo gigante</h2></div>
+            <p>Lettere variabili che reagiscono al cursore, con i progetti visibili dentro le lettere.</p>
+        </a>
+        <a class="card" href="4-scroll.html">
+            <span class="go">↗</span>
+            <div><span class="n">04</span><h2>Scroll cinematografico</h2></div>
+            <p>Il primo progetto si espande a tutto schermo, poi i lavori scorrono in orizzontale. GSAP + Lenis.</p>
+        </a>
+        <a class="card" href="5-shader.html">
+            <span class="go">↗</span>
+            <div><span class="n">05</span><h2>Sfondo shader</h2></div>
+            <p>Gradiente liquido WebGL nei tuoi colori, che si deforma seguendo il mouse.</p>
+        </a>
+        <a class="card" href="1-intro.html?combo=1">
+            <span class="go">↗</span>
+            <div><span class="n">01 + 02</span><h2>La combinazione</h2></div>
+            <p>L'intro col nome che si apre sulla hero con la scia: è la direzione che ti consiglio.</p>
+        </a>
+    </div>
+
+    <p class="note">Cartella demo-hero/ · non collegata al sito · si può eliminare quando vuoi</p>
+</main>
+</body>
+</html>
