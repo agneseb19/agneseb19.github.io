@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Agnese Barnaba — Portfolio</title>
 <meta name="description" content="Agnese Barnaba, web designer e front-end developer: siti web statici e dinamici, esperienze 3D e interfacce interattive.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/brand/favicon-192.png">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<meta property="og:image" content="https://agneseb19.github.io/assets/brand/logo-ab-sitelab.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -67,7 +71,15 @@
     .nav { position: fixed; inset: 0 0 auto; z-index: 30; display: flex; justify-content: space-between; align-items: center; padding: 18px 28px; transition: color .4s; }
     .nav.light { color: #fff; }
     .nav.light .btn-contact { background: #fff; color: #242126; }
-    .brand { font: 700 17px/1 var(--font); letter-spacing: -.02em; text-decoration: none; }
+    /* logo A/B SiteLab: farfalla rosa + scritta (la parte scura segue il colore del testo, così funziona anche col tema scuro) */
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand .mark { height: 36px; width: auto; transition: filter .4s; }
+    .brand .word { position: relative; display: block; height: 19px; aspect-ratio: 842 / 120; }
+    .brand .word::before { content: ""; position: absolute; inset: 0; background: currentColor;
+        -webkit-mask: url(assets/brand/ab-sitelab-scritta-maschera.png) center / 100% 100% no-repeat;
+                mask: url(assets/brand/ab-sitelab-scritta-maschera.png) center / 100% 100% no-repeat; }
+    .brand .word img { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .nav.light .brand .mark, .nav.light .brand .word img { filter: brightness(0) invert(1); }
     .nav-right { display: flex; align-items: center; gap: 28px; }
     .nav-right a.link { position: relative; font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
     .nav-right a.link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1.5px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .4s cubic-bezier(.2,.8,.2,1); }
@@ -136,6 +148,8 @@
     .fact { border-top: 1px solid var(--line); padding-top: 16px; }
     .fact small { display: block; margin-bottom: 10px; font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
     .fact span { font-size: 16px; line-height: 1.4; }
+    .socials { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 1100px) { .socials { grid-template-columns: 1fr; } }
     .gh { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 26px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); text-decoration: none; transition: border-color .3s, transform .4s cubic-bezier(.2,.8,.2,1); }
     .gh:hover { border-color: var(--pink); transform: translateY(-4px); }
     .gh b { font-size: 22px; letter-spacing: -.02em; }
@@ -250,6 +264,9 @@
     }
     @media (max-width: 640px) {
         .nav { padding: 14px 16px; }
+        .brand { gap: 7px; }
+        .brand .mark { height: 28px; }
+        .brand .word { height: 13px; }
         .nav-right { gap: 14px; }
         .nav-right a.link { display: none; }
         .hero, .section, .contact-sticky { padding-left: 20px; padding-right: 20px; }
@@ -289,7 +306,10 @@
 <canvas id="gl" aria-hidden="true"></canvas>
 
 <nav class="nav" id="nav">
-    <a class="brand" href="#top">Agnese Barnaba</a>
+    <a class="brand" href="#top" aria-label="A/B SiteLab — Agnese Barnaba, torna all'inizio">
+        <img class="mark" src="assets/brand/ab-sitelab-farfalla.png" alt="" width="153" height="120">
+        <span class="word"><img src="assets/brand/ab-sitelab-scritta-rosa.png" alt=""></span>
+    </a>
     <div class="nav-right">
         <a class="link" href="#progetti">Progetti</a>
         <a class="link" href="#about">About</a>
@@ -339,7 +359,10 @@
                 <div class="fact rv"><small>Ambito</small><span>Front-end Development &amp; UI Design</span></div>
                 <div class="fact rv"><small>Disponibilità</small><span>Opportunità lavorative e collaborazioni</span></div>
             </div>
-            <a class="gh rv" href="https://github.com/agneseb19" target="_blank" rel="noopener"><span><small>GitHub</small><br><b>agneseb19</b></span><small>Esplora i miei repository ↗</small></a>
+            <div class="socials">
+                <a class="gh rv" href="https://www.instagram.com/ab.sitelab/" target="_blank" rel="noopener"><span><small>Instagram</small><br><b>@ab.sitelab</b></span><small>Seguimi ↗</small></a>
+                <a class="gh rv" href="https://github.com/agneseb19" target="_blank" rel="noopener"><span><small>GitHub</small><br><b>agneseb19</b></span><small>Esplora i miei repository ↗</small></a>
+            </div>
         </div>
     </div>
 </section>
@@ -378,6 +401,7 @@
         <h2>Lavoriamo<br>insieme.</h2>
         <a class="mail" href="mailto:agnese.barnaba19@gmail.com">agnese.barnaba19@gmail.com ↗</a>
         <div class="foot">
+            <a href="https://www.instagram.com/ab.sitelab/" target="_blank" rel="noopener">Instagram @ab.sitelab ↗</a>
             <a href="https://www.linkedin.com/in/agnese-barnaba-4b5944252/" target="_blank" rel="noopener">LinkedIn ↗</a>
             <a href="https://github.com/agneseb19" target="_blank" rel="noopener">GitHub ↗</a>
             <a href="#top">Torna su ↑</a>
