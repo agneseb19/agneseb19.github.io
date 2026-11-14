@@ -1,5 +1,34 @@
-/* Progetti nell'ordine del portfolio aggiornato (OBSIDIA per primo) */
+/* Progetti nell'ordine del portfolio aggiornato (Ra.Ma. Piscine per primo, poi OBSIDIA) */
 window.PROJECTS = [
+ {
+  "id": "rama-piscine",
+  "name": "Ra.Ma. Piscine",
+  "type": "PROGETTO REALE · NUOVO SITO WEB",
+  "short": "Nuovo sito per un'azienda di piscine su misura",
+  "status": "Progetto reale · in sviluppo",
+  "tags": [
+   "THREE.JS",
+   "GSAP",
+   "SCROLLTRIGGER",
+   "JAVASCRIPT",
+   "HTML5",
+   "CSS3"
+  ],
+  "links": [
+   {
+    "href": "https://agneseb19.github.io/rama-piscine/",
+    "label": "LIVE PROJECT"
+   }
+  ],
+  "video": "assets/media/rama-desktop.webm",
+  "poster": "assets/media/rama-desktop.jpg",
+  "videoMobile": "assets/media/rama-mobile.webm",
+  "posterMobile": "assets/media/rama-mobile.jpg",
+  "text": [
+   "Nuovo sito web per Ra.Ma. Piscine, azienda di Valmontone che progetta, costruisce e mantiene piscine su misura nel Lazio. Nella hero il giardino diventa piscina mentre si scorre: sei fasi fotorealistiche raccontano il cantiere, dallo scavo alla piscina pronta in dieci giorni, con transizioni sviluppate in Three.js e una versione verticale dedicata al telefono.",
+   "Dopo la hero la homepage presenta servizi, configuratore, il confronto prima/dopo, i lavori realizzati, le recensioni, i marchi partner e il modulo per richiedere una consulenza, con animazioni GSAP legate allo scroll. Palette bianco crema, azzurro e giallo ripresa dalla hero."
+  ]
+ },
  {
   "id": "obsidia",
   "name": "OBSIDIA",
