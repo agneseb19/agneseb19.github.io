@@ -29,8 +29,7 @@ window.PROJECTS = [
   "videoMobile": "assets/media/velaria-mobile.webm",
   "posterMobile": "assets/media/velaria-mobile.jpg",
   "text": [
-   "Sito concept per Velaria, atelier di profumi di fantasia nato a Firenze nel 1924: «Ogni profumo è un luogo». Nella hero la sezione resta ferma mentre scorrono i tre profumi principali. Lo sfondo cambia colore, le boccette passano dall'una all'altra in dissolvenza, gli ingredienti, su due livelli di profondità, escono ruotando verso l'esterno e i titoli entrano riga per riga.",
-   "La collezione conta dodici profumi in tre collezioni (Luce, Giardino, Notte), ognuno ispirato a un luogo italiano. In home uno scaffale scorre in orizzontale con lo scroll. La pagina collezione ha i filtri e una scheda prodotto per ogni profumo, con piramide olfattiva, ingredienti e formato da 50 o 100 ml. Marchio, testi e prodotti sono inventati; le immagini sono generate con IA."
+   "Sito concept per Velaria, atelier di profumi di fantasia nato a Firenze nel 1924: dodici fragranze in tre collezioni, ognuna ispirata a un luogo italiano. Sviluppato in HTML, CSS e JavaScript senza build. La hero è una sezione sticky guidata da un'unica timeline GSAP con ScrollTrigger: cinque livelli in parallasse, ingredienti che escono ruotando e titoli rivelati riga per riga. Scroll morbido con Lenis, scaffale orizzontale pinnato e schede prodotto generate da un file di dati, con link diretti. Immagini generate con IA e ottimizzate in WebP."
   ]
  },
  {
