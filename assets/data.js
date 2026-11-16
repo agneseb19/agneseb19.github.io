@@ -1,5 +1,38 @@
-/* Progetti nell'ordine del portfolio aggiornato (Ra.Ma. Piscine per primo, poi OBSIDIA) */
+/* Progetti nell'ordine del portfolio aggiornato (Velaria per primo, poi Ra.Ma. Piscine e OBSIDIA) */
 window.PROJECTS = [
+ {
+  "id": "velaria",
+  "name": "VELARIA",
+  "type": "PROGETTO PERSONALE · CONCEPT",
+  "short": "Concept per un atelier di profumi fiorentino",
+  "status": "Concept · online",
+  "tags": [
+   "GSAP",
+   "SCROLLTRIGGER",
+   "LENIS",
+   "JAVASCRIPT",
+   "HTML5",
+   "CSS3"
+  ],
+  "links": [
+   {
+    "href": "https://agneseb19.github.io/velaria/",
+    "label": "LIVE PROJECT"
+   },
+   {
+    "href": "https://github.com/agneseb19/velaria",
+    "label": "GITHUB"
+   }
+  ],
+  "video": "assets/media/velaria-desktop.webm",
+  "poster": "assets/media/velaria-desktop.jpg",
+  "videoMobile": "assets/media/velaria-mobile.webm",
+  "posterMobile": "assets/media/velaria-mobile.jpg",
+  "text": [
+   "Sito concept per Velaria, atelier di profumi di fantasia nato a Firenze nel 1924: «Ogni profumo è un luogo». Nella hero la sezione resta ferma mentre scorrono i tre profumi principali. Lo sfondo cambia colore, le boccette passano dall'una all'altra in dissolvenza, gli ingredienti, su due livelli di profondità, escono ruotando verso l'esterno e i titoli entrano riga per riga.",
+   "La collezione conta dodici profumi in tre collezioni (Luce, Giardino, Notte), ognuno ispirato a un luogo italiano. In home uno scaffale scorre in orizzontale con lo scroll. La pagina collezione ha i filtri e una scheda prodotto per ogni profumo, con piramide olfattiva, ingredienti e formato da 50 o 100 ml. Marchio, testi e prodotti sono inventati; le immagini sono generate con IA."
+  ]
+ },
  {
   "id": "rama-piscine",
   "name": "Ra.Ma. Piscine",
