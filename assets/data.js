@@ -1,5 +1,39 @@
-/* Progetti nell'ordine del portfolio aggiornato (Velaria per primo, poi Ra.Ma. Piscine e OBSIDIA) */
+/* Progetti nell'ordine del portfolio aggiornato (Oblò per primo, poi Velaria, Ra.Ma. Piscine e OBSIDIA) */
 window.PROJECTS = [
+ {
+  "id": "oblo",
+  "name": "Oblò",
+  "type": "PROGETTO PERSONALE · CONCEPT",
+  "short": "Landing page a scroll per un'agenzia di viaggi",
+  "status": "Concept · online",
+  "tags": [
+   "THREE.JS",
+   "GSAP",
+   "SCROLLTRIGGER",
+   "LENIS",
+   "JAVASCRIPT",
+   "HTML5",
+   "CSS3"
+  ],
+  "links": [
+   {
+    "href": "https://agneseb19.github.io/oblo/",
+    "label": "LIVE PROJECT"
+   },
+   {
+    "href": "https://github.com/agneseb19/oblo",
+    "label": "GITHUB"
+   }
+  ],
+  "video": "assets/media/oblo-desktop.webm",
+  "poster": "assets/media/oblo-desktop.jpg",
+  "videoMobile": "assets/media/oblo-mobile.webm",
+  "posterMobile": "assets/media/oblo-mobile.jpg",
+  "text": [
+   "Landing page concept per Oblò, agenzia di viaggi su misura di fantasia, raccontata come un unico volo guidato dallo scroll. Sviluppata in HTML, CSS e JavaScript senza build. Dalla parete di una cabina le tendine degli oblò salgono, la camera entra nell'oblò centrale e attraversa le nuvole in parallasse; le card delle destinazioni si impilano, diventano una striscia ed entrano in un globo Three.js a puntini con le rotte da Roma, che si srotola in una mappa piatta.",
+   "Una carta d'imbarco si apre sopra la mappa e il talloncino si stacca; poi il cielo passa dal giorno alla notte e la camera torna agli oblò, dove compare il modulo di richiesta. GSAP con ScrollTrigger, scroll morbido con Lenis, continenti del globo da dati world-atlas. Marchio e testi inventati, immagini generate con IA."
+  ]
+ },
  {
   "id": "velaria",
   "name": "VELARIA",
