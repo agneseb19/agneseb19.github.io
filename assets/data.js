@@ -1,5 +1,38 @@
-/* Progetti nell'ordine del portfolio aggiornato (Oblò per primo, poi Velaria, Ra.Ma. Piscine e OBSIDIA) */
+/* Progetti nell'ordine del portfolio aggiornato (VESPER per primo, poi Oblò, Velaria, Ra.Ma. Piscine e OBSIDIA) */
 window.PROJECTS = [
+ {
+  "id": "vesper",
+  "name": "VESPER",
+  "type": "PROGETTO PERSONALE · CONCEPT E-COMMERCE",
+  "short": "E-commerce concept per un marchio di occhiali da sole",
+  "status": "Concept · online",
+  "tags": [
+   "REACT",
+   "THREE.JS",
+   "GSAP",
+   "SCROLLTRIGGER",
+   "LENIS",
+   "VITE"
+  ],
+  "links": [
+   {
+    "href": "https://agneseb19.github.io/vesper/",
+    "label": "LIVE PROJECT"
+   },
+   {
+    "href": "https://github.com/agneseb19/vesper",
+    "label": "GITHUB"
+   }
+  ],
+  "video": "assets/media/vesper-desktop.webm",
+  "poster": "assets/media/vesper-desktop.jpg",
+  "videoMobile": "assets/media/vesper-mobile.webm",
+  "posterMobile": "assets/media/vesper-mobile.jpg",
+  "text": [
+   "Concept di e-commerce per Vesper, marchio di occhiali da sole di fantasia pensato per l'ora del tramonto. Sviluppato con Vite, React e React Router. La hero è un'unica sezione sticky guidata dallo scroll: la modella abbassa gli occhiali, la scena sfuma nel nero e tre primi piani raccontano lente, acetato e cerniera, con le aste che si chiudono; poi gli occhiali volano via mentre sale il pannello d'acquisto.",
+   "Tutti i modelli (12 montature, 21 colorazioni) sono generati in codice con Three.js a partire da pochi parametri, e gli stessi modelli producono le foto prodotto dello shop e il visore 360° da ruotare col mouse. Il negozio è completo: collezioni, shop con filtri, schede prodotto con colorazioni e lenti, carrello sempre disponibile e checkout dimostrativo. GSAP con ScrollTrigger e scroll morbido con Lenis; marchio, prodotti e prezzi sono inventati, foto della hero generate con IA."
+  ]
+ },
  {
   "id": "oblo",
   "name": "Oblò",
@@ -205,37 +238,6 @@ window.PROJECTS = [
   ]
  },
  {
-  "id": "volta-gym",
-  "name": "VOLTA",
-  "type": "PROGETTO PERSONALE · IMMERSIVE DESIGN",
-  "short": "Homepage immersiva, un'unica animazione allo scroll",
-  "status": "Concept · online",
-  "tags": [
-   "THREE.JS",
-   "GSAP",
-   "SCROLLTRIGGER",
-   "JAVASCRIPT",
-   "CSS3"
-  ],
-  "links": [
-   {
-    "href": "https://agneseb19.github.io/volta-gym/",
-    "label": "LIVE PROJECT"
-   },
-   {
-    "href": "https://github.com/agneseb19/volta-gym",
-    "label": "GITHUB"
-   }
-  ],
-  "video": "assets/media/volta-desktop.webm",
-  "poster": "assets/media/volta-desktop.jpg",
-  "videoMobile": "assets/media/volta-mobile.webm",
-  "posterMobile": "assets/media/volta-mobile.jpg",
-  "text": [
-   "Homepage immersiva per una palestra fittizia ricavata in un'ex fonderia a Bologna. L'intera pagina è un'unica animazione guidata dallo scroll, pensata come una sessione di allenamento: un indicatore di battito sale fino al picco e riscende nel recupero. Attrezzi 3D modellati in codice con Three.js (bilanciere, kettlebell, manubri), sezioni pinnate con GSAP ScrollTrigger, tipografia cinetica 3D e una galleria ad anello che ruota con lo scroll."
-  ]
- },
- {
   "id": "ecomedica",
   "name": "Ecomedica",
   "type": "PROGETTO PERSONALE · REDESIGN",
@@ -259,52 +261,6 @@ window.PROJECTS = [
   "posterMobile": "assets/media/ecomedica-mobile.jpg",
   "text": [
    "Progetto personale e non commissionato di redesign del sito Ecomedica, realizzato a scopo di esercitazione e non ancora completo. Ho ripensato l'interfaccia e l'organizzazione dei contenuti, lavorando sulla navigazione, sulla presentazione delle prestazioni e sull'esperienza utente attraverso HTML, CSS e JavaScript."
-  ]
- },
- {
-  "id": "poste-italiane",
-  "name": "Poste Italiane",
-  "type": "PROGETTO UNIVERSITARIO",
-  "short": "Redesign dell'app, progetto universitario",
-  "status": "Prototipo Figma",
-  "tags": [
-   "FIGMA",
-   "UI/UX DESIGN",
-   "PROTOTYPING"
-  ],
-  "links": [
-   {
-    "href": "https://www.figma.com/design/SlVJYv1SK6yWmSKxtP7421/Redesign-App-Poste-Italiane?node-id=0-1",
-    "label": "APRI IN FIGMA"
-   }
-  ],
-  "video": "assets/media/poste-desktop.webm",
-  "poster": "assets/media/poste-desktop.jpg",
-  "videoMobile": "assets/media/poste-mobile.webm",
-  "posterMobile": "assets/media/poste-mobile.jpg",
-  "text": [
-   "Progetto universitario di redesign dell’interfaccia di Poste Italiane, realizzato in Figma con particolare attenzione all’usabilità, all’organizzazione dei contenuti e alla user experience."
-  ]
- },
- {
-  "id": "tesi-aurea",
-  "name": "AUREA",
-  "type": "TESI DI LAUREA · OTTOBRE 2026",
-  "short": "Tesi: AI generativa nel digital design del lusso",
-  "status": "Tesi di laurea",
-  "tags": [
-   "AI GENERATIVA",
-   "PROMPT ENGINEERING",
-   "FIGMA MAKE"
-  ],
-  "links": [],
-  "video": "assets/media/aurea-desktop.webm",
-  "poster": "assets/media/aurea-desktop.jpg",
-  "videoMobile": "assets/media/aurea-mobile.webm",
-  "posterMobile": "assets/media/aurea-mobile.jpg",
-  "text": [
-   "Tesi di laurea dedicata al ruolo dell'intelligenza artificiale generativa nei processi di digital design per il settore del lusso. Attraverso il caso studio AUREA, un Mediterranean Retreat a Ravello, ho analizzato come il prompt engineering possa guidare la progettazione di interfacce digitali, confrontando gli output di Figma Make e ChatGPT e valutando l'impatto delle istruzioni sulla qualità del risultato visivo.",
-   "«Quanto bisogna dire all’AI prima che smetta di creare un generico hotel di lusso e inizi davvero a creare AUREA?»"
   ]
  }
 ];
