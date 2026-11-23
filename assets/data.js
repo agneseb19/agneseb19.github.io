@@ -152,10 +152,10 @@ window.PROJECTS = [
     "label": "LIVE PROJECT"
    }
   ],
-  "video": "assets/media/rama-desktop.webm?v=2",
-  "poster": "assets/media/rama-desktop.jpg",
-  "videoMobile": "assets/media/rama-mobile.webm?v=2",
-  "posterMobile": "assets/media/rama-mobile.jpg",
+  "video": "assets/media/rama-desktop.webm?v=3",
+  "poster": "assets/media/rama-desktop.jpg?v=3",
+  "videoMobile": "assets/media/rama-mobile.webm?v=3",
+  "posterMobile": "assets/media/rama-mobile.jpg?v=3",
   "text": [
    "Nuovo sito web per Ra.Ma. Piscine, azienda di Valmontone che progetta, costruisce e mantiene piscine su misura nel Lazio. Nella hero il giardino diventa piscina mentre si scorre: sei fasi fotorealistiche raccontano il cantiere, dallo scavo alla piscina pronta in dieci giorni, con transizioni sviluppate in Three.js e una versione verticale dedicata al telefono.",
    "Dopo la hero la homepage presenta servizi, configuratore, il confronto prima/dopo, i lavori realizzati, le recensioni, i marchi partner e il modulo per richiedere una consulenza, con animazioni GSAP legate allo scroll. Palette bianco crema, azzurro e giallo ripresa dalla hero."
@@ -236,10 +236,10 @@ window.PROJECTS = [
     "label": "LIVE PROJECT"
    }
   ],
-  "video": "assets/media/newconnection-desktop.webm",
-  "poster": "assets/media/newconnection-desktop.jpg",
-  "videoMobile": "assets/media/newconnection-mobile.webm",
-  "posterMobile": "assets/media/newconnection-mobile.jpg",
+  "video": "assets/media/newconnection-desktop.webm?v=2",
+  "poster": "assets/media/newconnection-desktop.jpg?v=2",
+  "videoMobile": "assets/media/newconnection-mobile.webm?v=2",
+  "posterMobile": "assets/media/newconnection-mobile.jpg?v=2",
   "text": [
    "Sito web multipagina per un negozio di informatica, elettronica e riparazioni a Valmontone. Home, Servizi, Assistenza e Contatti sono pagine dedicate, con animazioni 3D interattive sviluppate con Three.js: modelli da ruotare e trascinare e lo smontaggio dello smartphone che segue lo scroll."
   ]
