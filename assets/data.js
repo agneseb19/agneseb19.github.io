@@ -121,7 +121,7 @@ window.PROJECTS = [
   ],
   "video": "assets/media/rama-desktop.webm?v=2",
   "poster": "assets/media/rama-desktop.jpg",
-  "videoMobile": "assets/media/rama-mobile.webm",
+  "videoMobile": "assets/media/rama-mobile.webm?v=2",
   "posterMobile": "assets/media/rama-mobile.jpg",
   "text": [
    "Nuovo sito web per Ra.Ma. Piscine, azienda di Valmontone che progetta, costruisce e mantiene piscine su misura nel Lazio. Nella hero il giardino diventa piscina mentre si scorre: sei fasi fotorealistiche raccontano il cantiere, dallo scavo alla piscina pronta in dieci giorni, con transizioni sviluppate in Three.js e una versione verticale dedicata al telefono.",
