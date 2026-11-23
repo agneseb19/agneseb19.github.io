@@ -119,7 +119,7 @@ window.PROJECTS = [
     "label": "LIVE PROJECT"
    }
   ],
-  "video": "assets/media/rama-desktop.webm",
+  "video": "assets/media/rama-desktop.webm?v=2",
   "poster": "assets/media/rama-desktop.jpg",
   "videoMobile": "assets/media/rama-mobile.webm",
   "posterMobile": "assets/media/rama-mobile.jpg",
