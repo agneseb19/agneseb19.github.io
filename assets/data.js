@@ -1,5 +1,38 @@
-/* Progetti nell'ordine del portfolio aggiornato (VESPER per primo, poi Oblò, Velaria, Ra.Ma. Piscine e OBSIDIA) */
+/* Progetti nell'ordine del portfolio aggiornato (BRACE per primo, poi VESPER, Oblò, Velaria, Ra.Ma. Piscine e OBSIDIA) */
 window.PROJECTS = [
+ {
+  "id": "brace",
+  "name": "BRACE",
+  "type": "PROGETTO PERSONALE · CONCEPT",
+  "short": "Landing page a scroll per una pizzeria napoletana",
+  "status": "Concept · online",
+  "tags": [
+   "GSAP",
+   "SCROLLTRIGGER",
+   "LENIS",
+   "JAVASCRIPT",
+   "VITE",
+   "CSS3"
+  ],
+  "links": [
+   {
+    "href": "https://agneseb19.github.io/brace/",
+    "label": "LIVE PROJECT"
+   },
+   {
+    "href": "https://github.com/agneseb19/brace",
+    "label": "GITHUB"
+   }
+  ],
+  "video": "assets/media/brace-desktop.webm",
+  "poster": "assets/media/brace-desktop.jpg",
+  "videoMobile": "assets/media/brace-mobile.webm",
+  "posterMobile": "assets/media/brace-mobile.jpg",
+  "text": [
+   "Landing page concept per Brace, pizzeria napoletana di fantasia a Torino, raccontata da una sola margherita guidata dallo scroll. Sviluppata con Vite e JavaScript, senza framework. La hero è un'unica sezione bloccata con una timeline GSAP: la pizza sale al centro, una rotella la taglia in otto con linee SVG disegnate durante lo scroll, le fette si allontanano e si ricompongono; poi le cinque pizze del menu scorrono in diagonale mentre il nome si schiaccia lettera per lettera e diventa quello di ogni pizza.",
+   "Lo sfondo si scurisce e si apre un forno a legna ad arco: la pizza scivola sulla pietra in prospettiva, illuminata dal fuoco, e l'arco si allarga sul primo piano dell'impasto a 72 ore. Infine la pizza cade in una scatola che si chiude in 3D e diventa la card degli ordini, che si strappa sul footer. GSAP con ScrollTrigger e scroll morbido con Lenis; marchio, menu e prezzi inventati, immagini generate con IA e ottimizzate in WebP."
+  ]
+ },
  {
   "id": "vesper",
   "name": "VESPER",
