@@ -247,7 +247,7 @@ window.PROJECTS = [
  {
   "id": "creationweb",
   "name": "CreationWeb",
-  "type": "PROGETTO REALE · SITO WEB",
+  "type": "PROGETTO REALE · SITO UFFICIALE ONLINE",
   "short": "Nuovo sito ufficiale di un'agenzia digitale",
   "status": "Online",
   "tags": [
@@ -259,7 +259,7 @@ window.PROJECTS = [
   "links": [
    {
     "href": "https://creationweb.it/",
-    "label": "LIVE PROJECT"
+    "label": "SITO UFFICIALE"
    }
   ],
   "video": "assets/media/creationweb-desktop.webm",
