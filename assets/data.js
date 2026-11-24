@@ -91,9 +91,9 @@ window.PROJECTS = [
     "label": "GITHUB"
    }
   ],
-  "video": "assets/media/oblo-desktop.webm",
+  "video": "assets/media/oblo-desktop.webm?v=2",
   "poster": "assets/media/oblo-desktop.jpg",
-  "videoMobile": "assets/media/oblo-mobile.webm",
+  "videoMobile": "assets/media/oblo-mobile.webm?v=2",
   "posterMobile": "assets/media/oblo-mobile.jpg",
   "text": [
    "Landing page concept per Oblò, agenzia di viaggi su misura di fantasia, raccontata come un unico volo guidato dallo scroll. Sviluppata in HTML, CSS e JavaScript senza build. Dalla parete di una cabina le tendine degli oblò salgono, la camera entra nell'oblò centrale e attraversa le nuvole in parallasse; le card delle destinazioni si impilano, diventano una striscia ed entrano in un globo Three.js a puntini con le rotte da Roma, che si srotola in una mappa piatta.",
@@ -124,9 +124,9 @@ window.PROJECTS = [
     "label": "GITHUB"
    }
   ],
-  "video": "assets/media/velaria-desktop.webm",
+  "video": "assets/media/velaria-desktop.webm?v=2",
   "poster": "assets/media/velaria-desktop.jpg",
-  "videoMobile": "assets/media/velaria-mobile.webm",
+  "videoMobile": "assets/media/velaria-mobile.webm?v=2",
   "posterMobile": "assets/media/velaria-mobile.jpg",
   "text": [
    "Sito concept per Velaria, atelier di profumi di fantasia nato a Firenze nel 1924: dodici fragranze in tre collezioni, ognuna ispirata a un luogo italiano. Sviluppato in HTML, CSS e JavaScript senza build. La hero è una sezione sticky guidata da un'unica timeline GSAP con ScrollTrigger: cinque livelli in parallasse, ingredienti che escono ruotando e titoli rivelati riga per riga. Scroll morbido con Lenis, scaffale orizzontale pinnato e schede prodotto generate da un file di dati, con link diretti. Immagini generate con IA e ottimizzate in WebP."

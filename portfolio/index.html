@@ -200,7 +200,7 @@
 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambia tema">◐ Versione scura</button>
 
 <!-- stessi dati della home: aggiungendo un progetto in assets/data.js compare anche qui -->
-<script src="../assets/data.js?v=20261124c"></script>
+<script src="../assets/data.js?v=20261124d"></script>
 <script>
 (function () {
     const P = window.PROJECTS;
@@ -264,7 +264,7 @@
        START = secondo da cui far partire ogni video, saltando i primi istanti fermi */
     const START = { brace: 1.4, vesper: 0, "rama-piscine": 2.2, obsidia: 2.4, josmash: 1, "new-connection": 2.4, creationweb: .7, ecomedica: .7 };
     /* Oblò e Velaria hanno un video di anteprima a parte, che parte già dal momento in cui la scena si muove */
-    const PREVIEW = { oblo: "../assets/media/oblo-preview.webm", velaria: "../assets/media/velaria-preview.webm" };
+    const PREVIEW = { oblo: "../assets/media/oblo-preview.webm?v=2", velaria: "../assets/media/velaria-preview.webm?v=2" };
     const RATE = {};
     const hover = matchMedia("(hover: hover)").matches;
     const load = (w, v) => {
