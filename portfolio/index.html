@@ -85,10 +85,10 @@
     /* ---------- FILTRI ---------- */
     .filters { display: flex; width: fit-content; max-width: calc(100% - 2 * var(--pad)); gap: 2px; margin: 0 var(--pad); padding: 4px; border-radius: 999px; background: var(--bg-2); }
     .filters button { display: inline-flex; align-items: flex-start; gap: 4px; padding: 10px 15px; border-radius: 999px; border: 0; background: transparent; font: 500 14px/1 var(--font); letter-spacing: -.01em; cursor: pointer; white-space: nowrap; transition: background .3s, color .3s; }
-    .filters button sup { font: 500 9px/1 var(--mono); color: var(--muted); transition: color .3s; }
+    .filters button sup { font: 600 9px/1 var(--mono); color: var(--pink); }
     .filters button:hover { background: color-mix(in srgb, var(--fg) 8%, transparent); }
     .filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
-    .filters button[aria-pressed="true"] sup { color: inherit; opacity: .7; }
+    .filters button[aria-pressed="true"] sup { color: var(--pink); }
 
     /* ---------- GRIGLIA DEI LAVORI ---------- */
     .grid { list-style: none; margin: 0; padding: 40px var(--pad) 12vh; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px 28px; }
@@ -108,15 +108,12 @@
     .work-info .n { font: 500 10px/1 var(--mono); color: var(--muted); align-self: start; padding-top: 7px; }
     .work-info h2 { margin: 0; font-size: 22px; line-height: 1.1; letter-spacing: -.035em; font-weight: 700; }
     .work-info .cat { margin: 3px 0 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .work-info .url { display: inline-flex; gap: 5px; margin-top: 6px; font: 500 11px/1.3 var(--mono); letter-spacing: .02em; color: var(--muted); word-break: break-all; transition: color .3s; }
+    .work:hover .work-info .url { color: var(--pink); }
     .work-info .arr { grid-column: 3; grid-row: 1; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); font-size: 15px; transition: background .3s, color .3s, border-color .3s, transform .4s cubic-bezier(.2,.9,.3,1.4); }
     .work:hover .work-info .arr, .work:focus-visible .work-info .arr { background: var(--pink); border-color: var(--pink); color: #fff; transform: rotate(45deg); }
     .work-media .kind.official { background: #15803d; color: #fff; }
     .work-media .kind.official i { background: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,.3); }
-    /* "anteprima live": etichetta che compare mentre scorre il video */
-    .work-media .live { position: absolute; right: 10px; top: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 999px; background: var(--pink); color: #fff; font: 500 10px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: 0; transform: translateY(-4px); transition: opacity .3s, transform .4s cubic-bezier(.16,1,.3,1); }
-    .work-media .live i { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: blink 1.2s infinite; }
-    .work.playing .work-media .live { opacity: 1; transform: none; }
-    @keyframes blink { 50% { opacity: .25; } }
     @media (max-width: 960px) and (min-width: 761px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 
     /* ---------- FINALE / CONTATTI ---------- */
@@ -244,11 +241,11 @@
             '<video muted loop playsinline preload="none" data-src="../' + p.video + '"></video>' +
             (official(p) ? '<span class="kind reali official"><i></i>Sito ufficiale · online</span>'
                          : c === "reali" ? '<span class="kind reali"><i></i>Progetto reale · ' + stateOf(p).toLowerCase() + "</span>" : "") +
-            '<span class="live" aria-hidden="true"><i></i>Anteprima live</span>' +
             "</div>";
         const info =
             '<div class="work-info"><span class="n">' + pad(i + 1) + "</span><div><h2>" + p.name + "</h2>" +
-            '<p class="cat">' + p.short + "</p></div>" +
+            '<p class="cat">' + p.short + "</p>" +
+            (live ? '<span class="url">' + clean(live.href) + " <span>↗</span></span>" : "") + "</div>" +
             (live ? '<span class="arr" aria-hidden="true">↗</span>' : "") + "</div>";
         const inner = media + info;
         return '<li data-cat="' + c + '">' + (live
@@ -265,14 +262,19 @@
 
     /* anteprima live: al passaggio del mouse (computer) parte la registrazione del sito.
        START = secondo da cui far partire ogni video, saltando i primi istanti fermi */
-    const START = { brace: 1.4, vesper: 0, oblo: 3.1, velaria: 3.4, "rama-piscine": 2.2, obsidia: 2.4, josmash: 1, "new-connection": 2.4, creationweb: .7, ecomedica: .7 };
+    const START = { brace: 1.4, vesper: 0, "rama-piscine": 2.2, obsidia: 2.4, josmash: 1, "new-connection": 2.4, creationweb: .7, ecomedica: .7 };
+    /* Oblò e Velaria hanno un video di anteprima a parte, che parte già dal momento in cui la scena si muove */
+    const PREVIEW = { oblo: "../assets/media/oblo-preview.webm", velaria: "../assets/media/velaria-preview.webm" };
+    const RATE = {};
     const hover = matchMedia("(hover: hover)").matches;
     const load = (w, v) => {
         if (v.src) return;
-        v.preload = "auto"; v.src = v.dataset.src;
+        v.preload = "auto"; v.src = PREVIEW[w.dataset.id] || v.dataset.src;
         const t = START[w.dataset.id] || 0;
         v.loop = false;
         v.addEventListener("loadedmetadata", () => { v.currentTime = t; }, { once: true });
+        v.playbackRate = RATE[w.dataset.id] || 1;
+        v.addEventListener("play", () => { v.playbackRate = RATE[w.dataset.id] || 1; });
         v.addEventListener("ended", () => { v.currentTime = t; v.play().catch(() => {}); });
     };
     /* i video si caricano quando la card entra nello schermo, così al passaggio del mouse partono subito */
