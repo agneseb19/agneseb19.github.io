@@ -135,17 +135,12 @@
     .card-info .n { font: 500 12px/1 var(--mono); color: var(--pink); }
     .card-info h3 { margin: 0 0 6px; font-size: clamp(26px, 2.4vw, 40px); line-height: 1; letter-spacing: -.04em; font-weight: 720; }
     .card-info p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.4; }
-    /* ultima card: bottone per aprire l'intero portfolio */
-    .card-all { display: block; text-decoration: none; color: inherit; }
-    .card-all .card-media { display: flex; flex-direction: column; justify-content: space-between; padding: clamp(22px, 3vw, 40px); background: var(--fg); color: var(--bg); }
-    .card-all .all-top { display: flex; justify-content: space-between; font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
-    .card-all .all-big { margin: 0; font-size: clamp(38px, 4.6vw, 76px); line-height: .9; letter-spacing: -.05em; font-weight: 760; }
-    .card-all .all-big em { font-style: normal; font-weight: 250; color: var(--pink); }
-    .card-all .all-btn { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; background: var(--pink); color: #fff; font: 600 15px/1 var(--font); transition: background .3s, color .3s; }
-    .card-all .all-btn span { display: inline-block; transition: transform .35s cubic-bezier(.2,.9,.3,1.4); }
-    .card-all:hover .all-btn { background: var(--bg); color: var(--fg); }
-    .card-all:hover .all-btn span { transform: translateX(4px); }
-    .progress { margin: 5vh 6vw 0; height: 2px; background: var(--line); }
+    .projects-foot { display: flex; align-items: center; gap: 28px; margin: 5vh 6vw 0; }
+    .progress { flex: 1; height: 2px; background: var(--line); }
+    .btn-all { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; padding: 15px 24px; border-radius: 999px; background: var(--pink); color: #fff; font: 600 15px/1 var(--font); text-decoration: none; transition: background .3s, color .3s; }
+    .btn-all span { display: inline-block; transition: transform .35s cubic-bezier(.2,.9,.3,1.4); }
+    .btn-all:hover { background: var(--fg); color: var(--bg); }
+    .btn-all:hover span { transform: translateX(4px); }
     .progress i { display: block; height: 100%; background: var(--pink); transform-origin: left; transform: scaleX(0); }
 
     /* ---------- ABOUT (profilo breve) ---------- */
@@ -154,6 +149,9 @@
     .photo img { width: 100%; height: 115%; object-fit: cover; will-change: transform; }
     .about-text p { margin: 0 0 18px; font-size: clamp(20px, 1.8vw, 28px); line-height: 1.35; letter-spacing: -.015em; }
     .about-text p:last-child { margin-bottom: 0; }
+    .about-grid { grid-template-areas: "photo text"; }
+    .photo { grid-area: photo; } .about-text { grid-area: text; }
+    .me { display: none; }
     .about-text p strong { color: var(--pink); font-weight: 600; }
     .sub-title { margin: 9vh 0 18px; font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
@@ -287,22 +285,38 @@
         .nav-right a.link { display: none; }
         .hero, .section, .contact-sticky { padding-left: 20px; padding-right: 20px; }
         .projects-head { padding: 0 20px; }
-        .progress { margin: 4vh 20px 0; }
+        .projects-foot { margin: 3vh 20px 0; gap: 16px; }
+        .btn-all { padding: 13px 18px; font-size: 14px; }
         .skills-grid { grid-template-columns: 1fr; }
         .langs { grid-template-columns: 1fr 1fr; }
-        .about-grid { grid-template-columns: 110px 1fr; gap: 18px; align-items: start; }
-        .about-text p { font-size: 18px !important; }
-        .photo { border-radius: 14px; }
+        /* profilo: foto + nome affiancati, descrizione a tutta larghezza sotto */
+        .about-grid { grid-template-columns: 92px 1fr; grid-template-areas: "photo me" "text text"; gap: 26px 18px; margin-top: 4vh; }
+        .photo { border-radius: 22px; }
+        .me { display: grid; gap: 6px; align-content: center; }
+        .me b { font-size: 24px; line-height: 1; letter-spacing: -.035em; font-weight: 720; }
+        .me span { font-size: 15px; line-height: 1.3; color: var(--muted); }
+        .me small { display: inline-flex; align-items: center; gap: 7px; margin-top: 4px; font: 500 10px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+        .me small i { width: 7px; height: 7px; border-radius: 50%; background: #2bd17e; box-shadow: 0 0 0 3px rgba(43,209,126,.18); }
+        .about-text { padding-top: 22px; border-top: 1px solid var(--line); }
+        .about-text p { font-size: 21px !important; line-height: 1.38; letter-spacing: -.02em; margin-bottom: 14px; }
         .soc { padding: 12px; gap: 12px; }
         .soc .ico { width: 44px; height: 44px; border-radius: 13px; }
         .soc .ico svg { width: 22px; height: 22px; }
         .soc b { font-size: 16px; }
         .soc .arr { display: none; }
         .sub-title { margin-top: 7vh; }
-        .skills-grid { gap: 8px; }
-        .skill { padding: 16px 18px; border-radius: 16px; }
-        .skill .n { display: none; }
-        .skill h3 { margin: 0 0 10px; font-size: 20px; }
+        /* competenze: niente card una sotto l'altra, ma un elenco compatto a righe */
+        .skills-grid { gap: 0; border-top: 1px solid var(--line); }
+        .skill { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: start; padding: 14px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: none; overflow: visible; }
+        .skill::before, .skill .n { display: none; }
+        .skill:hover { transform: none; }
+        .skill h3 { margin: 3px 0 0; font-size: 15px; line-height: 1.15; letter-spacing: -.01em; font-weight: 650; }
+        .skill .chips { gap: 5px; }
+        .skill .chips span { padding: 6px 9px; font-size: 10.5px; }
+        .langs { gap: 8px; }
+        .lang { padding: 14px 16px; border-radius: 14px; }
+        .lang b { font-size: 17px; margin-bottom: 8px; }
+        .lang .lvl { font-size: 9.5px; margin-bottom: 8px; }
         .track { --gap: 14px; }
         .projects-head { margin-bottom: 3vh; }
         .projects-head .title { font-size: 46px; }
@@ -369,7 +383,10 @@
             <span class="count"><b id="cur">01</b> / <span id="tot"></span></span>
         </header>
         <div class="track" id="track"></div>
-        <div class="progress"><i id="bar"></i></div>
+        <div class="projects-foot">
+            <div class="progress"><i id="bar"></i></div>
+            <a class="btn-all" href="portfolio/">Vedi tutto il portfolio <span>→</span></a>
+        </div>
     </div>
 </section>
 
@@ -379,8 +396,9 @@
     <h2 class="title rv" data-perch>Chi <em>sono</em>.</h2>
     <div class="about-grid">
         <div class="photo rv"><img id="photo" src="images/profile.png" alt="Foto di Agnese Barnaba"></div>
+        <div class="me rv"><b>Agnese Barnaba</b><span>Web designer &amp; front-end developer</span><small><i></i>Disponibile per collaborazioni</small></div>
         <div class="about-text">
-            <p class="rv">Sono Agnese, laureata con <strong>110 e lode</strong> in Lingue nella Società dell'Informazione all'Università di Roma Tor Vergata, con una tesi sull'<strong>AI generativa</strong> nel luxury digital design.</p>
+            <p class="rv">Sono Agnese, laureata con <strong>110 e lode</strong> in Lingue nella Società dell'Informazione all'Università di Roma Tor Vergata.</p>
             <p class="rv">Progetto e sviluppo siti web con <strong>HTML</strong>, <strong>CSS</strong> e <strong>JavaScript</strong>, dall'idea al sito online, con animazioni ed esperienze 3D in <strong>GSAP</strong> e <strong>Three.js</strong>.</p>
         </div>
     </div>
@@ -482,13 +500,7 @@
         '<div class="card-media"><video muted loop playsinline preload="' + (i < 2 ? "auto" : "metadata") + '" poster="' + p.poster + '" src="' + p.video + '"></video>' +
         '<span class="tag"><i></i>Anteprima</span><span class="open">Apri progetto →</span></div>' +
         '<div class="card-info"><span class="n">' + pad(i + 1) + '</span><div><h3>' + p.name + '</h3><p>' + p.short + '</p></div></div>' +
-        "</button>").join("") +
-        /* dopo gli ultimi 5: bottone per l'intero portfolio */
-        '<a class="card card-all" href="portfolio/" aria-label="Apri l\'intero portfolio">' +
-        '<div class="card-media"><span class="all-top"><span>Archivio</span><span>' + pad(ALL.length) + ' progetti</span></span>' +
-        '<p class="all-big">Tutto il<br><em>portfolio</em></p><span class="all-btn">Apri il portfolio <span>→</span></span></div>' +
-        '<div class="card-info"><span class="n">→</span><div><h3>Vedi tutti i lavori</h3><p>Progetti reali, concept e redesign</p></div></div>' +
-        "</a>";
+        "</button>").join("");
     $("tot").textContent = $("pvTot").textContent = pad(P.length);
     const cards = Array.from(track.children);
     const N = cards.length;
