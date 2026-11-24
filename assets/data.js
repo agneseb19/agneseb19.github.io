@@ -221,9 +221,9 @@ window.PROJECTS = [
  {
   "id": "new-connection",
   "name": "New Connection",
-  "type": "PROGETTO REALE · ONLINE A BREVE",
-  "short": "Sito multipagina con modelli 3D interattivi",
-  "status": "Progetto reale",
+  "type": "PROGETTO REALE · SITO UFFICIALE ONLINE",
+  "short": "Sito ufficiale del negozio, multipagina con modelli 3D interattivi",
+  "status": "Progetto reale · sito ufficiale online",
   "tags": [
    "JAVASCRIPT",
    "THREE.JS",
@@ -232,8 +232,8 @@ window.PROJECTS = [
   ],
   "links": [
    {
-    "href": "https://agneseb19.github.io/newconnection/",
-    "label": "LIVE PROJECT"
+    "href": "https://newconnectionstore.it/",
+    "label": "SITO UFFICIALE"
    }
   ],
   "video": "assets/media/newconnection-desktop.webm?v=2",
@@ -241,7 +241,7 @@ window.PROJECTS = [
   "videoMobile": "assets/media/newconnection-mobile.webm?v=2",
   "posterMobile": "assets/media/newconnection-mobile.jpg?v=2",
   "text": [
-   "Sito web multipagina per un negozio di informatica, elettronica e riparazioni a Valmontone. Home, Servizi, Assistenza e Contatti sono pagine dedicate, con animazioni 3D interattive sviluppate con Three.js: modelli da ruotare e trascinare e lo smontaggio dello smartphone che segue lo scroll."
+   "Sito ufficiale di New Connection, negozio di informatica, elettronica e riparazioni a Valmontone, online su newconnectionstore.it. Home, Servizi, Assistenza e Contatti sono pagine dedicate, con animazioni 3D interattive sviluppate con Three.js: modelli da ruotare e trascinare e lo smontaggio dello smartphone che segue lo scroll."
   ]
  },
  {
